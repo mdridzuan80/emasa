@@ -21,7 +21,7 @@
                         </tr>
                         <tr>
                         <td>{{ (explode(PHP_EOL, optional($event)->title)[0]) ? explode(':', explode(PHP_EOL, optional($event)->title)[0], 2)[1] : explode(':', explode(PHP_EOL, $event['title'])[0], 2)[1] }}</td>
-                        <td>{{ explode(':', explode(PHP_EOL, optional($event)->title)[1], 2)[1] ?? explode(':', explode(PHP_EOL, $event['title'])[1], 2)[1] }}</td>
+                        <td>{{ (isset(explode(PHP_EOL, optional($event)->title)[1])) ? explode(':', explode(PHP_EOL, optional($event)->title)[1], 2)[1] : explode(':', explode(PHP_EOL, $event['title'])[1], 2)[1] }}</td>
                         </tr>
                     </table>
                     </div>

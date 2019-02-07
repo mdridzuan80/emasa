@@ -16,7 +16,7 @@ class Anggota extends BaseModel
 
     public function __construct()
     {
-        $this->table = $this->appDbSchema . 'USERINFO';
+        $this->table = $this->appDbSchema . 'userinfo';
         $this->primaryKey = 'USERID';
         $this->setDateFormat(config('pcrs.modelDateFormat'));
     }
@@ -102,7 +102,7 @@ class Anggota extends BaseModel
     public function scopeSenaraiAnggota($query, $search)
     {
         $query->with('user')
-            ->selectRaw('ROW_NUMBER() OVER (ORDER BY convert(bigint, Badgenumber)) AS numrow, *')
+            ->selectRaw('*')
             ->whereRaw('DEFAULTDEPTID IN(' . $search->get('dept') . ')')
             ->when($search->get('key'), function ($query) use ($search) {
                 $query->whereRaw("Badgenumber+Name+SSN+TITLE LIKE '%" . $search->get('key') . "%'");
@@ -132,6 +132,7 @@ class Anggota extends BaseModel
                 'pegawai_flag' => $request->input('pegawai-flag'),
             ],
             [
+                'pegawai_flag' => $request->input('pegawai-flag'),
                 'pegawai_id' => $request->input('comSenPPP'),
             ]
         );

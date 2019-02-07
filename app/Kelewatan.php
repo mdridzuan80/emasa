@@ -9,7 +9,7 @@ class Kelewatan extends Model
     const FLAG_SMS = 0;
     const FLAG_NON_SMS = 1;
 
-    protected $table = 'Kelewatan';
+    protected $table = 'kelewatan';
 
     public function __construct()
     {

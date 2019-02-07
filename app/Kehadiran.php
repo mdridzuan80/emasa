@@ -25,7 +25,7 @@ class Kehadiran extends Eventable
 
     public function __construct()
     {
-        $this->table = $this->appDbSchema . 'CHECKINOUT';
+        $this->table = $this->appDbSchema . 'checkinout';
         $this->primaryKey = ['USERID', 'CHECKTIME'];
         $this->incrementing = false;
         $this->setDateFormat(config('pcrs.modelDateFormat'));
@@ -39,7 +39,7 @@ class Kehadiran extends Eventable
 
     public function scopeEvents($query)
     {
-        return $query->select(DB::raw('\'IN: \' + ISNULL(RIGHT(convert(varchar, CHECKTIME, 100),7), \'-\') + CHAR(10) + \'OUT: -\' as [title]'), DB::raw('\'' . today() . '\' as [start]'), DB::raw('\'' . today() . '\' as [end]'), DB::raw('\'true\' as [allDay]'), DB::raw('\'#dcf442\' as [color]'), DB::raw('\'#000\' as [textColor]'), DB::raw('0 as [id] '), DB::raw('\'' . Eventable::CURRENTATT . '\' as [table_name]'));
+        return $query->select(DB::raw('CONCAT(\'IN : \', CHECKTIME, "\n", \' OUT : -\') as \'title\''), DB::raw('\'' . today() . '\' as \'start\''), DB::raw('\'' . today() . '\' as \'end\''), DB::raw('\'true\' as \'allDay\''), DB::raw('\'#dcf442\' as \'color\''), DB::raw('\'#000\' as \'textColor\''), DB::raw('0 as \'id\''), DB::raw('\'' . Eventable::CURRENTATT . '\' as \'table_name\''));
     }
 
     public function scopeToday($query)

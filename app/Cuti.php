@@ -23,6 +23,6 @@ class Cuti extends Eventable
 
     public function scopeEvents($query)
     {
-        return $query->select(DB::raw('perihal as [title]'), DB::raw('tarikh as [start]'), DB::raw('tarikh as [end]'), DB::raw('\'true\' as [allDay]'), DB::raw('\'#f1c40f\' as [color]'), DB::raw('\'#000\' as [textColor]'), DB::raw('id'), DB::raw('\'' . Eventable::CUTI . '\' as [table_name]'));
+        return $query->select(DB::raw('perihal as \'title\''), DB::raw('tarikh as \'start \''), DB::raw('tarikh as \'end\''), DB::raw('\'true\' as \'allDay\''), DB::raw('\'#f1c40f\' as \'color\''), DB::raw('\'#000\' as \'textColor\''), DB::raw('id'), DB::raw('\'' . Eventable::CUTI . '\' as \'table_name\''));
     }
 }
