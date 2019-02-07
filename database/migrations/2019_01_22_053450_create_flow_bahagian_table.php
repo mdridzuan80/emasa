@@ -15,9 +15,9 @@ class CreateFlowBahagianTable extends Migration
     {
         Schema::create('flow_bahagian', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('dept_id')->unsigned();
+            $table->integer('dept_id');
             $table->string('flag')->default('BIASA'); // status 'BIASA' Flow biasa, 'KETUA' Flow ketua bahagian/ Unit
-            $table->string('ubah_user_id')->unsigned();
+            $table->string('ubah_user_id');
             $table->timestamps();
 
             $table->index('dept_id');
