@@ -31,8 +31,7 @@ class AnggotaController extends BaseController
         ]);
 
         $perPage = 10;
-        $senAnggota = Anggota::query()
-            ->SenaraiAnggota($search)
+        $senAnggota = Anggota::senaraiAnggota($search)
             ->paginate($perPage);
 
         return view('anggota.anggota_grid', compact('senAnggota'));

@@ -105,7 +105,7 @@ class Anggota extends BaseModel
             ->selectRaw('*')
             ->whereRaw('DEFAULTDEPTID IN(' . $search->get('dept') . ')')
             ->when($search->get('key'), function ($query) use ($search) {
-                $query->whereRaw("Badgenumber+Name+SSN+TITLE LIKE '%" . $search->get('key') . "%'");
+                $query->whereRaw("concat_ws(Badgenumber,Name,SSN,TITLE) LIKE '%" . $search->get('key') . "%'");
             })
             ->when(Auth::user()->username !== env('PCRS_DEFAULT_USER_ADMIN', 'admin'), function ($query) {
                 $query->authorize();
