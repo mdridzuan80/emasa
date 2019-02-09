@@ -56,8 +56,8 @@ class Acara extends Eventable
         $acara = new Acara;
         $acara->jenis_acara = $request->input('jenisAcara');
         $acara->perkara = $request->input('perkara');
-        $acara->masa_mula = $request->input('masaMula');
-        $acara->masa_tamat = $request->input('masaTamat');
+        $acara->masa_mula = Carbon::parse($request->input('masaMula'));
+        $acara->masa_tamat = Carbon::parse($request->input('masaTamat'));
         $acara->keterangan = $request->input('keterangan');
         return $profil->acara()->save($acara);
     }
