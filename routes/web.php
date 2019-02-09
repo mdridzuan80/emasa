@@ -17,6 +17,7 @@ Route::middleware('auth:internal,ldap')->group(function () {
     Route::get('/', 'DashboardController@index');
 
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/dashboard/mydashboard', 'DashboardController@dashboard')->name('mydashboard');
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     Route::middleware('can:view-anggota')->group(function () {
@@ -65,7 +66,13 @@ Route::middleware('auth:internal,ldap')->group(function () {
             Route::get('/{profil}/flow', 'AnggotaController@rpcFlowShow')->middleware('can:view-flow-profil');
             Route::post('/{profil}/flow', 'AnggotaController@rpcFlowUpdate')->middleware('can:edit-flow-profil');
 
+            //Justifikasi
+            Route::get('/{profil}/justifikasi/create/{tarikh}/{jenis}', 'JustifikasiKehadiranController@create');
+            Route::post('/{profil}/justifikasi/create/{tarikh}/{jenis}', 'JustifikasiKehadiran@store');
+
         });
+
+        
 
         Route::prefix('pengguna')->group(function () {
             Route::get('/{profil}/login', 'PenggunaController@rpcLoginIndex')->middleware('can:view-login');

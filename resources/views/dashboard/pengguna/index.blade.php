@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1>Dashboard</h1>
+        <h1>MyKalendar</h1>
     </section>
 
     <!-- Main content -->

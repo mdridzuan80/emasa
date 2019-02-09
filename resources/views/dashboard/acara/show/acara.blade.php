@@ -1,7 +1,7 @@
 <div class="table-responsive">
     @foreach ($events as $event)
         @if ($event instanceof App\Cuti)
-        <div class="callout callout-warning">
+        <div class="callout callout-warning">a
             <h4>CUTI UMUM : {{ $event->title }}</h4>
         </div>
         @endif
@@ -33,7 +33,7 @@
         @if ($event instanceof App\Acara)
             <div class="box box-danger box-solid">
                 <div class="box-header with-border">
-                <h3 class="box-title">Acara : {{ $event->title }}</h3>
+                <h3 class="box-title">Acara : {{-- $event->title --}}</h3>
 
                 <!-- /.box-tools -->
                 </div>

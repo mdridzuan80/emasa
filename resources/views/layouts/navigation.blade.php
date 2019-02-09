@@ -6,10 +6,18 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MENU UTAMA</li>
         <li class="{{ pcrsMenuActiveCondition('dashboardcontroller_index', $collection->get('activeMenu')) }}">
-          <a href="{{ route('dashboard') }}">
-            <i class="fa fa-dashboard"></i></i> <span>Dashboard</span>
+          <a href="{{ route('dashboard') }}/mydashboard">
+            <i class="fa fa-dashboard"></i></i> <span>MyDashboard</span>
           </a>
+          
+        </li> 
+        <li class="{{ pcrsMenuActiveCondition('dashboardcontroller_index', $collection->get('activeMenu')) }}">
+          <a href="{{ route('dashboard') }}">
+            <i class="fa fa-calendar"></i></i> <span>MyKalendar</span>
+          </a>
+          
         </li>
+
         @can('view-anggota')
         <li class="{{ pcrsMenuActiveCondition('anggotacontroller_index', $collection->get('activeMenu')) }}">
           <a href="{{ route('anggota') }}">
