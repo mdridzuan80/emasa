@@ -30,6 +30,13 @@ class KalendarController extends BaseController
             'finalKehadiran',
             'acara',
         ];
+
+        parent::__construct();
+    }
+
+    public function index()
+    {
+        return $this->renderView('dashboard.pengguna.index');
     }
 
     public function rpcEventAnggotaIndex(Anggota $profil, Request $request, Manager $fractal, Event $event)

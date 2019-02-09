@@ -1,10 +1,17 @@
 @extends('layouts.master')
 
+
 @section('content')
     <section class="content-header">
-        <h1>Dashboard</h1>
+        <h1>
+        <i class="fa fa-calendar"></i></i> Kalendar
+        <small>Menguruskan maklumat acara</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="<?= route('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Kalendar</li>
+        </ol>
     </section>
-
     <!-- Main content -->
     <section class="content">
         <div class="row">

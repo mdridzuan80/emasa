@@ -43,16 +43,6 @@
                             <div class="col-xs-12">
                                 Peranan Semasa : <b>{{ strtoupper(Auth::user()->perananSemasa()->name) }}</b>
                             </div>
-                            @if (Auth::user()->username !== env('PCRS_DEFAULT_USER_ADMIN', 'admin') && Auth::user()->roles->count() > 1)
-                                <div class="col-xs-12">
-                                Senarai Peranan
-                                </div>
-                                <div class="col-xs-12">
-                                    @foreach (Auth::user()->roles as $role)
-                                        <button class="btn {{ ($role->key == session('perananSemasa')) ? 'btn-info' : 'btn-default' }} btn-block btn-flat btn-sm btn-switch-role " data-role="{{ $role->key }}" {{ ($role->key == session('perananSemasa')) ? 'disabled' : null }} ><?= $role->name ?></button>
-                                    @endforeach
-                                </div>
-                            @endif
                         </div>
                         <!-- /.row -->
                     </li>

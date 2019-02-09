@@ -2,6 +2,7 @@
 
 namespace App\Auth;
 
+use Auth;
 use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RedirectsUsers;
@@ -48,9 +49,9 @@ trait AuthenticatesUsers
             if ($request->input('username') === env('PCRS_DEFAULT_USER_ADMIN', 'admin')) {
                 $request->session()->put('perananSemasa', Role::SUPER_ADMIN);
             } else {
-                $request->session()->put('perananSemasa', Role::PENGGUNA);
+                $request->session()->put('perananSemasa', Auth::user()->roles()->orderBy('priority')->first()->key);
             }
-            
+
             return $this->sendLoginResponse($request);
         }
 
@@ -112,7 +113,7 @@ trait AuthenticatesUsers
         $request->session()->regenerate();
 
         $this->clearLoginAttempts($request);
-        
+
         return $this->authenticated($request, $this->guard($request->input('domain'))->user())
             ? : redirect()->intended($this->redirectPath());
     }
@@ -190,8 +191,7 @@ trait AuthenticatesUsers
      */
     protected function guard($guard)
     {
-        if ($guard !== 'internal')
-        {
+        if ($guard !== 'internal') {
             $guard = 'ldap';
         }
 

@@ -23,6 +23,7 @@ class CreateFinalAttendancesTable extends Migration
             $table->dateTime('check_in_mid');
             $table->dateTime('check_out_mid');
             $table->string('tatatertib_flag');
+            $table->text('kesalahan');
             $table->timestamps();
 
             $table->index('anggota_id');

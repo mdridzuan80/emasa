@@ -17,6 +17,7 @@ class FinalAttendance extends Eventable
         'check_in_mid',
         'check_in_out',
         'tatatertib_flag',
+        'kesalahan',
     ];
 
     protected $dates = [

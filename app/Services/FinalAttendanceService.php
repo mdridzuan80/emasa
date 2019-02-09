@@ -9,10 +9,12 @@ use App\Kehadiran;
 use Carbon\Carbon;
 use App\Kelewatan;
 use App\FinalAttendance;
+use function GuzzleHttp\json_encode;
 
 class FinalAttendanceService
 {
     private $statusLewat = false;
+    private $statusAwal = false;
 
     public function tarikhTamat($tkhTamat)
     {
@@ -124,6 +126,49 @@ class FinalAttendanceService
         return null;
     }
 
+    public function getKesalahan($profil, $tarikh, $checkIn, $checkOut, $checkMin, $checkMout, $cuti, $shift)
+    {
+        $kesalahan = [];
+
+        if ($this->isCuti($tarikh, $cuti)) {
+            return json_encode($kesalahan);
+        }
+
+        if ($profil->ZIP) {
+            if (is_null($checkIn)) {
+                $kesalahan[] = Kehadiran::FLAG_KESALAHAN_NONEIN;
+            }
+
+            if (is_null($checkOut)) {
+                $kesalahan[] = Kehadiran::FLAG_KESALAHAN_NONEOUT;
+            }
+
+            if (is_null($checkMin)) {
+                $kesalahan[] = Kehadiran::FLAG_KESALAHAN_NONEMIN;
+            }
+
+            if (is_null($checkMout)) {
+                $kesalahan[] = Kehadiran::FLAG_KESALAHAN_NONEMOUT;
+            }
+
+            if ($this->isLate($checkIn, $shift)) {
+                $kesalahan[] = Kehadiran::FLAG_KESALAHAN_LEWAT;
+            }
+
+            return json_encode($kesalahan);
+        }
+
+        if (is_null($checkIn)) {
+            $kesalahan[] = Kehadiran::FLAG_KESALAHAN_NONEIN;
+        }
+
+        if (is_null($checkOut)) {
+            $kesalahan[] = Kehadiran::FLAG_KESALAHAN_NONEOUT;
+        }
+
+        return json_encode($kesalahan);
+    }
+
     public function getFlag($profil, $tarikh, $checkIn, $checkOut, $checkMin, $checkMout, $cuti, $shift)
     {
         if (!$this->isCuti($tarikh, $cuti)) {
@@ -148,6 +193,18 @@ class FinalAttendanceService
         }) ||
             $tarikh->dayOfWeek == Carbon::SATURDAY ||
             $tarikh->dayOfWeek == Carbon::SUNDAY;
+    }
+
+    public function isEarly($check_out, $shift)
+    {
+        if (!$check_out) {
+            return $this->statusLewat = false;
+        }
+
+        $rulePunchIn = Carbon::parse($check_in->toDateString() . " " . $shift->check_in->toTimeString());
+        $paramBenarLewat = (int)Parameter::where('kod', 'P_BENAR_LEWAT')->first()->nilai;
+
+        return $this->statusLewat = $check_in->gte($rulePunchIn->addMinutes($paramBenarLewat));
     }
 
     public function isLate($check_in, $shift)

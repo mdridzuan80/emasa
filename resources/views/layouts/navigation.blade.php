@@ -10,6 +10,11 @@
             <i class="fa fa-dashboard"></i></i> <span>Dashboard</span>
           </a>
         </li>
+        <li class="{{ pcrsMenuActiveCondition('kalendarcontroller_index', $collection->get('activeMenu')) }}">
+          <a href="{{ route('kalendar') }}">
+            <i class="fa fa-calendar"></i></i> <span>Kalendar</span>
+          </a>
+        </li>
         @can('view-anggota')
         <li class="{{ pcrsMenuActiveCondition('anggotacontroller_index', $collection->get('activeMenu')) }}">
           <a href="{{ route('anggota') }}">

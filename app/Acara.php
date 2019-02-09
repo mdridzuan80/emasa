@@ -22,6 +22,9 @@ class Acara extends Eventable
 
     const JENIS_ACARA_RASMI = 'RASMI';
     const JENIS_ACARA_TIDAK_RASMI = 'TIDAK_RASMI';
+    const JENIS_ACARA_CHECKIN = 'IN';
+    const JENIS_ACARA_CHECKOUT = 'OUT';
+
     const STATUS_PERMOHONAN_MOHON = 'MOHON';
     const STATUS_PERMOHONAN_BATAL = 'BATAL';
     const STATUS_PERMOHONAN_LULUS = 'LULUS';
