@@ -6,19 +6,19 @@
 
     <section class="content-header">
         <h1>
-        <i class="fa fa-user"></i></i> Anggota
-        <small>Menguruskan maklumat anggota</small>
+        <i class="fa fa-user"></i></i> Pegawai
+        <small>Menguruskan maklumat pegawai</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="<?= route('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Maklumat Anggota</li>
+            <li class="active">Maklumat Pegawai</li>
         </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
         <!-- Start box -->
-        <div class="box">
+        <div id="grid-wrapper" class="box">
             <div class="box-body table-responsive">
                 <div class="row" style="margin:0;">
                     <div class="col-lg-3">
@@ -81,6 +81,21 @@
             </div>
             <div class="overlay">
                 <i class="fa fa-refresh fa-spin"></i>
+            </div>
+        </div>
+
+        <div id="detail-info-personal" class="box" style="display:none;">
+            <div class="box-header with-border">
+              <h3 id="back-wrapper" class="box-title">Back</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+              <!-- /.box-tools -->
+            </div>
+            <div class="box-body">
+
             </div>
         </div>
         <!-- End box -->
@@ -2081,6 +2096,25 @@
         $('#modal-flow-profil').on('hidden.bs.modal', function(e) {
             $('#loading').toggle();
             $('#konfigurasi').toggle();
+        });
+
+        $('#dg-anggota').on('click', '#detail-info', function() {
+            var parent = $(this).parent().parent();
+
+            mProfil.title = parent.data('nama');
+            mProfil.userId = parent.data('userid');
+            mProfil.deptId = parent.data('deptid');
+            mProfil.deptName = parent.data('deptname');
+
+            //console.log(mProfil);
+            $('#detail-info-personal').show();
+            $('#grid-wrapper').hide();
+
+        });
+
+        $('#detail-info-personal').on('click', '#back-wrapper', function(e) {
+            $('#grid-wrapper').show();
+            $('#detail-info-personal').hide();
         });
 
         function openModal(modal, header)

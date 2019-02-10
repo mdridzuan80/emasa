@@ -4,46 +4,21 @@
 @section('content')
     <section class="content-header">
         <h1>
-        <i class="fa fa-calendar"></i></i> Kalendar
-        <small>Menguruskan maklumat acara</small>
+            <i class="fa fa-dashboard"></i></i> Dashboard
         </h1>
-        <ol class="breadcrumb">
-            <li><a href="<?= route('dashboard') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Kalendar</li>
-        </ol>
     </section>
     <!-- Main content -->
     <section class="content">
         <div class="row">
-            <div class="col-md-3">
-                <div class="box box-solid">
-                    <div class="box-header with-border">
-                    <h4 class="box-title">Petunjuk Kalendar</h4>
-                    </div>
-                    <div class="box-body">
-                    <!-- the events -->
-                    <div>
-                        <div class="callout callout-checkinout">Waktu Punch IN/OUT</div>
-                        <div class="callout callout-cutiumum">Cuti Umum</div>
-                        <div class="callout callout-lain">Lain-lain</div>
-                    </div>
-                    </div>
-                    <!-- /.box-body -->
-                </div>
-                <div class="box box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title">Operasi Kalendar</h3>
-            </div>
-            <div class="box-body">
-              <button id="tambah-acara" type="button" class="btn btn-default btn-block"><i class="fa fa-fw fa-calendar-plus-o"></i> Tambah Acara</button>
-              <button id="cetak-laporan-bulanan" type="button" class="btn btn-default btn-block"><i class="fa fa-fw fa-print"></i> Cetak Laporan Bulanan</button>
-            </div>
-          </div>
-            </div>
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Kalendar</h3>
+                        <h3 class="box-title"><i class="fa fa-fw fa-calendar"></i> Kalendar</h3>
+                        <div class="box-tools pull-right">
+                            <!-- Buttons, labels, and many other things can be placed here! -->
+                            <!-- Here is a label for example -->
+                            <span id='petunjuk'><i class="fa fa-fw fa-info"></i></span>
+                        </div><!-- /.box-tools -->
                     </div>
                     <div class="box-body">
                         <div id="calendar"></div>
@@ -114,6 +89,17 @@
             var cal = $('#calendar').fullCalendar({
                 firstDay: 1,
                 showNonCurrentDates: false,
+                customButtons: {
+                    myCustomButton: {
+                        text: 'Tambah Aktiviti',
+                        click: function() {
+                            $('#modal-default').modal({backdrop: 'static',});
+                        }
+                    }
+                },
+                header: {
+                    right: 'myCustomButton prev,today,next'
+                },
                 dayClick: function(date, jsEvent, view) {
                     var modal = $('#modal-acara-anggota');
                     dateClick = date;
