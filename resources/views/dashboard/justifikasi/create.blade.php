@@ -11,7 +11,7 @@
                                     <td>
                                         <div class="radio" style="margin: 0;">
                                             <label>
-                                            <input type="radio" name="kursus" value="{{ \App\JustifikasiKehadiran::BENGKEL_YA}}" required>
+                                            <input id="txtKursus" type="radio" name="txtKursus" value="{{ \App\JustifikasiKehadiran::BENGKEL_YA}}" required>
                                             Ya
                                             </label>
                                             
@@ -20,7 +20,7 @@
                                     <td>
                                         <div class="radio" style="margin: 0;">
                                             <label>
-                                            <input type="radio" name="kursus" value="{{ \App\JustifikasiKehadiran::BENGKEL_TIDAK}}" required>
+                                            <input id="txtKursus" type="radio" name="txtKursus" value="{{ \App\JustifikasiKehadiran::BENGKEL_TIDAK}}" required>
                                             Tidak
                                             </label>
                                         </div>
@@ -51,13 +51,17 @@
                     <td><textarea id="txtKeterangan" class="form-control" rows="3" name="txtKeterangan" placeholder="Justifikasi anda..." required></textarea></td>
                 </tr>
                 <tr>
+                    <td><b>Lampiran</b></td>
+                    <td><textarea id="txtLampiran" class="form-control" rows="3" name="txtKeterangan" placeholder="Justifikasi anda..." required></textarea></td>
+                </tr>
+                <tr>
                     <td class="col-md-3"><b>Papar Justifikasi Dalam Kalendar ?</b></td>
-                    <td><input id="txtPerkara" type="checkbox" name="txtPerkara" value="{{ \App\JustifikasiKehadiran::BENGKEL_YA}}"> Ya</td>
+                    <td><input id="txtKalendar" type="checkbox" name="txtKalendar" value="{{ \App\JustifikasiKehadiran::BENGKEL_YA}}"> Ya</td>
                 </tr>
             </body>
         </table>
         <br>
-        <button class="btn btn-success pull-right btn-acara-simpan" type="submit">SIMPAN</button>
+        <button class="btn btn-success pull-right btn-justifikasi-simpan" type="submit">SIMPAN</button>
         <button id="btn-batal" type="button" class="btn btn-link pull-right" style="color:#dd4b39;" data-dismiss="modal" >BATAL</button>
     </form>
 </div>

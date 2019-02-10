@@ -590,7 +590,7 @@
                             $.ajax({
                                 method: 'POST',
                                 data: acara,
-                                url: base_url + 'rpc/anggota/{{Auth::user()->anggota_id}}/justifikasi/create/'+ tarikh_justifikasi + '/' + jenis_justifikasi,,
+                                url: base_url + 'rpc/anggota/{{Auth::user()->anggota_id}}/justifikasi/create/'+ tarikh_justifikasi + '/' + jenis_justifikasi,
                                 success: function(acara, extStatus, jqXHR) {
                                     resolve({'acara': acara.data});
                                 },
