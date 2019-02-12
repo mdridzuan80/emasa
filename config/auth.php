@@ -36,16 +36,6 @@ return [
      */
 
     'guards' => [
-        'internal' => [
-            'driver' => 'session',
-            'provider' => 'pcrs',
-        ],
-
-        'ldap' => [
-            'driver' => 'session',
-            'provider' => 'ldap',
-        ],
-
         'mohr' => [
             'driver' => 'session',
             'provider' => 'mohr',
@@ -55,6 +45,16 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+        
+        /* 'internal' => [
+            'driver' => 'session',
+            'provider' => 'pcrs',
+        ], */
+
+        /* 'ldap' => [
+            'driver' => 'session',
+            'provider' => 'ldap',
+        ], */
     ],
 
     /*
