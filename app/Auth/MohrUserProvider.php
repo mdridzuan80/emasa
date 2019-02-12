@@ -115,6 +115,10 @@ class MohrUserProvider implements UserProvider
 
             $response = MohrUserApiProvider::retrieveByCredentials($credentials);
 
+            if ($response->status === MohrUserApiProvider::FAIL) {
+                return;
+            }
+
             if ($response->status == MohrUserApiProvider::SUCCESS) {
                 User::setupLogin(['nama' => $response->name, 'password' => $credentials['password']], $anggota->first());
             }
