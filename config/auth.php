@@ -14,7 +14,7 @@ return [
  */
 
     'defaults' => [
-        'guard' => 'internal',
+        'guard' => 'mohr',
         'passwords' => 'users',
     ],
 

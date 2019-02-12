@@ -85,7 +85,7 @@ trait AuthenticatesUsers
      */
     protected function attemptLogin(Request $request)
     {
-        return $this->guard($request->input('domain'))->attempt(
+        return $this->guard()->attempt(
             $this->credentials($request),
             $request->filled('remember')
         );
@@ -154,7 +154,7 @@ trait AuthenticatesUsers
      */
     public function username()
     {
-        return 'username';
+        return 'email';
     }
 
     /**
@@ -165,8 +165,7 @@ trait AuthenticatesUsers
      */
     public function logout(Request $request)
     {
-        $this->guard('internal')->logout();
-        $this->guard('ldap')->logout();
+        $this->guard()->logout();
 
         $request->session()->invalidate();
 
@@ -189,12 +188,8 @@ trait AuthenticatesUsers
      *
      * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
-    protected function guard($guard)
+    protected function guard()
     {
-        if ($guard !== 'internal') {
-            $guard = 'ldap';
-        }
-
-        return AuthFacade::guard($guard);
+        return AuthFacade::guard();
     }
 }

@@ -12,9 +12,10 @@
  */
 
 Auth::routes();
+
 Route::get('/logout', 'Auth\LoginController@logout');
 
-Route::middleware('auth:internal,ldap')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/', 'KalendarController@index');
 
     Route::get('/home', 'HomeController@index')->name('home');

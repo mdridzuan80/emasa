@@ -6,6 +6,7 @@ use App\User;
 use App\Gates\PcrsGate;
 use App\Auth\PcrsUserProvider;
 use App\Auth\LdapUserProvider;
+use App\Auth\MohrUserProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -44,5 +45,11 @@ class AuthServiceProvider extends ServiceProvider
             // Return an instance of Illuminate\Contracts\Auth\UserProvider...
             return new LdapUserProvider($app->make('hash'), User::class);
         });
+
+        Auth::provider('mohr', function ($app) {
+            // Return an instance of Illuminate\Contracts\Auth\UserProvider...
+            return new MohrUserProvider($app->make('hash'), User::class);
+        });
+
     }
 }

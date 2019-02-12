@@ -49,20 +49,21 @@
 
     <form method="post" action="{{ route('login') }}" class="detectCapslocks" data-message="Butang caps Lock anda sedang aktif">
       @csrf
+      <input type="hidden" name="domain" value="internal">
       <div class="form-group has-feedback detectCapslocks">
-        <input type="text" class="form-control" placeholder="ID Pengguna" name="username" value="{{ old('username') }}" required autofocus>
+        <input type="email" class="form-control" placeholder="Alamat Email" name="email" value="{{ old('email') }}" required autofocus>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
         <input type="password" class="form-control" placeholder="Katalaluan" name="password" required>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
-      <div class="form-group">
+      {{-- <div class="form-group">
         <select class="form-control" name="domain" required>
             <option value="internal" {{ (old('domain') === 'internal') ? 'selected':'' }} >INTERNAL</option>
             <option value="melaka.gov" {{ (old('domain') === 'melaka.gov') ? 'selected':'' }} >MELAKA.GOV</option>
         </select>
-      </div>
+      </div> --}}
       <div class="row">
         <div class="col-xs-8">
           

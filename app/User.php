@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'anggota_id', 'name', 'username', 'password'
     ];
 
     /**
@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     public function username()
     {
-        return 'username';
+        return 'email';
     }
 
     public function anggota()
@@ -98,5 +98,23 @@ class User extends Authenticatable
         $this->email = ($request->input('opt-domain') !== 'internal') ? $this->domain . '.my' : $request->input('txtEmail');
         $this->save();
         $this->roles()->attach(Role::where('key', Role::PENGGUNA)->first(), ['department_id' => $profil->DEFAULTDEPTID]);
+    }
+
+    public static function setupLogin(array $data, Anggota $profil)
+    {
+        $user = self::updateOrCreate(
+            [
+                'email' => $profil->street,
+            ],
+            [
+                'email' => $profil->street,
+                'anggota_id' => $profil->USERID,
+                'name' => $data['nama'],
+                'username' => $profil->street,
+                'password' => bcrypt($data['password']),
+            ]
+        );
+
+        $user->roles()->attach(Role::where('key', Role::PENGGUNA)->first(), ['department_id' => $profil->DEFAULTDEPTID]);
     }
 }
