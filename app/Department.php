@@ -9,7 +9,7 @@ class Department extends BaseModel
 {
     public function __construct()
     {
-        $this->table = $this->appDbSchema . 'departments';
+        $this->table = config('pcrs.machineDB') . 'departments';
         $this->setDateFormat(config('pcrs.modelDateFormat'));
         $this->primaryKey = 'DEPTID';
     }

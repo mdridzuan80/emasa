@@ -16,7 +16,7 @@ class Anggota extends BaseModel
 
     public function __construct()
     {
-        $this->table = $this->appDbSchema . 'userinfo';
+        $this->table = config('pcrs.machineDB') . 'userinfo';
         $this->primaryKey = 'USERID';
         $this->setDateFormat(config('pcrs.modelDateFormat'));
     }
@@ -78,6 +78,11 @@ class Anggota extends BaseModel
         return $this->hasOne(XtraAnggota::class, 'anggota_id');
     }
 
+    public function scopeXtraAnggota($query)
+    {
+        return $query->leftJoin('xtra_userinfo', 'xtra_userinfo.anggota_id', '=', $this->getTable() . '.' . $this->getKeyName());
+    }
+
     public function flow()
     {
         return $this->hasOne(FlowAnggota::class, 'anggota_id');
@@ -96,28 +101,27 @@ class Anggota extends BaseModel
             $related = array_merge($related, array_flatten(Utility::pcrsRelatedDepartment(Department::all(), $dept)));
         }
 
-        $query->whereIn('DEFAULTDEPTID', array_merge($effectedDept, $related));
+        $query->whereIn('dept_id', array_merge($effectedDept, $related));
     }
 
     public function scopeSenaraiAnggota($query, $search)
     {
-        $query->with('user')
-            ->selectRaw('*')
-            ->whereRaw('DEFAULTDEPTID IN(' . $search->get('dept') . ')')
+        return $query->xtraAnggota()->with(['user'])
+            ->whereRaw('IF(dept_id, dept_id, 1) IN(' . $search->get('dept') . ')')
             ->when($search->get('key'), function ($query) use ($search) {
-                $query->whereRaw("concat_ws(Badgenumber,Name,SSN,TITLE) LIKE '%" . $search->get('key') . "%'");
+                $query->whereRaw("concat_ws(BADGENUMBER, nama, nokp, jawatan) LIKE '%" . $search->get('key') . "%'");
             })
-            ->when(Auth::user()->username !== env('PCRS_DEFAULT_USER_ADMIN', 'admin'), function ($query) {
+            ->when(Auth::user()->email !== env('PCRS_DEFAULT_USER_ADMIN', 'admin@internal'), function ($query) {
                 $query->authorize();
             });
     }
 
     public function kemaskiniProfil(Request $request)
     {
-        $this->Name = $request->input('txtNama');
+        $this->NAME = $request->input('txtNama');
         $this->SSN = $request->input('txtNoKP');
         $this->TITLE = $request->input('txtJawatan');
-        $this->street = $request->input('txtEmail');
+        $this->Email = $request->input('txtEmail');
         $this->PAGER = $request->input('txtTelefon');
         $this->DEFAULTDEPTID = $request->input('txtDepartmentId');
         $this->ZIP = $request->input('comTrack');

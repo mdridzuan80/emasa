@@ -17,6 +17,12 @@ class CreateTableXtraUserinfo extends Migration
             $table->increments('id');
             $table->integer('anggota_id')->unsigned();
             $table->integer('basedept_id')->unsigned();
+            $table->string('email')->unique();
+            $table->string('nama');
+            $table->string('nokp')->unique();
+            $table->string('jawatan')->nullable();
+            $table->string('dept_id')->nullable();
+            $table->string('nohp')->nullable();
             $table->timestamps();
 
             $table->index('anggota_id');

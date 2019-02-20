@@ -6,6 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model
 {
-    protected $appDbSchema = 'att2000_devel.';
     public $timestamps = false;
 }

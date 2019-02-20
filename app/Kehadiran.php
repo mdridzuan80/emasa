@@ -32,7 +32,7 @@ class Kehadiran extends Eventable
 
     public function __construct()
     {
-        $this->table = $this->appDbSchema . 'checkinout';
+        $this->table = config('pcrs.machineDB') . 'checkinout';
         $this->primaryKey = ['USERID', 'CHECKTIME'];
         $this->incrementing = false;
         $this->setDateFormat(config('pcrs.modelDateFormat'));
