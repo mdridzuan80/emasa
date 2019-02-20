@@ -12,6 +12,11 @@ use App\Kelewatan;
 
 class DashboardController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index(Request $request)
     {
         if ($request->session()->get('perananSemasa') === Role::PENGGUNA) {

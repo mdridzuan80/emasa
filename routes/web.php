@@ -17,8 +17,10 @@ Route::middleware('auth:internal,ldap')->group(function () {
     Route::get('/', 'DashboardController@index');
 
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/dashboard/mydashboard', 'DashboardController@dashboard')->name('mydashboard');
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+    //awin buat
+    Route::get('/kelulusan', 'JustifikasiKehadiranController@index')->name('justifikasi');
 
     Route::middleware('can:view-anggota')->group(function () {
         Route::get('/anggota', 'AnggotaController@index')->name('anggota');
@@ -69,6 +71,7 @@ Route::middleware('auth:internal,ldap')->group(function () {
             //Justifikasi
             Route::get('/{profil}/justifikasi/create/{tarikh}/{jenis}', 'JustifikasiKehadiranController@create');
             Route::post('/{profil}/justifikasi/create/{tarikh}/{jenis}', 'JustifikasiKehadiran@store');
+
 
         });
 

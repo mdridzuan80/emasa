@@ -4,9 +4,19 @@ namespace App\Http\Controllers;
 
 use App\JustifikasiKehadiran;
 use Illuminate\Http\Request;
+use App\Base\BaseController;
+use League\Fractal\Manager;
+use League\Fractal\Resource\Item;
+use App\Transformers\Anggota as AnggotaTransformer;
+use League\Fractal\Resource\Collection as FCollection;
 
-class JustifikasiKehadiranController extends Controller
+class JustifikasiKehadiranController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +24,8 @@ class JustifikasiKehadiranController extends Controller
      */
     public function index()
     {
-        //
+        //awin punya
+        return $this->renderView('justifikasi.kelulusan');
     }
 
     /**

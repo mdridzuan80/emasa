@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Anggota;
+use App\JustifikasiKehadiran;
 use App\Traits\HasPermissionTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -45,6 +46,11 @@ class User extends Authenticatable
     public function anggota()
     {
         return $this->belongsTo(Anggota::class, 'anggota_id');
+    }
+
+    public function justifikasikehadiran()
+    {
+        return $this->hasMany(JustifikasiKehadiran::class);
     }
 
     public function scopeRefsAnggota($query)
