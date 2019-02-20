@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Utility;
 use App\Anggota;
+use App\XtraAnggota;
 use League\Fractal\Manager;
 use App\Base\BaseController;
 use Illuminate\Http\Request;
@@ -50,12 +51,12 @@ class AnggotaController extends BaseController
         return response()->json($transform->toArray());
     }
 
-    public function rpcShow(Anggota $profil)
+    public function rpcShow(XtraAnggota $profil)
     {
         return view('anggota.profil.show', compact('profil'));
     }
 
-    public function rpcUpdate(Request $request, Anggota $profil)
+    public function rpcUpdate(Request $request, XtraAnggota $profil)
     {
         $profil->kemaskiniProfil($request);
     }

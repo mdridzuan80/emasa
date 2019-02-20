@@ -80,7 +80,9 @@ class Anggota extends BaseModel
 
     public function scopeXtraAnggota($query)
     {
-        return $query->leftJoin('xtra_userinfo', 'xtra_userinfo.anggota_id', '=', $this->getTable() . '.' . $this->getKeyName());
+        return $query
+            ->leftJoin('xtra_userinfo', 'xtra_userinfo.anggota_id', '=', $this->getTable() . '.' . $this->getKeyName())
+            ->orderBy('xtra_userinfo.nama');
     }
 
     public function flow()

@@ -22,7 +22,7 @@
                 <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <img src="{{ asset('images/nobody_m_160x160.jpg') }}" class="user-image" alt="User Image">
-                    <span class="hidden-xs">{{(Auth::user()->anggota) ? Auth::user()->anggota->Name : Auth::user()->name }}</span>
+                    <span class="hidden-xs">{{(Auth::user()->xtraAnggota) ? Auth::user()->xtraAnggota->nama : Auth::user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu">
                     <!-- User image -->
@@ -30,10 +30,10 @@
                     <img src="{{ asset('images/nobody_m_160x160.jpg') }}" class="img-circle" alt="User Image">
 
                     <p>
-                        @if (Auth::user()->username === env('PCRS_DEFAULT_USER_ADMIN', 'admin'))
+                        @if (Auth::user()->email === env('PCRS_DEFAULT_USER_ADMIN', 'admin@internal'))
                             <small>Sistem Administrator</small>
                         @else
-                            <small>{{ ucfirst(Auth::user()->anggota->TITLE) }}</small>
+                            <small>{{ ucfirst(Auth::user()->xtraAnggota->jawatan) }}</small>
                         @endif
                         <small>Member since {{ Auth::user()->created_at->shortLocaleMonth }} {{ Auth::user()->created_at->year }}</small>
                     </p>

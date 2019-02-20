@@ -3,7 +3,7 @@
 namespace App\Auth;
 
 use App\User;
-use App\Anggota;
+use App\XtraAnggota;
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Support\Arrayable;
@@ -107,9 +107,9 @@ class MohrUserProvider implements UserProvider
         list($username, $domain) = explode('@', $credentials['email']);
 
         if ($domain === 'mohr.gov.my') {
-            $anggota = Anggota::where('street', $credentials['email'])->get();
+            $xtraAnggota = XtraAnggota::where('email', $credentials['email'])->first();
 
-            if ($anggota->isEmpty()) {
+            if (!$xtraAnggota) {
                 return;
             }
 
@@ -120,7 +120,7 @@ class MohrUserProvider implements UserProvider
             }
 
             if ($response->status == MohrUserApiProvider::SUCCESS) {
-                User::setupLogin(['nama' => $response->name, 'password' => $credentials['password']], $anggota->first());
+                User::setupLogin(['nama' => $response->name, 'password' => $credentials['password']], $xtraAnggota);
             }
         }
 

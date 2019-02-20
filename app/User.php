@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Anggota;
 use App\Traits\HasPermissionTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -45,6 +44,11 @@ class User extends Authenticatable
     public function anggota()
     {
         return $this->belongsTo(Anggota::class, 'anggota_id');
+    }
+
+    public function xtraAnggota()
+    {
+        return $this->belongsTo(XtraAnggota::class, 'anggota_id');
     }
 
     public function scopeRefsAnggota($query)
@@ -100,21 +104,21 @@ class User extends Authenticatable
         $this->roles()->attach(Role::where('key', Role::PENGGUNA)->first(), ['department_id' => $profil->DEFAULTDEPTID]);
     }
 
-    public static function setupLogin(array $data, Anggota $profil)
+    public static function setupLogin(array $data, XtraAnggota $profil)
     {
         $user = self::updateOrCreate(
             [
-                'email' => $profil->street,
+                'email' => $profil->email,
             ],
             [
-                'email' => $profil->street,
-                'anggota_id' => $profil->USERID,
+                'email' => $profil->email,
+                'anggota_id' => $profil->anggota_id,
                 'name' => $data['nama'],
-                'username' => $profil->street,
+                'username' => $profil->email,
                 'password' => bcrypt($data['password']),
             ]
         );
 
-        $user->roles()->attach(Role::where('key', Role::PENGGUNA)->first(), ['department_id' => $profil->DEFAULTDEPTID]);
+        $user->roles()->syncWithoutDetaching([Role::where('key', Role::PENGGUNA)->first()->id => ['department_id' => $profil->dept_id]]);
     }
 }

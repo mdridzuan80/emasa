@@ -14,7 +14,6 @@ class CreateTableXtraUserinfo extends Migration
     public function up()
     {
         Schema::create('xtra_userinfo', function (Blueprint $table) {
-            $table->increments('id');
             $table->integer('anggota_id')->unsigned();
             $table->integer('basedept_id')->unsigned();
             $table->string('email')->unique();
@@ -25,8 +24,9 @@ class CreateTableXtraUserinfo extends Migration
             $table->string('nohp')->nullable();
             $table->timestamps();
 
-            $table->index('anggota_id');
+            $table->primary('anggota_id');
             $table->index('basedept_id');
+            $table->index('dept_id');
         });
     }
 
