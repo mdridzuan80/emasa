@@ -657,7 +657,7 @@
 
             e.preventDefault();
             
-            var user_id = $('#txtDepartmentId').val();
+            var user_id = $('#txtAnggotaId').val();
             var formData = new FormData(this);
 
             swal({

@@ -120,15 +120,18 @@ class Anggota extends BaseModel
 
     public function kemaskiniProfil(Request $request)
     {
-        $this->NAME = $request->input('txtNama');
-        $this->SSN = $request->input('txtNoKP');
-        $this->TITLE = $request->input('txtJawatan');
-        $this->Email = $request->input('txtEmail');
-        $this->PAGER = $request->input('txtTelefon');
-        $this->DEFAULTDEPTID = $request->input('txtDepartmentId');
-        $this->ZIP = $request->input('comTrack');
-
-        $this->save();
+        XtraAnggota::updateOrCreate(
+            ['anggota_id' => $request->input('txtAnggotaId')],
+            [
+                'anggota_id' => $request->input('txtAnggotaId'),
+                'nama' => $request->input('txtNama'),
+                'nokp' => $request->input('txtNoKP'),
+                'jawatan' => $request->input('txtJawatan'),
+                'email' => $request->input('txtEmail'),
+                'nohp' => $request->input('txtTelefon'),
+                'dept_id' => $request->input('txtDepartmentId'),
+            ]
+        );
     }
 
     public function kemaskiniPPP(Request $request)

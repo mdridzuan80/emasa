@@ -18,12 +18,12 @@ class CreateFinalAttendancesTable extends Migration
             $table->integer('anggota_id');
             $table->dateTime('tarikh');
             $table->integer('shift_id');
-            $table->dateTime('check_in');
-            $table->dateTime('check_out');
-            $table->dateTime('check_in_mid');
-            $table->dateTime('check_out_mid');
+            $table->dateTime('check_in')->nullable();
+            $table->dateTime('check_out')->nullable();
+            $table->dateTime('check_in_mid')->nullable();
+            $table->dateTime('check_out_mid')->nullable();
+            $table->text('kesalahan')->nullable();
             $table->string('tatatertib_flag');
-            $table->text('kesalahan');
             $table->timestamps();
 
             $table->index('anggota_id');

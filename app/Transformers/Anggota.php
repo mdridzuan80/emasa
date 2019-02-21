@@ -17,8 +17,8 @@ class Anggota extends TransformerAbstract
     {
         return [
             'anggota_id' => $anggota->USERID,
-            'nama' => $anggota->Name,
-            'jawatan' => $anggota->TITLE,
+            'nama' => $anggota->nama,
+            'jawatan' => $anggota->jawatan,
         ];
     }
 

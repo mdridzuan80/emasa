@@ -45,18 +45,18 @@ class AnggotaController extends BaseController
             'dept' => Utility::pcrsListerDepartment($request->input('subDept'), $request->input('searchDept')),
         ]);
 
-        $resource = new FCollection(Anggota::SenaraiAnggota($search)->get()->sortBy('Name'), $anggotaTransformer);
+        $resource = new FCollection(Anggota::SenaraiAnggota($search)->get(), $anggotaTransformer);
         $transform = $fractal->createData($resource);
 
         return response()->json($transform->toArray());
     }
 
-    public function rpcShow(XtraAnggota $profil)
+    public function rpcShow(Anggota $profil)
     {
         return view('anggota.profil.show', compact('profil'));
     }
 
-    public function rpcUpdate(Request $request, XtraAnggota $profil)
+    public function rpcUpdate(Request $request, Anggota $profil)
     {
         $profil->kemaskiniProfil($request);
     }

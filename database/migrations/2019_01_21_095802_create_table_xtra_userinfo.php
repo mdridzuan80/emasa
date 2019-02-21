@@ -15,12 +15,12 @@ class CreateTableXtraUserinfo extends Migration
     {
         Schema::create('xtra_userinfo', function (Blueprint $table) {
             $table->integer('anggota_id')->unsigned();
-            $table->integer('basedept_id')->unsigned();
+            $table->integer('basedept_id')->nullable()->unsigned();
             $table->string('email')->unique();
             $table->string('nama');
             $table->string('nokp')->unique();
             $table->string('jawatan')->nullable();
-            $table->string('dept_id')->nullable();
+            $table->string('dept_id')->nullable()->unsigned();
             $table->string('nohp')->nullable();
             $table->timestamps();
 
