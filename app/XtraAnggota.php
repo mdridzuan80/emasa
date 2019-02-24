@@ -41,5 +41,13 @@ class XtraAnggota extends Model
     {
         return $this->hasOne(FlowBahagian::class, 'dept_id', 'basedept_id');
     }
+
+    public function shifts()
+    {
+        return $this->belongsToMany(Shift::class, 'anggota_shift', 'anggota_id', 'shift_id')
+            ->as('waktu_bekerja_anggota')
+            ->withPivot('id', 'tkh_mula', 'tkh_tamat');
+    }
+
     //----End Relationship-----
 }

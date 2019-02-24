@@ -4,12 +4,15 @@ namespace App\Services;
 
 use App\Cuti;
 use App\Anggota;
+use App\XtraAnggota;
 use App\Parameter;
 use App\Kehadiran;
 use Carbon\Carbon;
 use App\Kelewatan;
 use App\FinalAttendance;
-use function GuzzleHttp\json_encode;
+use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
+
 
 class FinalAttendanceService
 {
@@ -19,9 +22,28 @@ class FinalAttendanceService
     public function tarikhTamat($tkhTamat)
     {
         if ($tkhTamat->lt(Carbon::now()))
-            return $tkhTamat;
+        return $tkhTamat;
 
         return Carbon::now()->subDays(1);
+    }
+
+    public function janaFinalAttendanceConsole(Collection $usersCollection, Carbon $tkhMula, Carbon $tkhTamat, Command $command)
+    {
+        $senaraiXAnggota = XtraAnggota::with('anggota', 'shifts')->when($usersCollection->isNotEmpty(), function ($query, $value) use ($usersCollection) {
+            return $query->whereIn('email', $usersCollection->toArray());
+        })->get();
+
+        foreach ($senaraiXAnggota as $xAnggota) {
+            $shift = $xAnggota->shifts->first(function ($value, $key) use ($tkhMula, $tkhTamat) {
+                return Carbon::parse($value->waktu_bekerja_anggota->tkh_mula)->lte($tkhMula) && Carbon::parse($value->waktu_bekerja_anggota->tkh_tamat)->gte($tkhTamat);
+            });
+
+            $fTarikh = clone $tkhMula;
+
+            do {
+                $this->janaPersonelFinalAttendance($xAnggota->anggota, $fTarikh, $fTarikh, $shift);
+            } while ($fTarikh->addDay()->lte($tkhTamat));
+        }
     }
 
     public function janaPersonelFinalAttendance(Anggota $profil, Carbon $tkhMula, Carbon $tkhTamat, $shift)
@@ -195,7 +217,7 @@ class FinalAttendanceService
             $tarikh->dayOfWeek == Carbon::SUNDAY;
     }
 
-    public function isEarly($check_out, $shift)
+    /* public function isEarly($check_out, $shift)
     {
         if (!$check_out) {
             return $this->statusLewat = false;
@@ -205,7 +227,7 @@ class FinalAttendanceService
         $paramBenarLewat = (int)Parameter::where('kod', 'P_BENAR_LEWAT')->first()->nilai;
 
         return $this->statusLewat = $check_in->gte($rulePunchIn->addMinutes($paramBenarLewat));
-    }
+    } */
 
     public function isLate($check_in, $shift)
     {
