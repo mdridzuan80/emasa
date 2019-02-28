@@ -29,19 +29,27 @@ class FinalAttendanceService
 
     public function janaFinalAttendanceConsole(Collection $usersCollection, Carbon $tkhMula, Carbon $tkhTamat, Command $command)
     {
+        $fTarikhTamat = clone $tkhTamat;
+        $fTarikhTamat->addDay();
+
+        $cuti = Cuti::whereBetween('tarikh', [$tkhMula, $fTarikhTamat])->get();
         $senaraiXAnggota = XtraAnggota::with('anggota', 'shifts')->when($usersCollection->isNotEmpty(), function ($query, $value) use ($usersCollection) {
             return $query->whereIn('email', $usersCollection->toArray());
         })->get();
 
         foreach ($senaraiXAnggota as $xAnggota) {
-            $shift = $xAnggota->shifts->first(function ($value, $key) use ($tkhMula, $tkhTamat) {
-                return Carbon::parse($value->waktu_bekerja_anggota->tkh_mula)->lte($tkhMula) && Carbon::parse($value->waktu_bekerja_anggota->tkh_tamat)->gte($tkhTamat);
-            });
-
+            $rekodKehadiran = $xAnggota->anggota->kehadiran()->rekodByMulaTamat($tkhMula, $fTarikhTamat)->orderBy('CHECKTIME')->get();
+            $shifts =  $xAnggota->shifts;
             $fTarikh = clone $tkhMula;
 
             do {
-                $this->janaPersonelFinalAttendance($xAnggota->anggota, $fTarikh, $fTarikh, $shift);
+                $shift = $shifts->first(function ($value, $key) use ($fTarikh) {
+                    return Carbon::parse($value->waktu_bekerja_anggota->tkh_mula)->lte($fTarikh) && Carbon::parse($value->waktu_bekerja_anggota->tkh_tamat)->gte($fTarikh);
+                });
+
+                if ($shift) {
+                    $this->personelFinalAttendance($xAnggota->anggota, $fTarikh, $shift, $cuti, $rekodKehadiran);
+                }
             } while ($fTarikh->addDay()->lte($tkhTamat));
         }
     }
