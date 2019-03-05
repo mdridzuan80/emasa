@@ -36,9 +36,13 @@ Route::middleware('auth')->group(function () {
 
     //Local API
     Route::prefix('rpc')->middleware('ajax')->group(function () {
-        // Department
         Route::get('/switch_role/{role}', 'RoleController@switchRole');
+
+        // Department
         Route::get('/department_tree', 'DepartmentController@departmentTree');
+
+        // Waktu bekerja
+        Route::get('/waktu_bekerja', 'WaktuBerperingkatController@rcpGridWaktuBekerja');
 
         // Anggota
         Route::post('/anggota_grid', 'AnggotaController@rpcAnggotaGrid')->middleware('can:view-anggota');
@@ -55,7 +59,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/waktu_bekerja_harian/{profil}/{tahun}', 'WaktuBerperingkatController@rpcBulanan')->middleware('can:view-waktu_bekerja');
             Route::post('/waktu_bekerja_harian/{profil}', 'WaktuBerperingkatController@rpcHarianCreate')->middleware('can:add-waktu_bekerja');
             Route::delete('/waktu_bekerja_harian/{profil}/{id}', 'WaktuBerperingkatController@rpcDelete')->middleware('can:delete-waktu_bekerja');
-            
+
             // Pegawai Penilai
             Route::get('/{profil}/penilai', 'AnggotaController@rpcPenilaiIndex')->middleware('can:view-penilai');
             Route::post('/{profil}/penilai', 'AnggotaController@rpcPenilaiUpdate')->middleware('can:edit-penilai');
@@ -67,7 +71,6 @@ Route::middleware('auth')->group(function () {
             //Flow Profil
             Route::get('/{profil}/flow', 'AnggotaController@rpcFlowShow')->middleware('can:view-flow-profil');
             Route::post('/{profil}/flow', 'AnggotaController@rpcFlowUpdate')->middleware('can:edit-flow-profil');
-
         });
 
         Route::prefix('pengguna')->group(function () {

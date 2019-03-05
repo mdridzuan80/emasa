@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Shift;
 use App\Anggota;
 use Carbon\Carbon;
-use FinalAttendance;
 use WaktuBerperingkat;
 use League\Fractal\Manager;
 use Illuminate\Http\Request;
@@ -55,5 +54,14 @@ class WaktuBerperingkatController extends BaseController
     public function rpcDelete(Anggota $profil, $waktuBekerjaId)
     {
         return WaktuBerperingkat::hapus($profil, $waktuBekerjaId);
+    }
+
+    public function rcpGridWaktuBekerja()
+    {
+        $perPage = 10;
+
+        $shifts = Shift::paginate($perPage);;
+
+        return view('waktu_bekerja.index', compact('shifts'));
     }
 }
