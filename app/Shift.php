@@ -2,14 +2,19 @@
 
 namespace App;
 
-use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Shift extends Model
 {
+    use SoftDeletes;
+
+    protected $softDelete = true;
+
     protected $dates = [
         'check_in',
         'check_out',
+        'deleted_at',
     ];
 
     public function __construct()

@@ -60,8 +60,18 @@ class WaktuBerperingkatController extends BaseController
     {
         $perPage = 10;
 
-        $shifts = Shift::paginate($perPage);;
+        $shifts = Shift::whereNull('deleted_at')->paginate($perPage);
 
         return view('waktu_bekerja.index', compact('shifts'));
+    }
+
+    public function rcpTambahWaktuBekerja(Request $request)
+    {
+        //
+    }
+
+    public function rcpHapusWaktuBekerja(Shift $shift)
+    {
+        $shift->delete();
     }
 }

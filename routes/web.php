@@ -42,7 +42,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/department_tree', 'DepartmentController@departmentTree');
 
         // Waktu bekerja
-        Route::get('/waktu_bekerja', 'WaktuBerperingkatController@rcpGridWaktuBekerja');
+        Route::get('/waktu_bekerja', 'WaktuBerperingkatController@rcpGridWaktuBekerja')->middleware('can:view-shift');
+        Route::post('/waktu_bekerja', 'WaktuBerperingkatController@rcpHapusWaktuBekerja')->middleware('can:add-shift');
+        Route::patch('/waktu_bekerja/{shift}', 'WaktuBerperingkatController@rcpHapusWaktuBekerja')->middleware('can:edit-shift');
+        Route::delete('/waktu_bekerja/{shift}', 'WaktuBerperingkatController@rcpHapusWaktuBekerja')->middleware('can:delete-shift');
 
         // Anggota
         Route::post('/anggota_grid', 'AnggotaController@rpcAnggotaGrid')->middleware('can:view-anggota');

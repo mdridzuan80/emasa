@@ -44,6 +44,11 @@ class PcrsGate
         Gate::define('view-setting', $this->minPrivilege(Role::KETUA_KERANI));
         Gate::define('view-flow-bahagian-setting', $this->minPrivilege(Role::KETUA_KERANI));
         Gate::define('edit-flow-bahagian-setting', $this->minPrivilege(Role::KETUA_KERANI));
+
+        Gate::define('view-shift', $this->minPrivilege(Role::ADMIN));
+        Gate::define('add-shift', $this->minPrivilege(Role::ADMIN));
+        Gate::define('edit-shift', $this->minPrivilege(Role::ADMIN));
+        Gate::define('delete-shift', $this->minPrivilege(Role::ADMIN));
     }
 
     public function minPrivilege($minPriv)

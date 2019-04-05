@@ -31,6 +31,9 @@
 
   <link rel="stylesheet" href="{{ asset('bower_components/fullcalendar/dist/fullcalendar.print.min.css') }}" media="print">
 
+  <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="{{ asset('plugins/timepicker/bootstrap-timepicker.min.css') }}">
+
   <link rel="stylesheet" href="{{ asset('css/pcrs.css') }}" rel="stylesheet">
 
   <link href="{{ asset('dist/css/easyui.css') }}" rel="stylesheet">
@@ -117,6 +120,10 @@
 <script src="{{ asset('bower_components/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
 <!-- multimodal -->
 <script src="{{ asset('bower_components/bootstrap-multimodal/multimodal.min.js') }}"></script>
+
+<!-- bootstrap time picker -->
+<script src="{{ asset('plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
+
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
