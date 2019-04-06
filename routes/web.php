@@ -31,7 +31,23 @@ Route::middleware('auth:internal,ldap')->group(function () {
         Route::get('/konfigurasi', 'KonfigurasiController@index')->name('konfigurasi');
     });
 
+    //route kelulusan - hisham
+    Route::middleware('can:view-setting')->group(function () {
+        Route::get('/kelulusan', 'KelulusanController@index')->name('kelulusan');
+    });
+
+    //route laporan - hisham
+    Route::middleware('can:view-laporan')->group(function () {
+        Route::get('/laporan', 'LaporanController@index')->name('laporan');
+        Route::post('/laporan','LaporanController@show');
+        Route::get('/laporan/bulanan-pdf','LaporanController@showBulanan');
+        Route::get('/laporan/harian-pdf','LaporanController@generatePDF');
+//        Route::get('/laporan/harian-pdf','LaporanController@generatePDF');
+
+    });
+
     //Local API
+    //panggil ajax
     Route::prefix('rpc')->middleware('ajax')->group(function () {
         // Department
         Route::get('/switch_role/{role}', 'RoleController@switchRole');
@@ -65,6 +81,10 @@ Route::middleware('auth:internal,ldap')->group(function () {
             Route::get('/{profil}/flow', 'AnggotaController@rpcFlowShow')->middleware('can:view-flow-profil');
             Route::post('/{profil}/flow', 'AnggotaController@rpcFlowUpdate')->middleware('can:edit-flow-profil');
 
+            //Kelulusan
+            Route::get('/{profil}/justifikasi', 'AnggotaController@rpcPenilaiIndex')->middleware('can:view-penilai');
+
+            
         });
 
         Route::prefix('pengguna')->group(function () {
@@ -86,6 +106,21 @@ Route::middleware('auth:internal,ldap')->group(function () {
         Route::prefix('konfigurasi')->group(function () {
             Route::get('/flow_bahagian/{department}', 'KonfigurasiController@rpcFlowBahagianShow')->middleware('can:edit-flow-bahagian-setting');
             Route::post('/flow_bahagian/{department}', 'KonfigurasiController@rpcFlowBahagianUpdate')->middleware('can:edit-flow-bahagian-setting');
+        });
+
+        Route::prefix('kelulusan')->group(function () {
+            Route::get('/flow_bahagian/{department}', 'KelulusanController@rpcFlowBahagianShow')->middleware('can:edit-flow-bahagian-setting');
+//            Route::get('/senarai/{department}', 'KelulusanController@rpcFlowSenaraiShow')->middleware('can:edit-flow-bahagian-setting');
+            Route::get('/anggota_grid/{department}', 'KelulusanController@rpcFlowSenaraiShow')->middleware('can:edit-flow-bahagian-setting');
+//            Route::post('/flow_bahagian/{department}', 'KelulusanController@rpcFlowBahagianUpdate')->middleware('can:edit-flow-bahagian-setting');
+        });
+
+        Route::prefix('laporan')->group(function () {
+            Route::post('/list_harian', 'LaporanController@showListHarian');
+            // Route::get('/flow_bahagian/{department}', 'LaporanController@rpcFlowBahagianShow')->middleware('can:edit-flow-bahagian-setting');
+//            Route::get('/list_harian/{department}', 'LaporanController@rpcFlowHarianShow')->middleware('can:edit-flow-bahagian-setting');
+
+
         });
     });
 });

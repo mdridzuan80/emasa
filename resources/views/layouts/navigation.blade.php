@@ -20,9 +20,23 @@
         @can('view-setting')
         <li class="{{ pcrsMenuActiveCondition('konfigurasicontroller_index', $collection->get('activeMenu')) }}">
           <a href="{{ route('konfigurasi') }}">
-            <i class="fa fa-fw fa-gear"></i> <span>Konfigurasi</span>
+            <i class="fa fa-gear"></i> <span>Konfigurasi</span>
           </a>
         </li>
+        @endcan
+        @can('view-setting')
+          <li class="{{ pcrsMenuActiveCondition('kelulusancontroller_index', $collection->get('activeMenu')) }}">
+            <a href="{{ route('kelulusan') }}">
+              <i class="fa fa-check-square-o"></i> <span>Kelulusan</span>
+            </a>
+          </li>
+        @endcan
+        @can('view-setting')
+          <li class="{{ pcrsMenuActiveCondition('laporancontroller_index', $collection->get('activeMenu')) }}">
+            <a href="{{ route('laporan') }}">
+              <i class="fa fa-bar-chart-o"></i> <span>Laporan</span>
+            </a>
+          </li>
         @endcan
       </ul>
     </section>

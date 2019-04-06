@@ -43,6 +43,12 @@ class Anggota extends BaseModel
         return $this->hasMany(FinalAttendance::class, 'anggota_id');
     }
 
+    //nak panggil primary user info - has many
+    public function justifikasi()
+    {
+        return $this->hasMany(Justifikasi_kehadiran::class, 'justifikasi_anggota_id');
+    }
+
     public function penilai()
     {
         return $this->hasOne(Anggota::class, 'SSN', 'OPHONE');

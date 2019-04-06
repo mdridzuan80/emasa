@@ -44,6 +44,13 @@ class PcrsGate
         Gate::define('view-setting', $this->minPrivilege(Role::KETUA_KERANI));
         Gate::define('view-flow-bahagian-setting', $this->minPrivilege(Role::KETUA_KERANI));
         Gate::define('edit-flow-bahagian-setting', $this->minPrivilege(Role::KETUA_KERANI));
+
+        //Kelulusan
+        Gate::define('view-kelulusan', $this->minPrivilege(Role::KETUA_JABATAN));
+
+        //Laporan
+        Gate::define('view-laporan', $this->minPrivilege(Role::KETUA_KERANI));
+
     }
 
     public function minPrivilege($minPriv)

@@ -26,7 +26,6 @@ class KonfigurasiController extends BaseController
     {
         $resource = new FractalItem($department->flow, $flowBahagianTransformer);
         $transform = $fractal->createData($resource);
-
         return response()->json($transform->toArray());
     }
 
