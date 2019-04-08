@@ -46,4 +46,13 @@ class Utility
 
         return $data;
     }
+
+    public static function array2object($data)
+    {
+        if (is_array($data)) {
+            $data = (object)$data;
+        }
+
+        return $data;
+    }
 }

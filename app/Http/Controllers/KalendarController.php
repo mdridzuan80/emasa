@@ -7,7 +7,6 @@ use App\Acara;
 use App\Anggota;
 use App\Kehadiran;
 use Carbon\Carbon;
-use App\FinalAttendance;
 use League\Fractal\Manager;
 use App\Transformers\Event;
 use App\Base\BaseController;

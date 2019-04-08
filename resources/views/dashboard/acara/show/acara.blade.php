@@ -1,3 +1,4 @@
+@inject('Utility', 'App\Utility')
 <div class="table-responsive">
     @foreach ($events as $event)
         @if ($event instanceof App\Cuti)
@@ -9,7 +10,7 @@
         @if ($tarikh->lessThanOrEqualTo(today()) && ($event instanceof App\FinalAttendance || $event instanceof App\Kehadiran || gettype($event) == 'array'))
             <div class="box box-success box-solid">
                 <div class="box-header with-border">
-                    <h3 class="box-title">CHECK-IN/ OUT</h3>
+                    <h3 class="box-title">CHECK-IN/ OUT</h3>                    
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -20,8 +21,8 @@
                         <th>CHECK-OUT</th>
                         </tr>
                         <tr>
-                        <td>{{ (explode(PHP_EOL, optional($event)->title)[0]) ? explode(':', explode(PHP_EOL, optional($event)->title)[0], 2)[1] : explode(':', explode(PHP_EOL, $event['title'])[0], 2)[1] }}</td>
-                        <td>{{ (isset(explode(PHP_EOL, optional($event)->title)[1])) ? explode(':', explode(PHP_EOL, optional($event)->title)[1], 2)[1] : explode(':', explode(PHP_EOL, $event['title'])[1], 2)[1] }}</td>
+                        <td>{{ (preg_split('/\r\n|\r|\n/', optional($Utility::array2object($event))->title)[0]) ? explode(':', preg_split('/\r\n|\r|\n/', optional($Utility::array2object($event))->title)[0], 2)[1] : explode(':', preg_split('/\r\n|\r|\n/', $Utility::array2object($event)->title)[0], 2)[1] }}</td>
+                        <td>{{ (isset(preg_split('/\r\n|\r|\n/', optional($Utility::array2object($event))->title)[1])) ? explode(':', preg_split('/\r\n|\r|\n/', optional($Utility::array2object($event))->title)[1], 2)[1] : explode(':', preg_split('/\r\n|\r|\n/', $Utility::array2object($event)->title)[1], 2)[1] }}</td>
                         </tr>
                     </table>
                     </div>
