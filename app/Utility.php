@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Department;
 use Illuminate\Support\Collection;
 
 class Utility
@@ -17,15 +16,15 @@ class Utility
         $branch = [];
 
         foreach ($elements as $element) {
-            if ((int) $element->SUPDEPTID === (int) $parentId) {
-                $branch[] = $element->DEPTID;
-                $c = SELF::pcrsRelatedDepartment($elements, $element->DEPTID);
+            if ((int)$element->supdeptid === (int)$parentId) {
+                $branch[] = $element->deptid;
+                $c = SELF::pcrsRelatedDepartment($elements, $element->deptid);
                 if ($c) {
                     $branch[] = $c;
                 }
             }
         }
-        
+
         array_push($branch, $parentId);
 
         return $branch;
@@ -35,12 +34,12 @@ class Utility
     {
         foreach ($departments as $department) {
             $data[] = [
-                'id' => $department->DEPTID,
-                'parent' => ($department->SUPDEPTID ? $department->SUPDEPTID : '#'),
-                'text' => $department->DEPTNAME,
+                'id' => $department->deptid,
+                'parent' => ($department->supdeptid ? $department->supdeptid : '#'),
+                'text' => $department->deptname,
                 'state' => [
-                    'opened' => ($department->DEPTID == $parentId) ? true : false,
-                    'selected' => ($department->DEPTID == $parentId) ? true : false
+                    'opened' => ($department->deptid == $parentId) ? true : false,
+                    'selected' => ($department->deptid == $parentId) ? true : false
                 ]
             ];
         }

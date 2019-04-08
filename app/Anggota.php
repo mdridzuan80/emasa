@@ -17,13 +17,13 @@ class Anggota extends BaseModel
     public function __construct()
     {
         $this->table = config('pcrs.machineDB') . 'userinfo';
-        $this->primaryKey = 'USERID';
+        $this->primaryKey = 'userid';
         $this->setDateFormat(config('pcrs.modelDateFormat'));
     }
 
     public function department()
     {
-        return $this->belongsTo(Department::class, 'DEFAULTDEPTID');
+        return $this->belongsTo(Department::class, 'defaultdeptid');
     }
 
     public function shifts()
@@ -35,7 +35,7 @@ class Anggota extends BaseModel
 
     public function kehadiran()
     {
-        return $this->hasMany(Kehadiran::class, 'USERID', 'USERID');
+        return $this->hasMany(Kehadiran::class, 'userid', 'userid');
     }
 
     public function finalKehadiran()
@@ -45,7 +45,7 @@ class Anggota extends BaseModel
 
     public function penilai()
     {
-        return $this->hasOne(Anggota::class, 'SSN', 'OPHONE');
+        return $this->hasOne(Anggota::class, 'ssn', 'ophone');
     }
 
     public function user()
@@ -95,7 +95,7 @@ class Anggota extends BaseModel
         $related = [];
         $effectedDept = Auth::user()->roles()->where('key', Auth::user()->perananSemasa()->key)->get()->map(function ($item, $key) {
             return $item->departments->map(function ($item, $key) {
-                return $item->DEPTID;
+                return $item->deptid;
             });
         })->flatten()->unique()->toArray();
 
@@ -111,7 +111,7 @@ class Anggota extends BaseModel
         return $query->xtraAnggota()->with(['user'])
             ->whereRaw('IF(dept_id, dept_id, 1) IN(' . $search->get('dept') . ')')
             ->when($search->get('key'), function ($query) use ($search) {
-                $query->whereRaw("concat_ws(BADGENUMBER, nama, nokp, jawatan) LIKE '%" . $search->get('key') . "%'");
+                $query->whereRaw("concat(badgenumber,if(isnull(nama), '', nama), if(isnull(nokp), '', nokp), if(isnull(jawatan), '', jawatan)) LIKE '%" . $search->get('key') . "%'");
             })
             ->when(Auth::user()->email !== env('PCRS_DEFAULT_USER_ADMIN', 'admin@internal'), function ($query) {
                 $query->authorize();

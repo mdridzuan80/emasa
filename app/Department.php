@@ -11,12 +11,12 @@ class Department extends BaseModel
     {
         $this->table = config('pcrs.machineDB') . 'departments';
         $this->setDateFormat(config('pcrs.modelDateFormat'));
-        $this->primaryKey = 'DEPTID';
+        $this->primaryKey = 'deptid';
     }
 
     public function anggota()
     {
-        return $this->hasMany(Anggota::class, 'DEFAULTDEPTID');
+        return $this->hasMany(Anggota::class, 'defaultdeptid');
     }
 
     public function roles()
@@ -34,7 +34,7 @@ class Department extends BaseModel
         return SELF::when(Auth::user()->username !== env('PCRS_DEFAULT_USER_ADMIN', 'admin'), function ($query) {
             $query->authorize();
         })
-            ->orderBy('DEPTNAME')->get();
+            ->orderBy('deptname')->get();
     }
 
     static public function scopeAuthorize($query)
@@ -42,7 +42,7 @@ class Department extends BaseModel
         $related = [];
         $effectedDept = Auth::user()->roles()->where('key', Auth::user()->perananSemasa()->key)->get()->map(function ($item, $key) {
             return $item->departments->map(function ($item, $key) {
-                return $item->DEPTID;
+                return $item->deptid;
             });
         })->flatten()->unique()->toArray();
 
@@ -50,7 +50,7 @@ class Department extends BaseModel
             $related = array_merge($related, array_flatten(Utility::pcrsRelatedDepartment(Department::all(), $dept)));
         }
 
-        $query->whereIn('DEPTID', array_merge($effectedDept, $related));
+        $query->whereIn('deptid', array_merge($effectedDept, $related));
     }
 
     public function updateFlow($request)

@@ -2,13 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Utility;
-use App\Role;
 use App\Department;
 use App\Base\BaseController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
 class DepartmentController extends BaseController
 {
@@ -22,20 +17,20 @@ class DepartmentController extends BaseController
         $data = [];
 
         $selected = Auth()->user()->roles()->where('key', session('perananSemasa'))->first()->pivot->department_id;
-        $parentDeptId = Department::find($selected)->SUPDEPTID;
+        $parentDeptId = Department::find($selected)->supdeptid;
 
         $departments = Department::senaraiDepartment();
 
         foreach ($departments as $department) {
             $data[] = [
-                'id' => $department->DEPTID,
-                'parent' => ($department->SUPDEPTID != $parentDeptId ? $department->SUPDEPTID : '#'),
-                'text' => $department->DEPTNAME,
+                'id' => $department->deptid,
+                'parent' => ($department->supdeptid != $parentDeptId ? $department->supdeptid : '#'),
+                'text' => $department->deptname,
                 'state' => [
-                    'opened' => ($department->DEPTID == $selected) ? true : false,
-                    'selected' => ($department->DEPTID == $selected) ? true : false
+                    'opened' => ($department->deptid == $selected) ? true : false,
+                    'selected' => ($department->deptid == $selected) ? true : false
                 ]
-            ];   
+            ];
         }
 
         return $data;

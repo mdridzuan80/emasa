@@ -535,7 +535,11 @@
                     });
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-
+                    swal({
+                        title: 'Ralat!',
+                        text: 'Data tidak dapat dipaprkan. Sila cub lagi',
+                        type: 'error',
+                    }).then(() => $('#modal-default').modal('hide'));
                 },
                 statusCode: login()
             });
