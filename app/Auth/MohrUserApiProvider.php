@@ -16,7 +16,7 @@ class MohrUserApiProvider
             list($username, $domain) = explode('@', $credentials['email']);
 
             $client = new Client([
-                'base_uri' => 'http://myhos.mohr.gov.my/api/',
+                'base_uri' => 'https://myhos.mohr.gov.my/api/',
                 'json' => ['user_id' => $username, 'password' => $credentials['password']],
             ]);
 
