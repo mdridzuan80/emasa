@@ -20,7 +20,7 @@
         @can('view-setting')
         <li class="{{ pcrsMenuActiveCondition('konfigurasicontroller_index', $collection->get('activeMenu')) }}">
           <a href="{{ route('konfigurasi') }}">
-            <i class="fa fa-fw fa-gear"></i> <span>Konfigurasi</span>
+            <i class="fa fa-gear"></i> <span>Konfigurasi</span>
           </a>
         </li>
         @endcan

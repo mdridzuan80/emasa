@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+Use Auth;
 use App\Cuti;
 use App\Acara;
 use App\Anggota;
@@ -35,6 +36,10 @@ class KalendarController extends BaseController
 
     public function index()
     {
+        if (Auth::user()->email == 'admin@internal') {
+            return $this->renderView('dashboard.admin.index');
+        }
+
         return $this->renderView('dashboard.pengguna.index');
     }
 
@@ -46,7 +51,7 @@ class KalendarController extends BaseController
 
         $events = $checkinout->merge($cuti)->merge($acara);
 
-        if ($checkIn = optional(Kehadiran::events()->whereBetween('CHECKTIME', [today()->addHours(4), today()->addHours(13)])->first())->toArray())
+        if ($checkIn = optional($profil->kehadiran()->events()->whereBetween('CHECKTIME', [today()->addHours(4), today()->addHours(13)])->first())->toArray())
             $events = $events->push($checkIn);
         else
             $events->push(Kehadiran::itemEventableNone());
