@@ -21,7 +21,9 @@
                     <ul class="nav nav-tabs">
                     <li class="active"><a href="#tab_1" data-toggle="tab">Sistem</a></li>
                     <li><a href="#tab_2" data-toggle="tab">Emel</a></li>
-                    <li><a id="tab_waktu_bekerja" href="#tab_3" >Waktu Bekerja</a></li>
+                    @can('view-shift')
+                        <li><a id="tab_waktu_bekerja" href="#tab_3" >Waktu Bekerja</a></li>
+                    @endcan
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_1">
@@ -77,9 +79,11 @@
                             and regular than that of the individual languages.
                         </div>
 
-                        <div class="tab-pane" id="tab_3">
-                            <div id="waktu_bekerja_content"></div>
-                        </div>
+                        @can('view-shift')
+                            <div class="tab-pane" id="tab_3">
+                                <div id="waktu_bekerja_content"></div>
+                            </div>
+                        @endcan
                     </div>
                 </div>
             </div>
@@ -90,68 +94,70 @@
     </section>
 
     <!-- Modal --> 
-    <div id="modal-shift" class="modal fade" >
-        <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: steelblue; color: white;">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title"><i class="fa fa-clock-o"></i> Tambah Waktu Bekerja</h4>
-            </div>
-            <div class="modal-body">
-                <table class="table table-bordered">
-                    <tbody>
-                        <tr>
-                            <td class="col-md-3"><b>NAMA WAKTU BERPERINGKAT</b></td>
-                            <td><input class="form-control" type="text" name="txtPerihal" placeholder="Perihal" value="" required=""></td>
-                        </tr>
-                        <tr>
-                            <td><b>WAKTU MULA</b></td>
-                            <td>
-                                <div class="bootstrap-timepicker">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input id="txtWaktuMula" type="text" class="form-control">
-                                            <div class="input-group-addon">
-                                            <i class="fa fa-clock-o"></i>
+    @can('view-shift')
+        <div id="modal-shift" class="modal fade" >
+            <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: steelblue; color: white;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title"><i class="fa fa-clock-o"></i> Tambah Waktu Bekerja</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-3"><b>NAMA WAKTU BERPERINGKAT</b></td>
+                                <td><input class="form-control" type="text" name="txtPerihal" placeholder="Perihal" value="" required=""></td>
+                            </tr>
+                            <tr>
+                                <td><b>WAKTU MULA</b></td>
+                                <td>
+                                    <div class="bootstrap-timepicker">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input id="txtWaktuMula" type="text" class="form-control">
+                                                <div class="input-group-addon">
+                                                <i class="fa fa-clock-o"></i>
+                                                </div>
                                             </div>
+                                        <!-- /.input group -->
                                         </div>
-                                    <!-- /.input group -->
+                                        <!-- /.form group -->
                                     </div>
-                                    <!-- /.form group -->
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>WAKTU TAMAT</b></td>
-                            <td>
-                                <div class="bootstrap-timepicker">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input id="txtWaktuTamat" type="text" class="form-control">
-                                            <div class="input-group-addon">
-                                            <i class="fa fa-clock-o"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>WAKTU TAMAT</b></td>
+                                <td>
+                                    <div class="bootstrap-timepicker">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input id="txtWaktuTamat" type="text" class="form-control">
+                                                <div class="input-group-addon">
+                                                <i class="fa fa-clock-o"></i>
+                                                </div>
                                             </div>
+                                        <!-- /.input group -->
                                         </div>
-                                    <!-- /.input group -->
+                                        <!-- /.form group -->
                                     </div>
-                                    <!-- /.form group -->
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" style="color:#dd4b39;" data-dismiss="modal">BATAL</button>
+                    <button type="button" class="btn btn-success">SIMPAN</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-link" style="color:#dd4b39;" data-dismiss="modal">BATAL</button>
-                <button type="button" class="btn btn-success">SIMPAN</button>
+            <!-- /.modal-content -->
             </div>
+            <!-- /.modal-dialog -->
         </div>
-        <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
+    @endcan
     <!-- /.modal -->
 
 @endsection
