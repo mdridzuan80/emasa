@@ -1,4 +1,5 @@
 <?php
+
 namespace App;
 
 use Carbon\Carbon;
@@ -28,30 +29,30 @@ class Kehadiran extends Eventable
     const FLAG_KESALAHAN_NONEMOUT = 'NONEMOUT';
 
     protected $dateFormat = 'Y-m-d H:i:s';
-    protected $dates = ['CHECKTIME'];
+    protected $dates = ['checktime'];
 
     public function __construct()
     {
         $this->table = config('pcrs.machineDB') . 'checkinout';
-        $this->primaryKey = ['USERID', 'CHECKTIME'];
+        $this->primaryKey = ['userid', 'checktime'];
         $this->incrementing = false;
         $this->setDateFormat(config('pcrs.modelDateFormat'));
     }
 
     public function scopeRekodByMulaTamat($query, Carbon $tkhMula, Carbon $tkhTamat)
     {
-        return $query->where('CHECKTIME', '>=', $tkhMula)
-            ->where('CHECKTIME', '<', $tkhTamat);
+        return $query->where('checktime', '>=', $tkhMula)
+            ->where('checktime', '<', $tkhTamat);
     }
 
     public function scopeEvents($query)
     {
-        return $query->select(DB::raw('CONCAT(\'IN : \', CHECKTIME, "\n", \' OUT : -\') as \'title\''), DB::raw('\'' . today() . '\' as \'start\''), DB::raw('\'' . today() . '\' as \'end\''), DB::raw('\'true\' as \'allDay\''), DB::raw('\'#dcf442\' as \'color\''), DB::raw('\'#000\' as \'textColor\''), DB::raw('0 as \'id\''), DB::raw('\'' . Eventable::CURRENTATT . '\' as \'table_name\''));
+        return $query->select(DB::raw('CONCAT(\'IN : \', checktime, "\n", \' OUT : -\') as \'title\''), DB::raw('\'' . today() . '\' as \'start\''), DB::raw('\'' . today() . '\' as \'end\''), DB::raw('\'true\' as \'allDay\''), DB::raw('\'#dcf442\' as \'color\''), DB::raw('\'#000\' as \'textColor\''), DB::raw('0 as \'id\''), DB::raw('\'' . Eventable::CURRENTATT . '\' as \'table_name\''));
     }
 
     public function scopeToday($query)
     {
-        return $query->whereBetween('CHECKTIME', [today()->addHours(4), today()->addHours(13)]);
+        return $query->whereBetween('checktime', [today()->addHours(4), today()->addHours(13)]);
     }
 
     public static function itemEventableNone()

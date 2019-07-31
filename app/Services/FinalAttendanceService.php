@@ -38,7 +38,7 @@ class FinalAttendanceService
         })->get();
 
         foreach ($senaraiXAnggota as $xAnggota) {
-            $rekodKehadiran = $xAnggota->anggota->kehadiran()->rekodByMulaTamat($tkhMula, $fTarikhTamat)->orderBy('CHECKTIME')->get();
+            $rekodKehadiran = $xAnggota->anggota->kehadiran()->rekodByMulaTamat($tkhMula, $fTarikhTamat)->orderBy('checktime')->get();
             $shifts =  $xAnggota->shifts;
             $fTarikh = clone $tkhMula;
 
@@ -57,7 +57,7 @@ class FinalAttendanceService
     public function janaPersonelFinalAttendance(Anggota $profil, Carbon $tkhMula, Carbon $tkhTamat, $shift)
     {
         $cuti = Cuti::whereBetween('tarikh', [$tkhMula, $tkhTamat])->get();
-        $rekodKehadiran = $profil->kehadiran()->rekodByMulaTamat($tkhMula, $tkhTamat)->orderBy('CHECKTIME')->get();
+        $rekodKehadiran = $profil->kehadiran()->rekodByMulaTamat($tkhMula, $tkhTamat)->orderBy('checktime')->get();
         $fTarikh = clone $tkhMula;
 
         do {
@@ -97,44 +97,44 @@ class FinalAttendanceService
             switch ($jnsPunch) {
                 case Kehadiran::PUNCH_IN:
                     if ($this->isCuti($tarikh, $cuti)) {
-                        return $value->CHECKTIME->gte($tarikh->copy()->addHours(4)) &&
-                            $value->CHECKTIME->lt($tarikh->copy()->addDays(1)->addHours(4)) &&
-                            $value->CHECKTYPE != '1' && $value->CHECKTYPE != 'i';
+                        return $value->checktime->gte($tarikh->copy()->addHours(4)) &&
+                            $value->checktime->lt($tarikh->copy()->addDays(1)->addHours(4)) &&
+                            $value->checktype != '1' && $value->checktype != 'i';
                     } else {
-                        return $value->CHECKTIME->gte($tarikh->copy()->addHours(4)) &&
-                            $value->CHECKTIME->lt($tarikh->copy()->addHours(13)) &&
-                            $value->CHECKTYPE != '1' && $value->CHECKTYPE != 'i';
+                        return $value->checktime->gte($tarikh->copy()->addHours(4)) &&
+                            $value->checktime->lt($tarikh->copy()->addHours(13)) &&
+                            $value->checktype != '1' && $value->checktype != 'i';
                     }
 
                     break;
 
                 case Kehadiran::PUNCH_OUT:
                     if ($this->isCuti($tarikh, $cuti)) {
-                        return $value->CHECKTIME->gte($tarikh->copy()->addHours(4)) &&
-                            $value->CHECKTIME->lt($tarikh->copy()->addDays(1)->addHours(4)) &&
-                            $value->CHECKTYPE != '1' && $value->CHECKTYPE != 'i';
+                        return $value->checktime->gte($tarikh->copy()->addHours(4)) &&
+                            $value->checktime->lt($tarikh->copy()->addDays(1)->addHours(4)) &&
+                            $value->checktype != '1' && $value->checktype != 'i';
                     } else {
-                        return $value->CHECKTIME->gte($tarikh->copy()->addHours(13)) &&
-                            $value->CHECKTIME->lt($tarikh->copy()->addDays(1)->addHours(4)) &&
-                            $value->CHECKTYPE != '1' && $value->CHECKTYPE != 'i';
+                        return $value->checktime->gte($tarikh->copy()->addHours(13)) &&
+                            $value->checktime->lt($tarikh->copy()->addDays(1)->addHours(4)) &&
+                            $value->checktype != '1' && $value->checktype != 'i';
                     }
 
                     break;
 
                 case Kehadiran::PUNCH_MIN:
                     if ($jnsUser) {
-                        return $value->CHECKTIME->gte($tarikh->copy()->addHours(4)) &&
-                            $value->CHECKTIME->lt($tarikh->copy()->addDays(1)->addHours(4)) &&
-                            $value->CHECKTYPE == '1';
+                        return $value->checktime->gte($tarikh->copy()->addHours(4)) &&
+                            $value->checktime->lt($tarikh->copy()->addDays(1)->addHours(4)) &&
+                            $value->checktype == '1';
                     }
 
                     break;
 
                 case Kehadiran::PUNCH_MOUT:
                     if ($jnsUser) {
-                        return $value->CHECKTIME->gte($tarikh->copy()->addHours(4)) &&
-                            $value->CHECKTIME->lt($tarikh->copy()->addDays(1)->addHours(4)) &&
-                            $value->CHECKTYPE == 'i';
+                        return $value->checktime->gte($tarikh->copy()->addHours(4)) &&
+                            $value->checktime->lt($tarikh->copy()->addDays(1)->addHours(4)) &&
+                            $value->checktype == 'i';
                     }
 
                     break;
@@ -145,11 +145,11 @@ class FinalAttendanceService
 
         if ($data->isNotEmpty()) {
             if ($jnsPunch == Kehadiran::PUNCH_IN || $jnsPunch == Kehadiran::PUNCH_MIN) {
-                return $data->first()->CHECKTIME;
+                return $data->first()->checktime;
             }
 
             if ($jnsPunch == Kehadiran::PUNCH_OUT || $jnsPunch == Kehadiran::PUNCH_MOUT) {
-                return $data->last()->CHECKTIME;
+                return $data->last()->checktime;
             }
         }
 
@@ -242,7 +242,7 @@ class FinalAttendanceService
         if (!$check_in || $this->statusLewat) {
             return $this->statusAwal = $check_out->gte(Carbon::parse($check_out->toDateString() . " " . $shift->check_out->toTimeString()));
         } else if ($check_out) {
-            return $this->statusAwal = $check_in->floatDiffInMinutes(Carbon::parse($check_out->toDateString() . " " . $shift->check_out->toTimeString())) >= (60 * 9);
+            return $this->statusAwal = $check_in->diffInMinutes(Carbon::parse($check_out->toDateString() . " " . $shift->check_out->toTimeString())) >= (60 * 9);
         }
     }
 
