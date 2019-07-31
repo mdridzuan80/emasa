@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use DB;
@@ -21,6 +22,8 @@ class WaktuBerperingkatService
 
                 // Jika bulan yang dipilih lebih kecil dari bulan semasa
                 // jana semula final attendance
+                //dd($profil);
+
                 if ($bulan <= Carbon::now()->month) {
                     FinalAttendance::janaPersonelFinalAttendance($profil, $tkhMula, FinalAttendance::tarikhTamat($tkhTamat), $shift);
                 }
@@ -43,10 +46,10 @@ class WaktuBerperingkatService
             $waktuBekerja = $profil->shifts()
                 ->newPivotStatement()
                 ->where('id', $waktuBekerjaId)
-                ->where('anggota_id', $profil->USERID)
+                ->where('anggota_id', $profil->userid)
                 ->first();
 
-            $profil->shifts()->newPivotStatement()->where('id', $waktuBekerjaId)->where('anggota_id', $profil->USERID)->delete();
+            $profil->shifts()->newPivotStatement()->where('id', $waktuBekerjaId)->where('anggota_id', $profil->userid)->delete();
             FinalAttendance::hapusLewat($profil, $waktuBekerja->tkh_mula, $waktuBekerja->tkh_tamat);
         });
     }
@@ -57,7 +60,7 @@ class WaktuBerperingkatService
             $d = [];
 
             foreach ($array_data as $data) {
-                $d[] = (array)$data;
+                $d[] = (array) $data;
             }
 
             return collect(array_flatten($d));
@@ -67,7 +70,7 @@ class WaktuBerperingkatService
             $convert($profil->shifts()->newPivotStatement()
                 ->selectRaw('MONTH(tkh_mula) as bulan')
                 ->whereRaw('YEAR(tkh_mula) = ?', [$tahun])
-                ->where('anggota_id', $profil->USERID)
+                ->where('anggota_id', $profil->userid)
                 ->get()->toArray())
         );
     }
@@ -75,7 +78,7 @@ class WaktuBerperingkatService
     private function hasCreateHarian(Anggota $profil, Carbon $tkhMula, Carbon $tkhTamat)
     {
         return $profil->shifts()->newPivotStatement()
-            ->where('anggota_id', $profil->USERID)
+            ->where('anggota_id', $profil->userid)
             ->whereRaw('((tkh_mula >= ? AND tkh_tamat <= ?) OR (tkh_mula <= ? AND tkh_tamat >= ?))', [$tkhMula, $tkhTamat, $tkhTamat, $tkhMula])
             ->exists();
     }

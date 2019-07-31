@@ -22,7 +22,7 @@ class FinalAttendanceService
     public function tarikhTamat($tkhTamat)
     {
         if ($tkhTamat->lt(Carbon::now()))
-        return $tkhTamat;
+            return $tkhTamat;
 
         return Carbon::now()->subDays(1);
     }
@@ -79,8 +79,8 @@ class FinalAttendanceService
 
     private function preDataFinalAttendance(Anggota $profil, Carbon $tarikh, $shift, $cuti, $rekodKehadiran)
     {
-        return (object)[
-            'anggota_id' => $profil->USERID,
+        return (object) [
+            'anggota_id' => $profil->userid,
             'tarikh' => $tarikh,
             'check_in' => $check_in = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_IN, $profil->ZIP),
             'check_out' => $check_out = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_OUT, $profil->ZIP),
@@ -244,20 +244,20 @@ class FinalAttendanceService
         }
 
         $rulePunchIn = Carbon::parse($check_in->toDateString() . " " . $shift->check_in->toTimeString());
-        $paramBenarLewat = (int)Parameter::where('kod', 'P_BENAR_LEWAT')->first()->nilai;
+        $paramBenarLewat = (int) Parameter::where('kod', 'P_BENAR_LEWAT')->first()->nilai;
 
         return $this->statusLewat = $check_in->gte($rulePunchIn->addMinutes($paramBenarLewat));
     }
 
     public function janaFinalAttendance($profil, $preData, $shift)
     {
-        FinalAttendance::updateOrCreate(['anggota_id' => $preData->anggota_id, 'tarikh' => $preData->tarikh], (array)$preData);
+        FinalAttendance::updateOrCreate(['anggota_id' => $preData->anggota_id, 'tarikh' => $preData->tarikh], (array) $preData);
     }
 
     public function tambahLewat($profil, $preData, $shift, $smsFlag)
     {
         $lewat = new Kelewatan;
-        $lewat->anggota_id = $profil->USERID;
+        $lewat->anggota_id = $profil->userid;
         $lewat->shift_id = $shift->id;
         $lewat->check_in = $preData->check_in;
         $lewat->send_sms_flag = $smsFlag;
@@ -267,7 +267,7 @@ class FinalAttendanceService
 
     public function hapusLewat($profil, $tkhMula, $tkhTamat)
     {
-        return Kelewatan::where('anggota_id', $profil->USERID)
+        return Kelewatan::where('anggota_id', $profil->userid)
             ->where('check_in', '>=', $tkhMula)
             ->where('check_in', '<=', $tkhTamat)
             ->delete();
