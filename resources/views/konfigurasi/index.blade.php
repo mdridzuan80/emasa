@@ -95,63 +95,65 @@
 
     <!-- Modal --> 
     @can('view-shift')
-        <div id="modal-shift" class="modal fade" >
+        <div id="modal-shift-add" class="modal fade" >
             <div class="modal-dialog modal-md">
             <div class="modal-content">
-                <div class="modal-header" style="background-color: steelblue; color: white;">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title"><i class="fa fa-clock-o"></i> Tambah Waktu Bekerja</h4>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr>
-                                <td class="col-md-3"><b>NAMA WAKTU BERPERINGKAT</b></td>
-                                <td><input class="form-control" type="text" name="txtPerihal" placeholder="Perihal" value="" required=""></td>
-                            </tr>
-                            <tr>
-                                <td><b>WAKTU MULA</b></td>
-                                <td>
-                                    <div class="bootstrap-timepicker">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <input id="txtWaktuMula" type="text" class="form-control">
-                                                <div class="input-group-addon">
-                                                <i class="fa fa-clock-o"></i>
+                <form id="frm-shift-add">
+                    <div class="modal-header" style="background-color: steelblue; color: white;">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title"><i class="fa fa-clock-o"></i> Tambah Waktu Bekerja</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td class="col-md-3"><b>NAMA WAKTU BERPERINGKAT</b></td>
+                                    <td><input class="form-control" type="text" name="txtPerihal" placeholder="Perihal" value="" required></td>
+                                </tr>
+                                <tr>
+                                    <td><b>WAKTU MULA</b></td>
+                                    <td>
+                                        <div class="bootstrap-timepicker">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input id="txtWaktuMula" name="txtWaktuMula" type="text" class="form-control" required>
+                                                    <div class="input-group-addon">
+                                                    <i class="fa fa-clock-o"></i>
+                                                    </div>
                                                 </div>
+                                            <!-- /.input group -->
                                             </div>
-                                        <!-- /.input group -->
+                                            <!-- /.form group -->
                                         </div>
-                                        <!-- /.form group -->
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>WAKTU TAMAT</b></td>
-                                <td>
-                                    <div class="bootstrap-timepicker">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <input id="txtWaktuTamat" type="text" class="form-control">
-                                                <div class="input-group-addon">
-                                                <i class="fa fa-clock-o"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>WAKTU TAMAT</b></td>
+                                    <td>
+                                        <div class="bootstrap-timepicker">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input id="txtWaktuTamat" name="txtWaktuTamat" type="text" class="form-control" required>
+                                                    <div class="input-group-addon">
+                                                    <i class="fa fa-clock-o"></i>
+                                                    </div>
                                                 </div>
+                                            <!-- /.input group -->
                                             </div>
-                                        <!-- /.input group -->
+                                            <!-- /.form group -->
                                         </div>
-                                        <!-- /.form group -->
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-link" style="color:#dd4b39;" data-dismiss="modal">BATAL</button>
-                    <button type="button" class="btn btn-success">SIMPAN</button>
-                </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-link" style="color:#dd4b39;" data-dismiss="modal">BATAL</button>
+                        <button type="submit" class="btn btn-success">SIMPAN</button>
+                    </div>
+                </form>
             </div>
             <!-- /.modal-content -->
             </div>
@@ -303,7 +305,62 @@
             }
 
             $('#waktu_bekerja_content').on('click', '#top-btn-wp-add', function(e){                
-                $('#modal-shift').modal();
+                $('#modal-shift-add').modal();
+            });
+
+            $('#modal-shift-add').on('submit', '#frm-shift-add', function(e) {
+                e.preventDefault();
+                
+                var formData = new FormData(this);
+
+                swal({
+                    title: 'Amaran!',
+                    text: 'Anda pasti untuk menambah maklumat ini?',
+                    type: 'warning',
+                    cancelButtonText: 'Tidak',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya!',
+                    showLoaderOnConfirm: true,
+                    allowOutsideClick: () => !swal.isLoading(),
+                    preConfirm: () => {
+                        return new Promise((resolve,reject) => {
+                            $.ajax({
+                                method: 'post',
+                                data: formData,
+                                cache       : false,
+                                contentType : false,
+                                processData : false,
+                                url: base_url+'rpc/waktu_bekerja',
+                                success: function(data, extStatus, jqXHR) {
+                                    resolve({value: true});
+                                },
+                                error: function(jqXHR, textStatus, errorThrown) {
+                                    reject(textStatus);
+                                },
+                                statusCode: login()
+                            });
+                        })
+                    }
+                }).then((result) => {
+                    e.target.txtPerihal.value = '';
+
+                    if (result.value) {
+                        swal({
+                            title: 'Berjaya!',
+                            text: 'Maklumat telah dikemaskini',
+                            type: 'success'
+                        });
+                        
+                        populateDg(base_url+'rpc/waktu_bekerja','#waktu_bekerja_content')
+                        $('#modal-shift-add').modal('hide');
+                    }
+                }).catch(function (error) {
+                    swal({
+                        title: 'Ralat!',
+                        text: 'Aktiviti tidak berjaya!. Sila berhubung dengan Pentadbir sistem',
+                        type: 'error'
+                    });
+                });
             });
 
             $('#waktu_bekerja_content').on('click', '#top-btn-wp-delete', function(e){
