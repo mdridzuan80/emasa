@@ -207,7 +207,7 @@ class FinalAttendanceService
                     return Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB;
                 }
             } else {
-                if (is_null($checkIn) || $this->isLate($checkIn, $shift) || is_null($checkOut)) {
+                if (is_null($checkIn) || $this->isLate($checkIn, $shift) || is_null($checkOut) || $this->isEarly($checkIn, $checkOut, $shift)) {
                     return Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB;
                 }
             }
@@ -225,18 +225,6 @@ class FinalAttendanceService
             $tarikh->dayOfWeek == Carbon::SUNDAY;
     }
 
-    /* public function isEarly($check_out, $shift)
-    {
-        if (!$check_out) {
-            return $this->statusLewat = false;
-        }
-
-        $rulePunchIn = Carbon::parse($check_in->toDateString() . " " . $shift->check_in->toTimeString());
-        $paramBenarLewat = (int)Parameter::where('kod', 'P_BENAR_LEWAT')->first()->nilai;
-
-        return $this->statusLewat = $check_in->gte($rulePunchIn->addMinutes($paramBenarLewat));
-    } */
-
     public function isLate($check_in, $shift)
     {
         if (!$check_in) {
@@ -247,6 +235,15 @@ class FinalAttendanceService
         $paramBenarLewat = (int) Parameter::where('kod', 'P_BENAR_LEWAT')->first()->nilai;
 
         return $this->statusLewat = $check_in->gte($rulePunchIn->addMinutes($paramBenarLewat));
+    }
+
+    public function isEarly($check_in, $check_out, $shift)
+    {
+        if (!$check_in || $this->statusLewat) {
+            return $this->statusAwal = $check_out->gte(Carbon::parse($check_out->toDateString() . " " . $shift->check_out->toTimeString()));
+        } else if ($check_out) {
+            return $this->statusAwal = $check_in->floatDiffInMinutes(Carbon::parse($check_out->toDateString() . " " . $shift->check_out->toTimeString())) >= (60 * 9);
+        }
     }
 
     public function janaFinalAttendance($profil, $preData, $shift)
