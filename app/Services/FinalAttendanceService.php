@@ -242,7 +242,7 @@ class FinalAttendanceService
         if (!$check_in || $this->statusLewat) {
             return $this->statusAwal = $check_out->gte(Carbon::parse($check_out->toDateString() . " " . $shift->check_out->toTimeString()));
         } else if ($check_out) {
-            return $this->statusAwal = $check_in->diffInMinutes(Carbon::parse($check_out->toDateString() . " " . $shift->check_out->toTimeString())) >= (60 * 9);
+            return $this->statusAwal = $check_in->diffInMinutes($check_out) < (60 * 9);
         }
     }
 
