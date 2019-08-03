@@ -2,6 +2,7 @@
 
 namespace App\Transformers;
 
+use App\Kehadiran;
 use League\Fractal\TransformerAbstract;
 
 class Event extends TransformerAbstract
@@ -13,10 +14,20 @@ class Event extends TransformerAbstract
             'start' => $event['start'],
             'end' => $event['end'],
             'allDay' => ($event['allDay'] === 'true') ? true : false,
-            'color' => $event['color'],
+            'color' => $this->colorTS($event),
             'textColor' => $event['textColor'],
             'scheme_id' => $event['id'],
             'scheme' => $event['table_name'],
+            'tatatertib_flag' => $event['tatatertib_flag'] ?? Kehadiran::FLAG_TATATERTIB_CLEAR,
         ];
+    }
+
+    public function colorTS($event)
+    {
+        if (isset($event['tatatertib_flag']) && $event['tatatertib_flag'] == Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB) {
+            return 'Red';
+        }
+
+        return $event['color'];
     }
 }

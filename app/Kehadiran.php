@@ -47,7 +47,7 @@ class Kehadiran extends Eventable
 
     public function scopeEvents($query)
     {
-        return $query->select(DB::raw('CONCAT(\'IN : \', checktime, "\n", \' OUT : -\') as \'title\''), DB::raw('\'' . today() . '\' as \'start\''), DB::raw('\'' . today() . '\' as \'end\''), DB::raw('\'true\' as \'allDay\''), DB::raw('\'#dcf442\' as \'color\''), DB::raw('\'#000\' as \'textColor\''), DB::raw('0 as \'id\''), DB::raw('\'' . Eventable::CURRENTATT . '\' as \'table_name\''));
+        return $query->select(DB::raw('CONCAT(\'IN : \', checktime, "\n", \' OUT : -\') as \'title\''), DB::raw('\'C\' as \'tatatertib_flag\''), DB::raw('\'' . today() . '\' as \'start\''), DB::raw('\'' . today() . '\' as \'end\''), DB::raw('\'true\' as \'allDay\''), DB::raw('\'#dcf442\' as \'color\''), DB::raw('\'#000\' as \'textColor\''), DB::raw('0 as \'id\''), DB::raw('\'' . Eventable::CURRENTATT . '\' as \'table_name\''));
     }
 
     public function scopeToday($query)
