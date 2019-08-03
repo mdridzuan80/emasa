@@ -16,7 +16,7 @@ class Anggota extends BaseModel
 
     public function __construct()
     {
-        $this->table = config('pcrs.machineDB') . 'userinfo';
+        $this->table = 'userinfo';
         $this->primaryKey = 'userid';
         $this->setDateFormat(config('pcrs.modelDateFormat'));
     }
