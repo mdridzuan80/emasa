@@ -51,10 +51,11 @@ class KalendarController extends BaseController
 
         $events = $checkinout->merge($cuti)->merge($acara);
 
-        if ($checkIn = optional($profil->kehadiran()->events()->whereBetween('CHECKTIME', [today()->addHours(4), today()->addHours(13)])->first())->toArray())
+        if ($checkIn = optional($profil->kehadiran()->events()->whereBetween('CHECKTIME', [today()->addHours(4), today()->addHours(13)])->first())->toArray()) {
             $events = $events->push($checkIn);
-        else
+        } else {
             $events->push(Kehadiran::itemEventableNone());
+        }
 
         $resource = new Collection($events, $event);
         $transform = $fractal->createData($resource);
