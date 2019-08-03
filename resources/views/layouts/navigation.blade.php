@@ -17,6 +17,13 @@
           </a>
         </li>
         @endcan
+        @can('view-laporan')
+        <li class="{{ pcrsMenuActiveCondition('laporancontroller_index', $collection->get('activeMenu')) }}">
+          <a href="{{ route('laporan') }}">
+            <i class="fa fa-book"></i></i> <span>Laporan</span>
+          </a>
+        </li>
+        @endcan
         @can('view-setting')
         <li class="{{ pcrsMenuActiveCondition('konfigurasicontroller_index', $collection->get('activeMenu')) }}">
           <a href="{{ route('konfigurasi') }}">

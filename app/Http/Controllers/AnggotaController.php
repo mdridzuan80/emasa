@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Utility;
 use App\Anggota;
-use App\XtraAnggota;
 use League\Fractal\Manager;
 use App\Base\BaseController;
 use Illuminate\Http\Request;

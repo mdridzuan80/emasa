@@ -2,7 +2,7 @@
 <div class="table-responsive">
     @foreach ($events as $event)
         @if ($event instanceof App\Cuti)
-        <div class="callout callout-warning">
+        <div class="callout callout-warning" title="Cuti Umum">
             <h4>CUTI UMUM : {{ $event->title }}</h4>
         </div>
         @endif

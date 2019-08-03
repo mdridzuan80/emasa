@@ -40,6 +40,9 @@ class PcrsGate
         Gate::define('view-flow-profil', $this->minPrivilege(Role::KETUA_KERANI));
         Gate::define('edit-flow-profil', $this->minPrivilege(Role::KETUA_KERANI));
 
+        //Laporan
+        Gate::define('view-laporan', $this->minPrivilege(Role::KETUA_KERANI));
+
         // Konfigurasi
         Gate::define('view-setting', $this->minPrivilege(Role::KETUA_KERANI));
         Gate::define('view-flow-bahagian-setting', $this->minPrivilege(Role::KETUA_KERANI));

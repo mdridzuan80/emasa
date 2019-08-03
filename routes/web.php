@@ -30,6 +30,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/pengguna', 'PenggunaController@index')->name('pengguna');
     });
 
+    Route::middleware('can:view-laporan')->group(function () {
+        Route::get('/laporan', 'LaporanController@index')->name('laporan');
+        Route::prefix('laporan')->group(function () {
+            Route::get('/harian', 'LaporanController@harian');
+        });
+    });
+
     Route::middleware('can:view-setting')->group(function () {
         Route::get('/konfigurasi', 'KonfigurasiController@index')->name('konfigurasi');
     });
@@ -50,10 +57,11 @@ Route::middleware('auth')->group(function () {
         // Anggota
         Route::post('/anggota_grid', 'AnggotaController@rpcAnggotaGrid')->middleware('can:view-anggota');
         Route::post('/anggota_penilai_grid', 'AnggotaController@rpcAnggotaPenilaiGrid')->middleware('can:view-anggota');
-        Route::get('/anggota/{profil}', 'AnggotaController@rpcShow')->middleware('can:view-profil');
-        Route::post('/anggota/{profil}', 'AnggotaController@rpcUpdate')->middleware('can:edit-profil');
 
         Route::prefix('anggota')->group(function () {
+            Route::get('/{profil}', 'AnggotaController@rpcShow')->middleware('can:view-profil');
+            Route::post('/{profil}', 'AnggotaController@rpcUpdate')->middleware('can:edit-profil');
+
             // Waktu Berperingkat
             Route::get('/waktu_bekerja/{profil}', 'WaktuBerperingkatController@rpcIndex')->middleware('can:view-waktu_bekerja');
             Route::get('/waktu_bekerja_bulanan/{profil}/{tahun}', 'WaktuBerperingkatController@rpcBulanan')->middleware('can:view-waktu_bekerja');
@@ -90,6 +98,10 @@ Route::middleware('auth')->group(function () {
             Route::get('/{profil}/acara/create', 'KalendarController@rpcEventAnggotaCreate');
             Route::post('/{profil}/acara', 'KalendarController@rpcEventAnggotaStore');
             Route::get('/{profil}/acara/{tarikh}', 'KalendarController@rpcEventAnggotaShow2');
+        });
+
+        Route::prefix('laporan')->group(function () {
+            Route::post('/harian', 'LaporanController@rpcHarian')->middleware('can:view-laporan');
         });
 
         Route::prefix('konfigurasi')->group(function () {

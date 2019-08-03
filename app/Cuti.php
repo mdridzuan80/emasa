@@ -4,7 +4,6 @@ namespace App;
 
 use App\Abstraction\Eventable;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Model;
 
 class Cuti extends Eventable
 {

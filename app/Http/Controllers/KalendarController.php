@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-Use Auth;
+use Auth;
 use App\Cuti;
 use App\Acara;
 use App\Anggota;
