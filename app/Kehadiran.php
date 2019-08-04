@@ -27,6 +27,13 @@ class Kehadiran extends Eventable
     const FLAG_KESALAHAN_NONEMIN = 'NONEMIN';
     const FLAG_KESALAHAN_NONEMOUT = 'NONEMOUT';
 
+    const BUTTON_TEXT = [
+        'NONEIN' => 'Tidak Punch-In',
+        'NONEOUT' => 'Tidak Punch-Out',
+        'LEWAT' => 'Datang Lewat',
+        'AWAL' => 'Pulang Awal',
+    ];
+
     protected $dateFormat = 'Y-m-d H:i:s';
     protected $dates = ['checktime'];
 

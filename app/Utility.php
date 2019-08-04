@@ -62,12 +62,14 @@ class Utility
         $kesalahan = json_decode($data, true);
 
         if (in_array(Kehadiran::FLAG_KESALAHAN_NONEIN, $kesalahan)) {
-            return "Tidak Punch-In";
+            return Kehadiran::FLAG_KESALAHAN_NONEIN;
         }
 
         if (in_array(Kehadiran::FLAG_KESALAHAN_LEWAT, $kesalahan)) {
-            return "Datang Awal";
+            return Kehadiran::FLAG_KESALAHAN_LEWAT;
         }
+
+        return Kehadiran::FLAG_KESALAHAN_NONE;
     }
 
     public static function kesalahanCheckOut($data)
@@ -75,13 +77,13 @@ class Utility
         $kesalahan = json_decode($data, true);
 
         if (in_array(Kehadiran::FLAG_KESALAHAN_NONEOUT, $kesalahan)) {
-            return "Tidak Punch-Out";
+            return Kehadiran::FLAG_KESALAHAN_NONEOUT;
         }
 
         if (in_array(Kehadiran::FLAG_KESALAHAN_AWAL, $kesalahan)) {
-            return "Pulang Awal";
+            return Kehadiran::FLAG_KESALAHAN_AWAL;
         }
 
-        return "-";
+        return Kehadiran::FLAG_KESALAHAN_NONE;
     }
 }

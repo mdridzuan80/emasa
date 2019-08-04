@@ -16,7 +16,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <div class="box-body table-responsive no-padding">
+                    <div class="box-body no-padding">
                     <table class="table table-hover">
                         <tr>
                             <th>CHECK-IN</th>
@@ -29,8 +29,8 @@
 
                         @if ($event->tatatertib_flag == $Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB)
                             <tr>
-                                <td>{{ $Utility::kesalahanCheckIn($event->kesalahan) }}</td>
-                                <td>{{ $Utility::kesalahanCheckOut($event->kesalahan) }}</td>
+                                <td>{!! ($Utility::kesalahanCheckIn($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE) ? '<button id="btn-justifikasi-pagi" class="btn btn-default btn-flat"><i class="fa fa-send "></i> Justifikasi ' . $Kehadiran::BUTTON_TEXT[$Utility::kesalahanCheckIn($event->kesalahan)] . '</button>' : '-' !!}</td>
+                                <td>{!! ($Utility::kesalahanCheckOut($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE) ? '<button id="btn-justifikasi-petang" class="btn btn-default btn-flat"><i class="fa fa-send "></i> Justifikasi '. $Kehadiran::BUTTON_TEXT[$Utility::kesalahanCheckOut($event->kesalahan)] . '</button>' : '-' !!}</td>
                             </tr>
                         @endif
 

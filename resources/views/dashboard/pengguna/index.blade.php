@@ -89,14 +89,14 @@
             var cal = $('#calendar').fullCalendar({
                 firstDay: 1,
                 showNonCurrentDates: false,
-                customButtons: {
+                /* customButtons: {
                     myCustomButton: {
                         text: 'Tambah Aktiviti',
                         click: function() {
                             $('#modal-default').modal({backdrop: 'static',});
                         }
                     }
-                },
+                }, */
                 header: {
                     right: 'myCustomButton prev,today,next'
                 },
