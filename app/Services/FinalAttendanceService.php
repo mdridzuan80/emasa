@@ -80,6 +80,7 @@ class FinalAttendanceService
     {
         return (object) [
             'anggota_id' => $profil->userid,
+            'basedept_id' => $profil->xtraAttr->basedept_id,
             'tarikh' => $tarikh,
             'check_in' => $check_in = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_IN, $profil->ZIP),
             'check_out' => $check_out = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_OUT, $profil->ZIP),

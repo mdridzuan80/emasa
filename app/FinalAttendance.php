@@ -9,6 +9,7 @@ class FinalAttendance extends Eventable
 {
     protected $fillable = [
         'anggota_id',
+        'basedept_id',
         'tarikh',
         'shift_id',
         'check_in',
