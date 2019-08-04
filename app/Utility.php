@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Kehadiran;
 use Illuminate\Support\Collection;
 
 class Utility
@@ -16,7 +17,7 @@ class Utility
         $branch = [];
 
         foreach ($elements as $element) {
-            if ((int)$element->supdeptid === (int)$parentId) {
+            if ((int) $element->supdeptid === (int) $parentId) {
                 $branch[] = $element->deptid;
                 $c = SELF::pcrsRelatedDepartment($elements, $element->deptid);
                 if ($c) {
@@ -50,9 +51,37 @@ class Utility
     public static function array2object($data)
     {
         if (is_array($data)) {
-            $data = (object)$data;
+            $data = (object) $data;
         }
 
         return $data;
+    }
+
+    public static function kesalahanCheckIn($data)
+    {
+        $kesalahan = json_decode($data, true);
+
+        if (in_array(Kehadiran::FLAG_KESALAHAN_NONEIN, $kesalahan)) {
+            return "Tidak Punch-In";
+        }
+
+        if (in_array(Kehadiran::FLAG_KESALAHAN_LEWAT, $kesalahan)) {
+            return "Datang Awal";
+        }
+    }
+
+    public static function kesalahanCheckOut($data)
+    {
+        $kesalahan = json_decode($data, true);
+
+        if (in_array(Kehadiran::FLAG_KESALAHAN_NONEOUT, $kesalahan)) {
+            return "Tidak Punch-Out";
+        }
+
+        if (in_array(Kehadiran::FLAG_KESALAHAN_AWAL, $kesalahan)) {
+            return "Pulang Awal";
+        }
+
+        return "-";
     }
 }

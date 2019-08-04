@@ -1,4 +1,6 @@
 @inject('Utility', 'App\Utility')
+@inject('Kehadiran', 'App\Kehadiran')
+
 <div class="table-responsive">
     @foreach ($events as $event)
         @if ($event instanceof App\Cuti)
@@ -17,13 +19,21 @@
                     <div class="box-body table-responsive no-padding">
                     <table class="table table-hover">
                         <tr>
-                        <th>CHECK-IN</th>
-                        <th>CHECK-OUT</th>
+                            <th>CHECK-IN</th>
+                            <th>CHECK-OUT</th>
                         </tr>
                         <tr>
-                        <td>{{ (preg_split('/\r\n|\r|\n/', optional($Utility::array2object($event))->title)[0]) ? explode(':', preg_split('/\r\n|\r|\n/', optional($Utility::array2object($event))->title)[0], 2)[1] : explode(':', preg_split('/\r\n|\r|\n/', $Utility::array2object($event)->title)[0], 2)[1] }}</td>
-                        <td>{{ (isset(preg_split('/\r\n|\r|\n/', optional($Utility::array2object($event))->title)[1])) ? explode(':', preg_split('/\r\n|\r|\n/', optional($Utility::array2object($event))->title)[1], 2)[1] : explode(':', preg_split('/\r\n|\r|\n/', $Utility::array2object($event)->title)[1], 2)[1] }}</td>
+                            <td>{{ (preg_split('/\r\n|\r|\n/', optional($Utility::array2object($event))->title)[0]) ? explode(':', preg_split('/\r\n|\r|\n/', optional($Utility::array2object($event))->title)[0], 2)[1] : explode(':', preg_split('/\r\n|\r|\n/', $Utility::array2object($event)->title)[0], 2)[1] }}</td>
+                            <td>{{ (isset(preg_split('/\r\n|\r|\n/', optional($Utility::array2object($event))->title)[1])) ? explode(':', preg_split('/\r\n|\r|\n/', optional($Utility::array2object($event))->title)[1], 2)[1] : explode(':', preg_split('/\r\n|\r|\n/', $Utility::array2object($event)->title)[1], 2)[1] }}</td>
                         </tr>
+
+                        @if ($event->tatatertib_flag == $Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB)
+                            <tr>
+                                <td>{{ $Utility::kesalahanCheckIn($event->kesalahan) }}</td>
+                                <td>{{ $Utility::kesalahanCheckOut($event->kesalahan) }}</td>
+                            </tr>
+                        @endif
+
                     </table>
                     </div>
                 </div>
