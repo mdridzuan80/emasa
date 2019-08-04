@@ -1,6 +1,7 @@
-<?php namespace App;
+<?php
 
-use Illuminate\Http\Request;
+namespace App;
+
 use Illuminate\Database\Eloquent\Model;
 
 class XtraAnggota extends Model
