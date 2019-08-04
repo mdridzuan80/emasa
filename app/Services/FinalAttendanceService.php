@@ -13,7 +13,6 @@ use App\FinalAttendance;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
-
 class FinalAttendanceService
 {
     private $statusLewat = false;
@@ -86,7 +85,8 @@ class FinalAttendanceService
             'check_out' => $check_out = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_OUT, $profil->ZIP),
             'check_in_mid' => $check_min = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_MIN, $profil->ZIP),
             'check_out_mid' => $check_mout = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_MOUT, $profil->ZIP),
-            'tatatertib_flag' => $this->getFlag($profil, $tarikh, $check_in, $check_out, $check_min, $check_mout, $cuti, $shift),
+            'kesalahan' => json_encode($kesalahan = $this->getKesalahan($profil, $tarikh, $check_in, $check_out, $check_min, $check_mout, $cuti, $shift)),
+            'tatatertib_flag' => $this->getFlag($kesalahan),
             'shift_id' => $shift->id,
         ];
     }
@@ -161,55 +161,51 @@ class FinalAttendanceService
         $kesalahan = [];
 
         if ($this->isCuti($tarikh, $cuti)) {
-            return json_encode($kesalahan);
+            return $kesalahan;
         }
 
-        if ($profil->ZIP) {
-            if (is_null($checkIn)) {
-                $kesalahan[] = Kehadiran::FLAG_KESALAHAN_NONEIN;
-            }
-
-            if (is_null($checkOut)) {
-                $kesalahan[] = Kehadiran::FLAG_KESALAHAN_NONEOUT;
-            }
-
-            if (is_null($checkMin)) {
-                $kesalahan[] = Kehadiran::FLAG_KESALAHAN_NONEMIN;
-            }
-
-            if (is_null($checkMout)) {
-                $kesalahan[] = Kehadiran::FLAG_KESALAHAN_NONEMOUT;
-            }
-
-            if ($this->isLate($checkIn, $shift)) {
-                $kesalahan[] = Kehadiran::FLAG_KESALAHAN_LEWAT;
-            }
-
-            return json_encode($kesalahan);
+        if (($salah = $this->calcKesalahanPagi($checkIn, $shift)) != Kehadiran::FLAG_KESALAHAN_NONE) {
+            $kesalahan[] = $salah;
         }
 
-        if (is_null($checkIn)) {
-            $kesalahan[] = Kehadiran::FLAG_KESALAHAN_NONEIN;
+        if (($salah = $this->calcKesalahanPetang($checkIn, $checkOut, $shift)) != Kehadiran::FLAG_KESALAHAN_NONE) {
+            $kesalahan[] = $salah;
         }
 
-        if (is_null($checkOut)) {
-            $kesalahan[] = Kehadiran::FLAG_KESALAHAN_NONEOUT;
-        }
-
-        return json_encode($kesalahan);
+        return $kesalahan;
     }
 
-    public function getFlag($profil, $tarikh, $checkIn, $checkOut, $checkMin, $checkMout, $cuti, $shift)
+    public function calcKesalahanPagi($checkIn, $shift)
     {
-        if (!$this->isCuti($tarikh, $cuti)) {
-            if ($profil->ZIP) {
-                if ((is_null($checkIn) || is_null($checkOut)) && (is_null($checkMin) || is_null($checkMout)) && $this->isLate($checkIn, $shift)) {
-                    return Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB;
-                }
-            } else {
-                if (is_null($checkIn) || $this->isLate($checkIn, $shift) || is_null($checkOut) || $this->isEarly($checkIn, $checkOut, $shift)) {
-                    return Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB;
-                }
+        if (!$checkIn) {
+            return Kehadiran::FLAG_KESALAHAN_NONEIN;
+        }
+
+        if ($this->isLate($checkIn, $shift)) {
+            return Kehadiran::FLAG_KESALAHAN_LEWAT;;
+        }
+
+        return Kehadiran::FLAG_KESALAHAN_NONE;
+    }
+
+    public function calcKesalahanPetang($checkIn, $checkOut, $shift)
+    {
+        if (!$checkOut) {
+            return Kehadiran::FLAG_KESALAHAN_NONEOUT;
+        }
+
+        if ($this->isEarly($checkIn, $checkOut, $shift)) {
+            return Kehadiran::FLAG_KESALAHAN_AWAL;
+        }
+
+        return Kehadiran::FLAG_KESALAHAN_NONE;
+    }
+
+    public function getFlag($kesalahan)
+    {
+        foreach ($kesalahan as $salah) {
+            if ($salah != Kehadiran::FLAG_KESALAHAN_NONE) {
+                return Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB;
             }
         }
 
@@ -242,7 +238,7 @@ class FinalAttendanceService
         if (!$check_in || $this->statusLewat) {
             return $this->statusAwal = $check_out->gte(Carbon::parse($check_out->toDateString() . " " . $shift->check_out->toTimeString()));
         } else if ($check_out) {
-            return $this->statusAwal = $check_in->diffInMinutes($check_out) < (60 * 9);
+            return $this->statusAwal = $check_in->diffInSeconds($check_out) < (60 * 60 * 9);
         }
     }
 

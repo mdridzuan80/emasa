@@ -2,25 +2,24 @@
 
 namespace App;
 
+use DB;
 use Carbon\Carbon;
 use App\Abstraction\Eventable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Model;
 use CoenJacobs\EloquentCompositePrimaryKeys\HasCompositePrimaryKey;
 
 class Kehadiran extends Eventable
 {
     use HasCompositePrimaryKey;
 
-    //const FLAG_SMS = 0;
     const PUNCH_IN = "IN";
-    //const FLAG_NON_SMS = 1;
     const PUNCH_OUT = "OUT";
     const PUNCH_MIN = "MIN";
     const PUNCH_MOUT = "MOUT";
+
     const FLAG_TATATERTIB_CLEAR = "C";
     const FLAG_TATATERTIB_TUNJUK_SEBAB = "TS";
 
+    const FLAG_KESALAHAN_NONE = 'NONE';
     const FLAG_KESALAHAN_LEWAT = 'LEWAT';
     const FLAG_KESALAHAN_AWAL = 'AWAL';
     const FLAG_KESALAHAN_NONEIN = 'NONEIN';

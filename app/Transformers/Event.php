@@ -18,6 +18,7 @@ class Event extends TransformerAbstract
             'textColor' => $event['textColor'],
             'scheme_id' => $event['id'],
             'scheme' => $event['table_name'],
+            'kesalahan' => $event['kesalahan'] ?? json_encode([]),
             'tatatertib_flag' => $event['tatatertib_flag'] ?? Kehadiran::FLAG_TATATERTIB_CLEAR,
         ];
     }
