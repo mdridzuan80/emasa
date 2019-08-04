@@ -86,7 +86,7 @@ class FinalAttendanceService
             'check_out' => $check_out = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_OUT, $profil->ZIP),
             'check_in_mid' => $check_min = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_MIN, $profil->ZIP),
             'check_out_mid' => $check_mout = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_MOUT, $profil->ZIP),
-            'kesalahan' => json_encode($kesalahan = $this->getKesalahan($profil, $tarikh, $check_in, $check_out, $check_min, $check_mout, $cuti, $shift)),
+            'kesalahan' => json_encode($kesalahan = $this->getKesalahan($tarikh, $check_in, $check_out, $cuti, $shift)),
             'tatatertib_flag' => $this->getFlag($kesalahan),
             'shift_id' => $shift->id,
         ];
@@ -157,7 +157,7 @@ class FinalAttendanceService
         return null;
     }
 
-    public function getKesalahan($profil, $tarikh, $checkIn, $checkOut, $checkMin, $checkMout, $cuti, $shift)
+    public function getKesalahan($tarikh, $checkIn, $checkOut, $cuti, $shift)
     {
         $kesalahan = [];
 
@@ -236,11 +236,13 @@ class FinalAttendanceService
 
     public function isEarly($check_in, $check_out, $shift)
     {
+        $rulePunchOut = Carbon::parse($check_out->toDateString() . " " . $shift->check_out->toTimeString());
+
         if (!$check_in || $this->statusLewat) {
-            return $this->statusAwal = $check_out->gte(Carbon::parse($check_out->toDateString() . " " . $shift->check_out->toTimeString()));
-        } else if ($check_out) {
-            return $this->statusAwal = $check_in->diffInSeconds($check_out) < (60 * 60 * 9);
+            return $this->statusAwal = $check_out->lte($rulePunchOut);
         }
+
+        return $this->statusAwal = $check_in->diffInSeconds($check_out) < (60 * 60 * 9);
     }
 
     public function janaFinalAttendance($profil, $preData, $shift)
