@@ -255,6 +255,11 @@
                 $(this).find('.modal-body').html('<h4><i class="fa fa-refresh fa-spin"></i> Loading...</h4>');
             });
 
+            $('#modal-acara-anggota').on('click', '.btn-justifikasi', function(e) {
+                var count = $('.btn-justifikasi');
+                alert(count.length);
+            });
+
             $('#cetak-laporan-bulanan').on('click', function(e) {
                 var tkhSemasaView = cal.fullCalendar('getDate');
                 var bulan = tkhSemasaView.format('MM');

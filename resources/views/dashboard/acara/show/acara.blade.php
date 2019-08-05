@@ -17,7 +17,7 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="box-body no-padding">
-                    <table class="table table-hover">
+                    <table class="table table-bordered">
                         <tr>
                             <th>CHECK-IN</th>
                             <th>CHECK-OUT</th>
@@ -27,10 +27,52 @@
                             <td>{{ (isset(preg_split('/\r\n|\r|\n/', optional($Utility::array2object($event))->title)[1])) ? explode(':', preg_split('/\r\n|\r|\n/', optional($Utility::array2object($event))->title)[1], 2)[1] : explode(':', preg_split('/\r\n|\r|\n/', $Utility::array2object($event)->title)[1], 2)[1] }}</td>
                         </tr>
 
+                        @php
+                            $kesalahan = json_decode($event->kesalahan, true);
+                        @endphp
+                        
                         @if ($event->tatatertib_flag == $Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB)
                             <tr>
-                                <td>{!! ($Utility::kesalahanCheckIn($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE) ? '<button id="btn-justifikasi-pagi" class="btn btn-default btn-flat"><i class="fa fa-send "></i> Justifikasi ' . $Kehadiran::BUTTON_TEXT[$Utility::kesalahanCheckIn($event->kesalahan)] . '</button>' : '-' !!}</td>
-                                <td>{!! ($Utility::kesalahanCheckOut($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE) ? '<button id="btn-justifikasi-petang" class="btn btn-default btn-flat"><i class="fa fa-send "></i> Justifikasi '. $Kehadiran::BUTTON_TEXT[$Utility::kesalahanCheckOut($event->kesalahan)] . '</button>' : '-' !!}</td>
+                                <td style="width: 50%;">
+                                    @if ($Utility::kesalahanCheckIn($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE)
+                                        <form id="frm-mohon-justifikasi-pagi" class="form-horizontal">
+                                            @if (sizeof($kesalahan) == 2)
+                                                <div class="col-sm-12">
+                                                    <input type="checkbox" name="chk-sama-petang" id="chk-sama-petang">
+                                                    Justifikasi sama untuk kedua-dua kesalahan
+                                                </div>
+                                            @endif
+                                            <div class="col-sm-12">
+                                                <textarea class="form-control" name="txt-justifikasi-pagi" id="" cols="30" rows="10"></textarea>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <button id="btn-justifikasi-pagi" class="btn btn-justifikasi btn-default btn-flat"><i class="fa fa-send "></i> Justifikasi {{ $Kehadiran::BUTTON_TEXT[$Utility::kesalahanCheckIn($event->kesalahan)] }} </button>
+                                            </div>
+                                        </form>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td style="width: 50%;">
+                                    @if ($Utility::kesalahanCheckOut($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE)
+                                        <form id="frm-mohon-justifikasi-petang" class="form-horizontal">
+                                            @if (sizeof($kesalahan) == 2)
+                                                <div class="col-sm-12">
+                                                    <input type="checkbox" name="chk-sama-petang" id="chk-sama-pagi">
+                                                    Justifikasi sama untuk kedua-dua kesalahan
+                                                </div>
+                                            @endif
+                                            <div class="col-sm-12">
+                                                <textarea class="form-control" name="txt-justifikasi-petang" id="" cols="30" rows="10"></textarea>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <button id="btn-justifikasi-petang" class="btn btn-justifikasi btn-default btn-flat"><i class="fa fa-send "></i> Justifikasi {{ $Kehadiran::BUTTON_TEXT[$Utility::kesalahanCheckOut($event->kesalahan)] }} </button>
+                                            </div>
+                                        </form>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                             </tr>
                         @endif
 
