@@ -1,5 +1,5 @@
 @extends('layouts.master')
-
+@inject('Justifikasi', 'App\Justifikasi')
 
 @section('content')
     <section class="content-header">
@@ -85,6 +85,13 @@
                 schema: '',
                 schema_id: ''
             };
+
+            var frmJustifikasi = {
+                    tarikh: '',
+                    sama: '{{ $Justifikasi::FLAG_JUSTIKASI_TIDAK_SAMA }}',
+                    medanKesalahan: '',
+                    alasan: ''
+                };
 
             var cal = $('#calendar').fullCalendar({
                 firstDay: 1,
@@ -245,8 +252,12 @@
              $('#modal-acara-anggota').on('show.bs.modal', function(e) {                
                 $.ajax({
                     url: base_url+'rpc/kalendar/{{ Auth::user()->anggota_id }}/acara/' + dateClick.format('YYYY-MM-DD'),
-                    success: (resp, textStatus, jqXHR) => {
+                    success: (resp, text, jqXHR) => {
                         $(this).find('.modal-body').html(resp);
+
+                        $.each($('.txt-tarikh'), (key, el) => {
+                            $(el).val(dateClick.format('YYYY-MM-DD')+' 00:00:00');                            
+                        });
                     }
                 });
             });
@@ -255,9 +266,45 @@
                 $(this).find('.modal-body').html('<h4><i class="fa fa-refresh fa-spin"></i> Loading...</h4>');
             });
 
-            $('#modal-acara-anggota').on('click', '.btn-justifikasi', function(e) {
+            /* $('#modal-acara-anggota').on('click', '.btn-justifikasi', function(e) {
                 var count = $('.btn-justifikasi');
                 alert(count.length);
+            }); */
+
+            $('#modal-acara-anggota').on('change', '#chk-sama-petang', function(e) {
+                e.preventDefault();
+                
+                if ($(this).is(':checked')) {
+                    return disableFormComponentPetang(true);
+                }
+
+                return disableFormComponentPetang(false);
+            });
+
+            $('#modal-acara-anggota').on('change', '#chk-sama-pagi', function(e) {
+                e.preventDefault();
+                
+                if ($(this).is(':checked')) {
+                    return disableFormComponentPagi(true);
+                }
+
+                return disableFormComponentPagi(false);
+            });
+
+            $('#modal-acara-anggota').on('submit', '#frm-mohon-justifikasi-pagi', function(e) {
+                e.preventDefault();
+                if ($(e.target['chk-sama-petang']).is(':checked')) {
+                    frmJustifikasi.sama = '{{ $Justifikasi::FLAG_JUSTIKASI_SAMA }}'
+                }
+                hantarJustifikasi(e);
+            });
+
+            $('#modal-acara-anggota').on('submit', '#frm-mohon-justifikasi-petang', function(e) {
+                e.preventDefault();
+                if ($(e.target['chk-sama-pagi']).is(':checked')) {
+                    frmJustifikasi.sama = '{{ $Justifikasi::FLAG_JUSTIKASI_SAMA }}'
+                }
+                hantarJustifikasi(e);
             });
 
             $('#cetak-laporan-bulanan').on('click', function(e) {
@@ -266,6 +313,71 @@
                 var tahun = tkhSemasaView.format('YYYY');
                 console.log(tahun);
             });
+
+            function disableFormComponentPetang(status) {
+                $('#frm-mohon-justifikasi-petang').trigger('reset');
+                $('#chk-sama-pagi').prop('disabled', status);
+                $('#txt-justifikasi-petang').prop('disabled', status);
+                $('#btn-justifikasi-petang').prop('disabled', status);
+            }
+
+            function disableFormComponentPagi(status) {
+                $('#frm-mohon-justifikasi-pagi').trigger('reset');
+                $('#chk-sama-petang').prop('disabled', status);
+                $('#txt-justifikasi-pagi').prop('disabled', status);
+                $('#btn-justifikasi-pagi').prop('disabled', status);
+            }
+
+            function hantarJustifikasi(e) {
+                frmJustifikasi.tarikh = e.target['txt-tarikh'].value;
+                frmJustifikasi.alasan = e.target['txt-justifikasi'].value;
+                frmJustifikasi.medanKesalahan = e.target['txt-medan-kesalahan'].value;
+
+                swal({
+                    title: 'Amaran!',
+                    text: 'Anda pasti untuk memohon justifikasi ini?',
+                    type: 'warning',
+                    cancelButtonText: 'Tidak',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya!',
+                    showLoaderOnConfirm: true,
+                    allowOutsideClick: () => !swal.isLoading(),
+                    preConfirm: () => {
+                        return new Promise((resolve,reject) => {
+                            $.ajax({
+                                method: 'POST',
+                                data: frmJustifikasi,
+                                url: base_url + 'rpc/justifikasi/{{Auth::user()->anggota_id}}',
+                                success: function(justifikasi, extStatus, jqXHR) {
+                                    resolve();
+                                },
+                                error: function(jqXHR, textStatus, errorThrown) {
+                                    reject(textStatus);
+                                },
+                                statusCode: login()
+                            });
+                        });
+                    }
+                }).then(() => {
+                    //if (result.value) {
+                        //cal.fullCalendar('refetchEvents');
+                        //cal.fullCalendar( 'renderEvent', result.value.acara);
+                        //$('#modal-default').modal('hide');
+
+                    swal({
+                        title: 'Berjaya!',
+                        text: 'Maklumat telah disimpan',
+                        type: 'success'
+                    });
+                    //}
+                }).catch((error) => {
+                    swal({
+                        title: 'Ralat!',
+                        text: "Operasi tidak berjaya!.\nSila berhubung dengan Pentadbir sistem",
+                        type: 'error'
+                    });
+                });
+            }
         });
     </script>
 @endsection

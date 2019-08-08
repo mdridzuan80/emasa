@@ -1,5 +1,6 @@
 @inject('Utility', 'App\Utility')
 @inject('Kehadiran', 'App\Kehadiran')
+@inject('Justifikasi', 'App\Justifikasi')
 
 <div class="table-responsive">
     @foreach ($events as $event)
@@ -36,17 +37,20 @@
                                 <td style="width: 50%;">
                                     @if ($Utility::kesalahanCheckIn($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE)
                                         <form id="frm-mohon-justifikasi-pagi" class="form-horizontal">
+                                            <input type="hidden" name="txt-tarikh" class="txt-tarikh">
+                                            <input type="hidden" name="txt-medan-kesalahan" value="{{ $Justifikasi::FLAG_MEDAN_KESALAHAN_PAGI }}">
+
                                             @if (sizeof($kesalahan) == 2)
                                                 <div class="col-sm-12">
-                                                    <input type="checkbox" name="chk-sama-petang" id="chk-sama-petang">
+                                                    <input type="checkbox" name="chk-sama-petang" id="chk-sama-petang" value="SAMA">
                                                     Justifikasi sama untuk kedua-dua kesalahan
                                                 </div>
                                             @endif
                                             <div class="col-sm-12">
-                                                <textarea class="form-control" name="txt-justifikasi-pagi" id="" cols="30" rows="10"></textarea>
+                                                <textarea class="form-control" name="txt-justifikasi" id="txt-justifikasi-pagi" cols="30" rows="10"></textarea>
                                             </div>
                                             <div class="col-sm-12">
-                                                <button id="btn-justifikasi-pagi" class="btn btn-justifikasi btn-default btn-flat"><i class="fa fa-send "></i> Justifikasi {{ $Kehadiran::BUTTON_TEXT[$Utility::kesalahanCheckIn($event->kesalahan)] }} </button>
+                                                <button id="btn-justifikasi-pagi" class="btn btn-justifikasi btn-default btn-flat" type="submit"><i class="fa fa-send "></i> Justifikasi {{ $Kehadiran::BUTTON_TEXT[$Utility::kesalahanCheckIn($event->kesalahan)] }} </button>
                                             </div>
                                         </form>
                                     @else
@@ -56,17 +60,19 @@
                                 <td style="width: 50%;">
                                     @if ($Utility::kesalahanCheckOut($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE)
                                         <form id="frm-mohon-justifikasi-petang" class="form-horizontal">
+                                            <input type="hidden" name="txt-tarikh" class="txt-tarikh">
+                                            <input type="hidden" name="txt-medan-kesalahan" value="{{ $Justifikasi::FLAG_MEDAN_KESALAHAN_PETANG }}">
                                             @if (sizeof($kesalahan) == 2)
                                                 <div class="col-sm-12">
-                                                    <input type="checkbox" name="chk-sama-petang" id="chk-sama-pagi">
+                                                    <input type="checkbox" name="chk-sama-pagi" id="chk-sama-pagi" value="SAMA">
                                                     Justifikasi sama untuk kedua-dua kesalahan
                                                 </div>
                                             @endif
                                             <div class="col-sm-12">
-                                                <textarea class="form-control" name="txt-justifikasi-petang" id="" cols="30" rows="10"></textarea>
+                                                <textarea class="form-control" name="txt-justifikasi" id="txt-justifikasi-petang" cols="30" rows="10"></textarea>
                                             </div>
                                             <div class="col-sm-12">
-                                                <button id="btn-justifikasi-petang" class="btn btn-justifikasi btn-default btn-flat"><i class="fa fa-send "></i> Justifikasi {{ $Kehadiran::BUTTON_TEXT[$Utility::kesalahanCheckOut($event->kesalahan)] }} </button>
+                                                <button id="btn-justifikasi-petang" class="btn btn-justifikasi btn-default btn-flat" type="submit"><i class="fa fa-send "></i> Justifikasi {{ $Kehadiran::BUTTON_TEXT[$Utility::kesalahanCheckOut($event->kesalahan)] }} </button>
                                             </div>
                                         </form>
                                     @else

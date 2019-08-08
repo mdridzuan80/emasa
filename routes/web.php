@@ -108,5 +108,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/flow_bahagian/{department}', 'KonfigurasiController@rpcFlowBahagianShow')->middleware('can:edit-flow-bahagian-setting');
             Route::post('/flow_bahagian/{department}', 'KonfigurasiController@rpcFlowBahagianUpdate')->middleware('can:edit-flow-bahagian-setting');
         });
+
+        // Justifikasi
+        Route::post('/justifikasi/{profil}', 'JustifikasiController@store');
     });
 });
