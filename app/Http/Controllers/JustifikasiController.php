@@ -11,7 +11,6 @@ class JustifikasiController extends Controller
     public function store(JustifikasiRequest $request, Anggota $profil)
     {
         if ($request->input('sama') == Justifikasi::FLAG_JUSTIKASI_SAMA) {
-            //
             $justifikasiPagi = new Justifikasi;
             $justifikasiPagi->simpan([
                 'basedept_id' => $profil->xtraAttr->basedept_id,
