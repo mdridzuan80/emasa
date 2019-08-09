@@ -19,7 +19,6 @@ class CreataJustifikasi extends Migration
             $table->datetime('tarikh');
             $table->text('keterangan');
             $table->string('medan_kesalahan');
-            $table->string('jenis_kesalahan');
             $table->string('flag_justifikasi')->default('TIDAK');
             $table->string('flag_kelulusan')->default('MOHON');
             $table->integer('pelulus_id')->nullable();

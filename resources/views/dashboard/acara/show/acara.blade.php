@@ -30,12 +30,14 @@
 
                         @php
                             $kesalahan = json_decode($event->kesalahan, true);
+                            $pagi = $event->justifikasi->where('medan_kesalahan', $Justifikasi::FLAG_MEDAN_KESALAHAN_PAGI)->first();
+                            $petang = $event->justifikasi->where('medan_kesalahan', $Justifikasi::FLAG_MEDAN_KESALAHAN_PETANG)->first();
                         @endphp
                         
                         @if ($event->tatatertib_flag == $Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB)
                             <tr>
                                 <td style="width: 50%;">
-                                    @if ($Utility::kesalahanCheckIn($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE)
+                                    @if (!$pagi && $Utility::kesalahanCheckIn($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE)
                                         <form id="frm-mohon-justifikasi-pagi" class="form-horizontal">
                                             <input type="hidden" name="txt-tarikh" class="txt-tarikh">
                                             <input type="hidden" name="txt-medan-kesalahan" value="{{ $Justifikasi::FLAG_MEDAN_KESALAHAN_PAGI }}">
@@ -54,11 +56,11 @@
                                             </div>
                                         </form>
                                     @else
-                                        -
+                                        {{ optional($pagi)->keterangan }}
                                     @endif
                                 </td>
                                 <td style="width: 50%;">
-                                    @if ($Utility::kesalahanCheckOut($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE)
+                                    @if (!$petang && $Utility::kesalahanCheckOut($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE)
                                         <form id="frm-mohon-justifikasi-petang" class="form-horizontal">
                                             <input type="hidden" name="txt-tarikh" class="txt-tarikh">
                                             <input type="hidden" name="txt-medan-kesalahan" value="{{ $Justifikasi::FLAG_MEDAN_KESALAHAN_PETANG }}">
@@ -76,7 +78,7 @@
                                             </div>
                                         </form>
                                     @else
-                                        -
+                                        {{ optional($petang)->keterangan }}
                                     @endif
                                 </td>
                             </tr>
