@@ -42,7 +42,7 @@
                                             <input type="hidden" name="txt-tarikh" class="txt-tarikh">
                                             <input type="hidden" name="txt-medan-kesalahan" value="{{ $Justifikasi::FLAG_MEDAN_KESALAHAN_PAGI }}">
 
-                                            @if (sizeof($kesalahan) == 2)
+                                            @if (!$petang && sizeof($kesalahan) == 2)
                                                 <div class="col-sm-12">
                                                     <input type="checkbox" name="chk-sama-petang" id="chk-sama-petang" value="SAMA">
                                                     Justifikasi sama untuk kedua-dua kesalahan
@@ -64,7 +64,7 @@
                                         <form id="frm-mohon-justifikasi-petang" class="form-horizontal">
                                             <input type="hidden" name="txt-tarikh" class="txt-tarikh">
                                             <input type="hidden" name="txt-medan-kesalahan" value="{{ $Justifikasi::FLAG_MEDAN_KESALAHAN_PETANG }}">
-                                            @if (sizeof($kesalahan) == 2)
+                                            @if (!$pagi && sizeof($kesalahan) == 2)
                                                 <div class="col-sm-12">
                                                     <input type="checkbox" name="chk-sama-pagi" id="chk-sama-pagi" value="SAMA">
                                                     Justifikasi sama untuk kedua-dua kesalahan
