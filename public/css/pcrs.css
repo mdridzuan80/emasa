@@ -21,3 +21,7 @@
     margin: 0 0 4px;
     font-weight: 700;
 }
+
+.show-read-more .seterusnya-text {
+    display: none !important;
+}

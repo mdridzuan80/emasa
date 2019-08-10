@@ -250,16 +250,7 @@
 
             // modal acara
              $('#modal-acara-anggota').on('show.bs.modal', function(e) {                
-                $.ajax({
-                    url: base_url+'rpc/kalendar/{{ Auth::user()->anggota_id }}/acara/' + dateClick.format('YYYY-MM-DD'),
-                    success: (resp, text, jqXHR) => {
-                        $(this).find('.modal-body').html(resp);
-
-                        $.each($('.txt-tarikh'), (key, el) => {
-                            $(el).val(dateClick.format('YYYY-MM-DD')+' 00:00:00');                            
-                        });
-                    }
-                });
+                detailAcara(this);
             });
 
             $('#modal-acara-anggota').on('hidden.bs.modal', function(e) {
@@ -275,6 +266,7 @@
                 e.preventDefault();
                 
                 if ($(this).is(':checked')) {
+
                     return disableFormComponentPetang(true);
                 }
 
@@ -311,7 +303,6 @@
                 var tkhSemasaView = cal.fullCalendar('getDate');
                 var bulan = tkhSemasaView.format('MM');
                 var tahun = tkhSemasaView.format('YYYY');
-                console.log(tahun);
             });
 
             function disableFormComponentPetang(status) {
@@ -332,6 +323,8 @@
                 frmJustifikasi.tarikh = e.target['txt-tarikh'].value;
                 frmJustifikasi.alasan = e.target['txt-justifikasi'].value;
                 frmJustifikasi.medanKesalahan = e.target['txt-medan-kesalahan'].value;
+
+                console.log(frmJustifikasi);
 
                 swal({
                     title: 'Amaran!',
@@ -359,17 +352,13 @@
                         });
                     }
                 }).then(() => {
-                    //if (result.value) {
-                        //cal.fullCalendar('refetchEvents');
-                        //cal.fullCalendar( 'renderEvent', result.value.acara);
-                        //$('#modal-default').modal('hide');
-
+                    $('#modal-acara-anggota').find('.modal-body').html('<h4><i class="fa fa-refresh fa-spin"></i> Loading...</h4>');
+                    detailAcara($('#modal-acara-anggota'));
                     swal({
                         title: 'Berjaya!',
                         text: 'Maklumat telah disimpan',
                         type: 'success'
                     });
-                    //}
                 }).catch((error) => {
                     swal({
                         title: 'Ralat!',
@@ -377,6 +366,35 @@
                         type: 'error'
                     });
                 });
+            }
+
+            function detailAcara(container) {
+                $.ajax({
+                    url: base_url+'rpc/kalendar/{{ Auth::user()->anggota_id }}/acara/' + dateClick.format('YYYY-MM-DD'),
+                    success: (resp, text, jqXHR) => {
+                        $(container).find('.modal-body').html(resp);
+
+                        $.each($('.txt-tarikh'), (key, el) => {
+                            $(el).val(dateClick.format('YYYY-MM-DD')+' 00:00:00');                            
+                        });
+
+                        var maxLength = 300;
+                        $(".show-read-more").each(function(){
+                            var myStr = $(this).text();
+                            if($.trim(myStr).length > maxLength){
+                                var newStr = myStr.substring(0, maxLength);
+                                var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
+                                $(this).empty().html(newStr);
+                                $(this).append(' <a href="javascript:void(0);" class="read-more">read more...</a>');
+                                $(this).append('<span class="seterusnya-text">' + removedStr + '</span>');
+                            }
+                        });
+                        $(".read-more").click(function(){
+                            $(this).siblings(".seterusnya-text").contents().unwrap();
+                            $(this).remove();
+                        });
+                    }
+                })
             }
         });
     </script>

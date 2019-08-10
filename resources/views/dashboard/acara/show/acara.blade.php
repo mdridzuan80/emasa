@@ -56,7 +56,11 @@
                                             </div>
                                         </form>
                                     @else
-                                        {{ optional($pagi)->keterangan }}
+                                        @if ($Utility::kesalahanCheckIn($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE)
+                                            <div>Kesalahan : {{ $Kehadiran::BUTTON_TEXT[$Utility::kesalahanCheckIn($event->kesalahan)] }}</div>
+                                            <div class="show-read-more">Alasan : {{ optional($pagi)->keterangan }}  </div>
+                                            <div>Status : {{ optional($pagi)->flag_kelulusan }}</div>
+                                        @endif
                                     @endif
                                 </td>
                                 <td style="width: 50%;">
@@ -78,12 +82,15 @@
                                             </div>
                                         </form>
                                     @else
-                                        {{ optional($petang)->keterangan }}
+                                        @if ($Utility::kesalahanCheckOut($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE)
+                                            <div>Kesalahan : {{ $Kehadiran::BUTTON_TEXT[$Utility::kesalahanCheckOut($event->kesalahan)] }}</div>
+                                            <div class="show-read-more">Alasan : {{ optional($petang)->keterangan }}</div>
+                                            <div>Status : {{ optional($petang)->flag_kelulusan }}</div>
+                                        @endif
                                     @endif
                                 </td>
                             </tr>
                         @endif
-
                     </table>
                     </div>
                 </div>
