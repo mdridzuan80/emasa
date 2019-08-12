@@ -5,9 +5,10 @@ namespace App;
 use Carbon\Carbon;
 use App\Base\BaseModel;
 use Illuminate\Http\Request;
+use App\Abstraction\Flowable;
 use Illuminate\Support\Facades\Auth;
 
-class Anggota extends BaseModel
+class Anggota extends BaseModel implements Flowable
 {
     const KEHADIRAN = 'kehadiran';
     const FINALKEHADIRAN = 'finalKehadiran';

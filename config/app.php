@@ -161,6 +161,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FinalAttendanceServiceProvider::class,
         App\Providers\WaktuBerperingkatServiceProvider::class,
+        App\Providers\FlowProvider::class,
     ],
 
     /*
@@ -211,5 +212,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'FinalAttendance' => App\Facades\FinalAttendanceFacade::class,
         'WaktuBerperingkat' => App\Facades\WaktuBerperingkatFacade::class,
+        'Flow' => App\Facades\FlowFacade::class,
     ],
 ];

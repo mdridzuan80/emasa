@@ -39,6 +39,7 @@
                                 <td style="width: 50%;">
                                     @if (!$pagi && $Utility::kesalahanCheckIn($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE)
                                         <form id="frm-mohon-justifikasi-pagi" class="form-horizontal">
+                                            <input type="hidden" name="txt-final-attendance-id" value="{{ $event->id }}">
                                             <input type="hidden" name="txt-tarikh" class="txt-tarikh">
                                             <input type="hidden" name="txt-medan-kesalahan" value="{{ $Justifikasi::FLAG_MEDAN_KESALAHAN_PAGI }}">
 
@@ -66,6 +67,7 @@
                                 <td style="width: 50%;">
                                     @if (!$petang && $Utility::kesalahanCheckOut($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE)
                                         <form id="frm-mohon-justifikasi-petang" class="form-horizontal">
+                                            <input type="hidden" name="txt-final-attendance-id" value="{{ $event->id }}">
                                             <input type="hidden" name="txt-tarikh" class="txt-tarikh">
                                             <input type="hidden" name="txt-medan-kesalahan" value="{{ $Justifikasi::FLAG_MEDAN_KESALAHAN_PETANG }}">
                                             @if (!$pagi && sizeof($kesalahan) == 2)
@@ -131,6 +133,5 @@
                 <!-- /.box-body -->
             </div>
         @endif
-
     @endforeach
 </div>

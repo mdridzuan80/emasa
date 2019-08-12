@@ -20,10 +20,6 @@ class WaktuBerperingkatService
             DB::transaction(function () use ($profil, $tkhMula, $tkhTamat, $bulan, $shift) {
                 $profil->shifts()->attach($shift, ['tkh_mula' => $tkhMula, 'tkh_tamat' => $tkhTamat]);
 
-                // Jika bulan yang dipilih lebih kecil dari bulan semasa
-                // jana semula final attendance
-                //dd($profil);
-
                 if ($bulan <= Carbon::now()->month) {
                     FinalAttendance::janaPersonelFinalAttendance($profil, $tkhMula, FinalAttendance::tarikhTamat($tkhTamat), $shift);
                 }

@@ -20,6 +20,10 @@ class Justifikasi extends Model
     const PUNCH_MIN = "MIN";
     const PUNCH_MOUT = "MOUT";
 
+    protected $dates = [
+        'tarikh',
+    ];
+
     public function __construct()
     {
         $this->table = 'justifikasi';
@@ -28,6 +32,7 @@ class Justifikasi extends Model
     public function simpan(array $data)
     {
         $this->basedept_id = $data['basedept_id'];
+        $this->final_attendance_id = $data['finalattendance_id'];
         $this->tarikh = $data['tarikh'];
         $this->medan_kesalahan = $data['medan_kesalahan'];
         $this->flag_justifikasi = $data['flag_justifikasi'];

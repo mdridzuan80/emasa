@@ -4,8 +4,9 @@ namespace App;
 
 use Auth;
 use App\Base\BaseModel;
+use App\Abstraction\Flowable;
 
-class Department extends BaseModel
+class Department extends BaseModel implements Flowable
 {
     public function __construct()
     {

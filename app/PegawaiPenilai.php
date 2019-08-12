@@ -20,7 +20,7 @@ class PegawaiPenilai extends Model
 
     public function personel()
     {
-        return $this->belongsTo(anggota::class);
+        return $this->belongsTo(anggota::class, 'anggota_id');
     }
 
     public function penilai()

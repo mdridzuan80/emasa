@@ -87,6 +87,7 @@
             };
 
             var frmJustifikasi = {
+                    finalAttendance: '',
                     tarikh: '',
                     sama: '{{ $Justifikasi::FLAG_JUSTIKASI_TIDAK_SAMA }}',
                     medanKesalahan: '',
@@ -320,11 +321,10 @@
             }
 
             function hantarJustifikasi(e) {
+                frmJustifikasi.finalAttendance = e.target['txt-final-attendance-id'].value;
                 frmJustifikasi.tarikh = e.target['txt-tarikh'].value;
                 frmJustifikasi.alasan = e.target['txt-justifikasi'].value;
                 frmJustifikasi.medanKesalahan = e.target['txt-medan-kesalahan'].value;
-
-                console.log(frmJustifikasi);
 
                 swal({
                     title: 'Amaran!',

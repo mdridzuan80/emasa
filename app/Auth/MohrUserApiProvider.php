@@ -21,7 +21,7 @@ class MohrUserApiProvider
                 'json' => ['user_id' => $username, 'password' => $credentials['password']],
             ]);
 
-            $response = $client->request('POST', 'ionic/index.php');
+            $response = $client->request('POST');
 
             return json_decode((string) $response->getBody());
         } catch (ClientException $e) {
