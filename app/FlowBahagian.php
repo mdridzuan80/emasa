@@ -2,13 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Abstraction\Flowly;
 
-class FlowBahagian extends Model
+class FlowBahagian extends Flowly
 {
     protected $table = 'flow_bahagian';
-
-    protected $fillable = ['flag', 'ubah_user_id'];
 
     public function __construct()
     {

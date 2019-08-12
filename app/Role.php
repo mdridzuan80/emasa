@@ -22,6 +22,11 @@ class Role extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function xtraAnggota()
+    {
+        return $this->belongsToMany(XtraAnggota::class);
+    }
+
     public function departments()
     {
         return $this->belongsToMany(Department::class, 'role_user', 'role_id', 'department_id');

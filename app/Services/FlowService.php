@@ -2,46 +2,45 @@
 
 namespace App\Services;
 
-use \App\Flow;
-use \App\Anggota;
-use App\XtraAnggota;
+use App\Flow;
+use App\RoleUser;
+use App\Abstraction\Flowly;
 use App\Abstraction\Flowable;
 
 class FlowService
 {
-    public function flowAnggota(Anggota $profil)
+    public function getFlowAnggota(Flowable $flowable)
     {
-        if ($flowAnggota = $this->getFlowAnggota($profil)) {
-            return $this->getFlow($flowAnggota);
+        $flow = $flowable->flow;
+
+        if (!$flow || $this->getFlow($flow) == Flow::INHERIT) {
+            return $this->getFlowBahagian($flowable->xtraAttr->baseDepartment);
         }
 
-        if ($flowBahagian = $profil->xtraAttr->baseDepartment->flow) {
-            return $this->getFlow($flowBahagian);
+        return $this->getFlow($flow);
+    }
+
+    public function getFlowBahagian(Flowable $flowable)
+    {
+        $flow = $flowable->flow;
+
+        if ($flow) {
+            return $this->getFlow($flow);
         }
 
         return Flow::BIASA;
     }
 
-    public function getFlowAnggota($profil)
+    public function getFlow(Flowly $flowly)
     {
-        $flowAnggota = $profil->flow;
-
-        if ($flowAnggota && $flowAnggota->flow != Flow::INHERIT) {
-            return $this->getFlow($flowAnggota);
-        }
-
-        return $flowAnggota;
-    }
-
-    public function getFlow(Flowable $flow)
-    {
-        return $flow->flag;
+        return $flowly->flag;
     }
 
     public function pelulus($profil)
     {
-        if ($this->flowAnggota($profil) == Flow::KETUA) {
-            return XtraAnggota::where('basedept_id', $profil->xtraAttr->basedept)->anggota;
+        if ($this->getFlowAnggota($profil) == Flow::KETUA) {
+            return RoleUser::where('department_id', $profil->xtraAttr->basedept_id)
+                ->where('role_id', 3)->first()->user->anggota;
         }
 
         return $profil->pegawaiYangMenilai()->where('pegawai_flag', 1)->first()->penilai;

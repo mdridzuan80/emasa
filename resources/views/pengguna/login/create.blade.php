@@ -21,8 +21,8 @@
                             </div>
                             <div class="radio">
                                 <label>
-                                <input class="rdoDomain" type="radio" name="opt-domain" id="melaka.gov" value="melaka.gov">
-                                melaka.gov
+                                <input class="rdoDomain" type="radio" name="opt-domain" id="mohr.gov.my" value="mohr.gov.my">
+                                mohr.gov.my
                                 </label>
                             </div>
                         </div>

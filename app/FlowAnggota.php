@@ -2,13 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Abstraction\Flowly;
 
-class FlowAnggota extends Model
+class FlowAnggota extends Flowly
 {
     protected $table = 'flow_anggota';
-
-    protected $fillable = ['flag', 'ubah_user_id'];
 
     public function __construct()
     {
