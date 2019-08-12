@@ -53,7 +53,7 @@
                 <tr>
                     <td>{{ $loop->index + 1 }}</td>
                     <td>{{ $role->name }}</td>
-                    <td>{{ $role->pivot->department->DEPTNAME }}</td>
+                    <td>{{ $role->pivot->department->deptname }}</td>
                     <td style="width:1px;">
                         @if ($role->key !== \App\Role::PENGGUNA)
                         <a title="Hapus Peranan" class="btn btn-danger btn-xs btn-hapus-peranan" data-role_user="{{ $role->pivot->id }}" href="#" style="margin: auto; display: block;"><i class="fa fa-trash-o"></i></a>

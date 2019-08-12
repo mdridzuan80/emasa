@@ -36,7 +36,10 @@ class PenggunaController extends BaseController
     public function rpcLoginStore(Anggota $profil, Request $request)
     {
         DB::transaction(function () use ($profil, $request) {
-            $login = User::firstOrNew(['username' => $request->input('opt-user'), 'anggota_id' => $profil->USERID]);
+            $login = User::firstOrNew([
+                'username' => $request->input('opt-user'),
+                'anggota_id' => $profil->USERID
+            ]);
             $login->simpanLogin($request, $profil);
         });
 

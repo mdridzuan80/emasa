@@ -67,7 +67,7 @@
                                                     @endcan
                                                     <li><a id="btn-flow-profil" href="#"><i class="fa fa-random"></i> Flow</a></li>
                                                     <li><a id="btn-man-login" href="#"><i class="fa fa-key"></i> Login</a></li>
-                                                    <li><a id="btn-arkib" href="#"><i class="fa fa-archive"></i> Arkib</a></li>
+                                                    <!-- <li><a id="btn-arkib" href="#"><i class="fa fa-archive"></i> Arkib</a></li> -->
                                                 </ul>
                                             </li>
                                         </ul>

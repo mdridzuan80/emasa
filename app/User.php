@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'anggota_id', 'name', 'username', 'password'
+        'email', 'anggota_id', 'name',
     ];
 
     /**
@@ -93,14 +93,14 @@ class User extends Authenticatable
 
     public function simpanLogin($request, $profil)
     {
-        $this->anggota_id = $profil->USERID;
-        $this->name = $request->input('txtName');
-        $this->username = ($request->has('opt-user')) ? $request->input('opt-user') : $profil->SSN;
-        $this->domain = ($request->input('opt-domain') !== 'internal') ? $this->username . '@' . $request->input('opt-domain') : 'internal';
+        $this->anggota_id = $profil->userid;
+        $this->name = $profil->xtraAttr->nama;
+        $this->username = $request->input('txtEmail');
+        $this->domain = 'internal';
         $this->password = bcrypt($request->input('txtKatalaluan'));
-        $this->email = ($request->input('opt-domain') !== 'internal') ? $this->domain . '.my' : $request->input('txtEmail');
+        $this->email = $request->input('txtEmail');
         $this->save();
-        $this->roles()->attach(Role::where('key', Role::PENGGUNA)->first(), ['department_id' => $profil->DEFAULTDEPTID]);
+        $this->roles()->attach(Role::where('key', Role::PENGGUNA)->first(), ['department_id' => $profil->xtraAttr->basedept_id]);
     }
 
     public static function setupLogin(array $data, XtraAnggota $profil)
