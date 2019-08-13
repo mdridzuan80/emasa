@@ -67,8 +67,6 @@ class AnggotaController extends BaseController
             return [$item->pegawai_flag => $item->penilai];
         });
 
-        dd($penilai);
-
         return view('anggota.penilai.index', compact('profil', 'penilai'));
     }
 
