@@ -34,7 +34,7 @@
                     <tbody>
                         <tr>
                             <td class="col-md-6">{{ ($penilai->isNotEmpty()) ? (($penilai->hasPegawaiPenilaiKedua()) ? optional($penilai[$PegawaiPenilai::FLAG_PEGAWAI_KEDUA][0]->xtraAttr)->nama : 'Tiada') : 'Tiada' }}</td>
-                            <td class="col-md-5">{{ ($penilai->isNotEmpty()) ? (($penilai->hasPegawaiPenilaiKedua()) ? optional($penilai[$PegawaiPenilai::FLAG_PEGAWAI_KEDUA][0])->xtraAttr)->jawatan : 'Tiada') : 'Tiada' }}</td>
+                            <td class="col-md-5">{{ ($penilai->isNotEmpty()) ? (($penilai->hasPegawaiPenilaiKedua()) ? optional($penilai[$PegawaiPenilai::FLAG_PEGAWAI_KEDUA][0]->xtraAttr)->jawatan : 'Tiada') : 'Tiada' }}</td>
                             <td>
                                 <button id="btn-ppp2-edit" type="button" class="btn btn-primary btn-block btn-sm pull-right btn-ppp-edit" title="Kemaskini maklumat pegawai penilai kedua" data-pegawai_flag="{{ $PegawaiPenilai::FLAG_PEGAWAI_KEDUA }}" data-pegawai_id="{{ ($penilai->isNotEmpty()) ? (($penilai->hasPegawaiPenilaiKedua()) ? $penilai[$PegawaiPenilai::FLAG_PEGAWAI_KEDUA][0]->userid : '') : '' }}">{{ ($penilai->isNotEmpty() && $penilai->hasPegawaiPenilaiKedua()) ? 'KEMASKINI' : 'TAMBAH' }}</button>
                             </td>
