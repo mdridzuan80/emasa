@@ -1,4 +1,6 @@
-<?php namespace App\Console\Commands;
+<?php
+
+namespace App\Console\Commands;
 
 use Carbon\Carbon;
 use FinalAttendance;
@@ -37,8 +39,6 @@ class JanaFinalAttCommand extends Command
      */
     public function handle()
     {
-        $userId = $this->argument('users');
-
         $mula = Carbon::parse($this->option('mula'));
         $tamat = Carbon::parse($this->option('tamat'));
 
@@ -52,5 +52,7 @@ class JanaFinalAttCommand extends Command
         $usersCollection = collect($this->argument('users'));
 
         FinalAttendance::janaFinalAttendanceConsole($usersCollection, $mula, $tamat, $this);
+
+        $this->info('Janaan Tamat');
     }
 }

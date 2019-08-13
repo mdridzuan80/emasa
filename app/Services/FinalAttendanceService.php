@@ -37,19 +37,23 @@ class FinalAttendanceService
         })->get();
 
         foreach ($senaraiXAnggota as $xAnggota) {
-            $rekodKehadiran = $xAnggota->anggota->kehadiran()->rekodByMulaTamat($tkhMula, $fTarikhTamat)->orderBy('checktime')->get();
-            $shifts =  $xAnggota->shifts;
-            $fTarikh = clone $tkhMula;
+            $command->info($xAnggota->anggota_id . " " . $xAnggota->nama);
 
-            do {
-                $shift = $shifts->first(function ($value, $key) use ($fTarikh) {
-                    return Carbon::parse($value->waktu_bekerja_anggota->tkh_mula)->lte($fTarikh) && Carbon::parse($value->waktu_bekerja_anggota->tkh_tamat)->gte($fTarikh);
-                });
+            if (!$xAnggota->anggota) {
+                $rekodKehadiran = $xAnggota->anggota->kehadiran()->rekodByMulaTamat($tkhMula, $fTarikhTamat)->orderBy('checktime')->get();
+                $shifts =  $xAnggota->shifts;
+                $fTarikh = clone $tkhMula;
 
-                if ($shift) {
-                    $this->personelFinalAttendance($xAnggota->anggota, $fTarikh, $shift, $cuti, $rekodKehadiran);
-                }
-            } while ($fTarikh->addDay()->lte($tkhTamat));
+                do {
+                    $shift = $shifts->first(function ($value, $key) use ($fTarikh) {
+                        return Carbon::parse($value->waktu_bekerja_anggota->tkh_mula)->lte($fTarikh) && Carbon::parse($value->waktu_bekerja_anggota->tkh_tamat)->gte($fTarikh);
+                    });
+
+                    if ($shift) {
+                        $this->personelFinalAttendance($xAnggota->anggota, $fTarikh, $shift, $cuti, $rekodKehadiran);
+                    }
+                } while ($fTarikh->addDay()->lte($tkhTamat));
+            }
         }
     }
 
