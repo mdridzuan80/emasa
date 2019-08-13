@@ -37,9 +37,8 @@ class FinalAttendanceService
         })->get();
 
         foreach ($senaraiXAnggota as $xAnggota) {
-            $command->info($xAnggota->anggota_id . " " . $xAnggota->nama);
-
-            if (!$xAnggota->anggota) {
+            if ($xAnggota->anggota) {
+                $command->info($xAnggota->anggota_id . " " . $xAnggota->nama);
                 $rekodKehadiran = $xAnggota->anggota->kehadiran()->rekodByMulaTamat($tkhMula, $fTarikhTamat)->orderBy('checktime')->get();
                 $shifts =  $xAnggota->shifts;
                 $fTarikh = clone $tkhMula;
