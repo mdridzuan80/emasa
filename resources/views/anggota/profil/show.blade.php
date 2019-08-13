@@ -1,7 +1,7 @@
 <div class="table-responsive">
     <form id="frm-profil-kemaskini">
         <table class="table table-bordered">
-            <input id="txtAnggotaId" type="hidden" name="txtAnggotaId" value="{{ $profil->USERID }}">
+            <input id="txtAnggotaId" type="hidden" name="txtAnggotaId" value="{{ $profil->userid }}">
             <tbody>
                 <tr>
                     <td class="col-md-3"><b>NAMA</b></td>

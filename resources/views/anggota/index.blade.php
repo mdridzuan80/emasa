@@ -661,7 +661,7 @@
 
             e.preventDefault();
             
-            var user_id = $('#txtAnggotaId').val();
+            var user_id = mProfil.userId;
             var formData = new FormData(this);
 
             swal({
