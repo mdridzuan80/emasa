@@ -26,7 +26,7 @@ class AddFieldBaseDeptIdFinalAttendance extends Migration
     public function down()
     {
         Schema::table('final_attendances', function (Blueprint $table) {
-            $table->dropColumn(['base_department_id']);
+            $table->dropColumn(['basedept_id']);
         });
     }
 }
