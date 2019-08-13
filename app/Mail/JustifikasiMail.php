@@ -21,11 +21,11 @@ class JustifikasiMail extends Mailable
     var $finalAttendance;
     var $justifikasi;
 
-    public function __construct($finalattendance_id, $flag_justifikasi)
+    public function __construct($finalattendance_id, $medan_kesalahan)
     {
         $this->finalAttendance = FinalAttendance::find($finalattendance_id);
         $this->justifikasi = $this->finalAttendance->justifikasi()
-            ->where('flag_justifikasi', $flag_justifikasi)->first();
+            ->where('medan_kesalahan', $medan_kesalahan)->first();
     }
 
     /**
