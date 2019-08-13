@@ -15,14 +15,17 @@ class CreataJustifikasi extends Migration
     {
         Schema::create('justifikasi', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('final_attendance_id');
             $table->integer('basedept_id');
             $table->datetime('tarikh');
             $table->text('keterangan');
             $table->string('medan_kesalahan');
-            $table->string('flag_justifikasi')->default('TIDAK');
+            $table->string('flag_justifikasi')->default('XSAMA');
             $table->string('flag_kelulusan')->default('MOHON');
             $table->integer('pelulus_id')->nullable();
             $table->timestamps();
+
+            $table->unique('final_attendance_id', 'medan_kesalahan');
         });
     }
 
