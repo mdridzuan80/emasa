@@ -11,7 +11,6 @@ class JustifikasiController extends Controller
 {
     public function store(JustifikasiRequest $request, Anggota $profil)
     {
-        //dd(Flow::pelulus($profil));
         $justifikasi = [
             'finalattendance_id' => $request->input('finalAttendance'),
             'basedept_id' => $profil->xtraAttr->basedept_id,
