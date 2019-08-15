@@ -25,3 +25,12 @@
 .show-read-more .seterusnya-text {
     display: none !important;
 }
+
+.input-hidden {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+    padding: 0;
+    margin: 0;
+    float: right;
+}

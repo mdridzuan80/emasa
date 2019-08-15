@@ -162,6 +162,7 @@ return [
         App\Providers\FinalAttendanceServiceProvider::class,
         App\Providers\WaktuBerperingkatServiceProvider::class,
         App\Providers\FlowProvider::class,
+        App\Providers\LaporanRepositoryProvider::class,
     ],
 
     /*
@@ -213,5 +214,6 @@ return [
         'FinalAttendance' => App\Facades\FinalAttendanceFacade::class,
         'WaktuBerperingkat' => App\Facades\WaktuBerperingkatFacade::class,
         'Flow' => App\Facades\FlowFacade::class,
+        'LaporanRepository' => App\Facades\LaporanRepositoryFacade::class,
     ],
 ];

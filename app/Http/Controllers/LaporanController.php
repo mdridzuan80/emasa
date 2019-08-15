@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use LaporanRepository;
 use App\Base\BaseController;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LaporanController extends BaseController
@@ -24,11 +26,8 @@ class LaporanController extends BaseController
 
     public function rpcHarian(Request $request)
     {
-        //
-        $ujian = [
-            ['nama'=>'Md Ridzuan bin Mohammad Latiah', 'shift'=>'FLEXI', 'checkin'=>'8:50 AM'],
-        ];
-        
-        return response()->json($ujian);
+        $rekod = LaporanRepository::laporanHarian($request->input('txtDepartmentId'), $request->input('txtTarikh'));
+
+        return response()->json($rekod);
     }
 }

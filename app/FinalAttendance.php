@@ -45,6 +45,11 @@ class FinalAttendance extends Eventable
         return $this->belongsTo(XtraAnggota::class, 'anggota_id');
     }
 
+    public function shift()
+    {
+        return $this->belongsTo(Shift::class);
+    }
+
     public function scopeEvents($query)
     {
         return $query->select('tarikh', DB::raw('CONCAT(\'IN : \', if(isnull(check_in),\'-\', date_format(check_in, \'%l:%i %p\')), "\n", \' OUT : \', if(isnull(check_out),\'-\', date_format(check_out, \'%l:%i %p\'))) as \'title\''), DB::raw('kesalahan as \'kesalahan\''), DB::raw('tatatertib_flag as \'tatatertib_flag\''), DB::raw('tarikh as \'start\''), DB::raw('tarikh as \'end\''), DB::raw('\'true\' as \'allDay\''), DB::raw('\'#1abc9c\' as \'color\''), DB::raw('\'#000\' as \'textColor\''), DB::raw('id'), DB::raw('\'' . Eventable::FINALATT . '\' as \'table_name\''));
