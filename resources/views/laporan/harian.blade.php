@@ -143,7 +143,7 @@
             function exportPDF(e, result) {
                 var doc = new jsPDF('p', 'pt', 'a4');
                 var head = [["Badge Number", "Nama", "WBF", "Check-In", "Check-Out"]];
-                var body = result.map((item)=>[item.badgenumber, item.nama, item.name, (item.check_in) ? moment(item.check_in).format("h:mm A") : '', (item.check_out) ? moment(item.check_out).format("h:mm A") : '']);
+                var body = result.data.map((item)=>[item.badgenumber, item.nama, item.shift, (item.check_in) ? moment(item.check_in).format("h:mm A") : '', (item.check_out) ? moment(item.check_out).format("h:mm A") : '']);
                 
                 var totalPagesExp = "{total_pages_count_string}";
 
@@ -163,7 +163,7 @@
                         } */                        
                         doc.setFontSize(12);
                         doc.text("LAPORAN HARIAN KEHADIRAN PENUH", data.settings.margin.left, 30);
-                        doc.text("Jabatan/ Bahagian/ Unit : " + moment(e.target.txtTarikh.value).format("D-MMM-YYYY"), data.settings.margin.left, 45);
+                        doc.text("Jabatan/ Bahagian/ Unit : " + result.bahagian, data.settings.margin.left, 45);
                         doc.text("Tarikh : " + moment(e.target.txtTarikh.value).format("D-MMM-YYYY"), data.settings.margin.left, 60);
 
                         // Footer

@@ -3,7 +3,6 @@
 namespace App\Transformers;
 
 use App\Anggota as MAnggota;
-use Carbon\Carbon;
 use League\Fractal\TransformerAbstract;
 
 class Anggota extends TransformerAbstract
