@@ -105,7 +105,7 @@ class User extends Authenticatable
 
     public static function setupLogin(array $data, XtraAnggota $profil)
     {
-        $user = self::updateOrCreate(
+        $user = self::firstOrCreate(
             [
                 'email' => $profil->email,
             ],
@@ -117,6 +117,9 @@ class User extends Authenticatable
                 'password' => bcrypt($data['password']),
             ]
         );
+
+        $user->password = bcrypt($data['password']);
+        $user->save();
 
         $user->roles()->syncWithoutDetaching([Role::where('key', Role::PENGGUNA)->first()->id => ['department_id' => $profil->dept_id]]);
     }
