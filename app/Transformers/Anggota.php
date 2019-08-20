@@ -15,7 +15,7 @@ class Anggota extends TransformerAbstract
     public function transform(MAnggota $anggota)
     {
         return [
-            'anggota_id' => $anggota->USERID,
+            'anggota_id' => $anggota->userid,
             'nama' => $anggota->nama,
             'jawatan' => $anggota->jawatan,
         ];
