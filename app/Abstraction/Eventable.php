@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Abstraction;
 
 use Carbon\Carbon;
@@ -14,6 +15,11 @@ abstract class Eventable extends BaseModel
     public function scopeGetEventablesByDate($query, Carbon $tarikh)
     {
         return $query->events()->where('tarikh', $tarikh);
+    }
+
+    public function scopeGetEventBetween($query, array $waktu)
+    {
+        return $query->whereBetween('tarikh', $waktu);
     }
 
     abstract public function scopeEvents($query);

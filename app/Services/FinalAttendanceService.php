@@ -216,7 +216,7 @@ class FinalAttendanceService
         return Kehadiran::FLAG_TATATERTIB_CLEAR;
     }
 
-    public function isCuti($tarikh, $cuti)
+    public function isCuti(Carbon $tarikh, $cuti)
     {
         return $cuti->contains(function ($item, $key) use ($tarikh) {
             return $item->tarikh->eq($tarikh);

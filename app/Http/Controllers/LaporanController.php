@@ -23,6 +23,7 @@ class LaporanController extends BaseController
         return $this->renderView('laporan.index');
     }
 
+    
     public function harian()
     {
         return $this->renderView('laporan.harian');

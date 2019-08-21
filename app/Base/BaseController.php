@@ -2,9 +2,7 @@
 
 namespace App\Base;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Route;
 
 class BaseController extends Controller
 {

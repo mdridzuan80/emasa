@@ -133,6 +133,9 @@
                         $('.overlay').show();
                     else
                         $('.overlay').hide();
+                },
+                eventRender: function(event, element, view ) {
+                    element.find('.fc-title').html(event.title);
                 }
             });
 

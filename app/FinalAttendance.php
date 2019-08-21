@@ -3,10 +3,14 @@
 namespace App;
 
 use App\Abstraction\Eventable;
+use Awobaz\Compoships\Compoships;
 use Illuminate\Support\Facades\DB;
+
 
 class FinalAttendance extends Eventable
 {
+    use Compoships;
+
     protected $fillable = [
         'anggota_id',
         'basedept_id',
@@ -37,7 +41,7 @@ class FinalAttendance extends Eventable
 
     public function justifikasi()
     {
-        return $this->hasMany(Justifikasi::class, 'tarikh', 'tarikh');
+        return $this->hasMany(Justifikasi::class, 'final_attendance_id');
     }
 
     public function anggota()
@@ -50,9 +54,28 @@ class FinalAttendance extends Eventable
         return $this->belongsTo(Shift::class);
     }
 
+    public function cuti()
+    {
+        return $this->belongsTo(Cuti::class, ['tarikh'], ['tarikh']);
+    }
+
     public function scopeEvents($query)
     {
-        return $query->select('tarikh', DB::raw('CONCAT(\'IN : \', if(isnull(check_in),\'-\', date_format(check_in, \'%l:%i %p\')), "\n", \' OUT : \', if(isnull(check_out),\'-\', date_format(check_out, \'%l:%i %p\'))) as \'title\''), DB::raw('kesalahan as \'kesalahan\''), DB::raw('tatatertib_flag as \'tatatertib_flag\''), DB::raw('tarikh as \'start\''), DB::raw('tarikh as \'end\''), DB::raw('\'true\' as \'allDay\''), DB::raw('\'#1abc9c\' as \'color\''), DB::raw('\'#000\' as \'textColor\''), DB::raw('id'), DB::raw('\'' . Eventable::FINALATT . '\' as \'table_name\''));
+        return $query->select(
+            DB::raw('id'),
+            DB::raw('tarikh'),
+            DB::raw('check_in'),
+            DB::raw('check_out'),
+            DB::raw('CONCAT(\'IN : \', if(isnull(check_in),\'-\', date_format(check_in, \'%l:%i %p\')), "\n", \' OUT : \', if(isnull(check_out),\'-\', date_format(check_out, \'%l:%i %p\'))) as \'title\''),
+            DB::raw('kesalahan'),
+            DB::raw('tatatertib_flag'),
+            DB::raw('tarikh as \'start\''),
+            DB::raw('tarikh as \'end\''),
+            DB::raw('\'true\' as \'allDay\''),
+            DB::raw('\'#1abc9c\' as \'color\''),
+            DB::raw('\'#000\' as \'textColor\''),
+            DB::raw('\'' . Eventable::FINALATT . '\' as \'table_name\'')
+        )->with(['justifikasi', 'cuti']);
     }
 
     public function eventCheckIn()

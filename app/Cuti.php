@@ -3,10 +3,13 @@
 namespace App;
 
 use App\Abstraction\Eventable;
+use Awobaz\Compoships\Compoships;
 use Illuminate\Support\Facades\DB;
 
 class Cuti extends Eventable
 {
+    use Compoships;
+
     protected $table = 'cuti';
 
     protected $dates = [
