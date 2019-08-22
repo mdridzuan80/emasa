@@ -25,7 +25,7 @@ class CreataJustifikasi extends Migration
             $table->integer('pelulus_id')->nullable();
             $table->timestamps();
 
-            $table->unique(['final_attendance_id', 'medan_kesalahan']);
+            $table->unique(['final_attendance_id', 'tarikh', 'medan_kesalahan']);
         });
     }
 
