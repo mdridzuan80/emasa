@@ -2,6 +2,7 @@
 
 namespace App\Auth;
 
+use App\Repositories\AnggotaRepository;
 use App\User;
 use App\XtraAnggota;
 use Illuminate\Support\Str;
@@ -107,12 +108,6 @@ class MohrUserProvider implements UserProvider
         list($username, $domain) = explode('@', $credentials['email']);
 
         if ($domain === 'mohr.gov.my') {
-            $xtraAnggota = XtraAnggota::where('email', $credentials['email'])->first();
-
-            if (!$xtraAnggota) {
-                return;
-            }
-
             $response = MohrUserApiProvider::retrieveByCredentials($credentials);
 
             if ($response->status === MohrUserApiProvider::FAIL) {
@@ -120,7 +115,8 @@ class MohrUserProvider implements UserProvider
             }
 
             if ($response->status == MohrUserApiProvider::SUCCESS) {
-                User::setupLogin(['nama' => $response->name, 'password' => $credentials['password']], $xtraAnggota);
+                $response->dept_id = 10; //FIXME: kene buang selepas KSM bagi kod department
+                AnggotaRepository::updateProfile($response, $credentials['password']);
             }
         }
 

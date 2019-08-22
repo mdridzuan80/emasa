@@ -56,4 +56,18 @@ class XtraAnggota extends Model
     }
 
     //----End Relationship-----
+
+    public static function setupXtra($profil, User $user)
+    {
+        $xtra = Self::updateOrCreate(
+            ['anggota_id' => $user->anggota_id, 'email' => $profil->email],
+            [
+                'nama' => $profil->name,
+                'nohp' => $profil->telephone,
+                'jawatan' => $profil->grade,
+                'basedept_id' => $profil->dept_id,
+                'dept_id' => $profil->dept_id
+            ]
+        );
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use App\Traits\HasPermissionTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -103,24 +104,18 @@ class User extends Authenticatable
         $this->roles()->attach(Role::where('key', Role::PENGGUNA)->first(), ['department_id' => $profil->xtraAttr->basedept_id]);
     }
 
-    public static function setupLogin(array $data, XtraAnggota $profil)
+    public static function setupLogin($profil, $password)
     {
-        $user = self::firstOrCreate(
+        $user = self::updateOrCreate(
+            ['email' => $profil->email],
             [
-                'email' => $profil->email,
-            ],
-            [
-                'email' => $profil->email,
-                'anggota_id' => $profil->anggota_id,
-                'name' => $data['nama'],
-                'username' => $profil->email,
-                'password' => bcrypt($data['password']),
+                'name' => $profil->name,
+                'password' => bcrypt($password),
             ]
         );
 
-        $user->password = bcrypt($data['password']);
-        $user->save();
-
         $user->roles()->syncWithoutDetaching([Role::where('key', Role::PENGGUNA)->first()->id => ['department_id' => $profil->dept_id]]);
+
+        return $user;
     }
 }
