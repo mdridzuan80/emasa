@@ -3,6 +3,7 @@
 namespace App\Auth;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
 
 class MohrUserApiProvider
 {
@@ -23,7 +24,7 @@ class MohrUserApiProvider
             $response = $client->request('POST');
 
             return json_decode((string) $response->getBody());
-        } catch (Exception $e) {
+        } catch (ConnectException $e) {
             return json_decode("{\"status\" : \"" . self::OFFLINE . "\"}");
         }
     }
