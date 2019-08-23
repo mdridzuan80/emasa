@@ -30,7 +30,7 @@
                                     <tr>
                                         <td width="1"><b>TARIKH&nbsp;PAPARAN</b></td>
                                         <td>
-                                            <input type="text" class="form-control" name="txtTarikh" id="txtTarikh" autocomplete="off" value="{{ now()->format('Y-m-d') }}" required>
+                                            <input type="text" class="form-control" name="txtTarikh" id="txtTarikh" autocomplete="off" value="{{ now()->subDay()->format('Y-m-d') }}" required>
                                         </td>
                                     </tr>
                                     <tr>

@@ -89,7 +89,9 @@ class Event extends TransformerAbstract
     private function subTitleCheckout($icon = '')
     {
         if ($this->event['tatatertib_flag'] == Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB && !$this->event['cuti']) {
+
             if ($this->event['check_out']) {
+
                 if (!Utility::kesalahanCheckOut($this->event['kesalahan']) == Kehadiran::FLAG_KESALAHAN_AWAL) {
                     return $this->startTag . 'OUT:' . Carbon::parse($this->event['check_out'])->format('g:i:s A') . $this->endTag;
                 }
@@ -99,6 +101,7 @@ class Event extends TransformerAbstract
                 return $this->startTag . '<img src="' . $icon . '"/>OUT:-' . $this->endTag;
             }
         } else {
+
             if ($this->event['check_out']) {
                 return $this->startTag . 'OUT:' . Carbon::parse($this->event['check_out'])->format('g:i:s A') . $this->endTag;
             }
