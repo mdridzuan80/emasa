@@ -78,7 +78,9 @@ class Event extends TransformerAbstract
                 return $this->startTag . '<img src="' . $icon . '"/>IN:-' . $this->endTag;
             }
         } else {
-            return $this->startTag . 'IN:' . Carbon::parse($this->event['check_in'])->format('g:i:s A') . $this->endTag;
+            if ($this->event['check_in']) {
+                return $this->startTag . 'IN:' . Carbon::parse($this->event['check_in'])->format('g:i:s A') . $this->endTag;
+            }
         }
 
         return $this->startTag . 'IN:-' . $this->endTag;
@@ -97,7 +99,9 @@ class Event extends TransformerAbstract
                 return $this->startTag . '<img src="' . $icon . '"/>OUT:-' . $this->endTag;
             }
         } else {
-            return $this->startTag . 'OUT:' . Carbon::parse($this->event['check_out'])->format('g:i:s A') . $this->endTag;
+            if ($this->event['check_out']) {
+                return $this->startTag . 'OUT:' . Carbon::parse($this->event['check_out'])->format('g:i:s A') . $this->endTag;
+            }
         }
 
         return $this->startTag . 'OUT:-' . $this->endTag;
