@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use DB;
-use App\XtraAnggota;
 
 class LaporanRepository
 {

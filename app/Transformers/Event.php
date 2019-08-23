@@ -5,6 +5,7 @@ namespace App\Transformers;
 use App\Utility;
 use App\Kehadiran;
 use Carbon\Carbon;
+use App\Justifikasi;
 use League\Fractal\TransformerAbstract;
 
 class Event extends TransformerAbstract
@@ -14,6 +15,13 @@ class Event extends TransformerAbstract
     private $startTag = '<div>';
 
     private $endTag = '</div>';
+
+    const FLAG_KELULUSAN_ICON = [
+        'DEFAULT' => 'images/icons/exclamation.png',
+        'MOHON' => 'images/icons/bandaid.png',
+        'LULUS' => 'images/icons/tick.png',
+        'BATAL' => 'images/icons/tick.png',
+    ];
 
     public function transform($event)
     {
@@ -42,38 +50,67 @@ class Event extends TransformerAbstract
         return $this->event['color'];
     }
 
-    private function getTitle($event)
+    private function getTitle()
     {
         if ($this->event['table_name'] == 'final') {
-            if ($this->event['tatatertib_flag'] == Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB && !$this->event['cuti']) {
-                $checkin = $this->subTitleCheckin(asset('images/icons/exclamation.png'));
+            $checkin = $this->subTitleCheckin($this->chkJustifikasiStatusIcon($this->event['justifikasi'], Justifikasi::FLAG_MEDAN_KESALAHAN_PAGI));
 
-                if (Utility::kesalahanCheckOut($this->event['kesalahan']) == Kehadiran::FLAG_KESALAHAN_AWAL) {
-                    $checkout = '<div><img src="' . asset('images/icons/exclamation.png') . '"/>OUT:' . Carbon::parse($this->event['check_out'])->format('g:i:s A') . '</div>';
-                } else {
-                    $checkout = $this->event['check_out'] ? '<div>OUT:' . Carbon::parse($this->event['check_out'])->format('g:i:s A') . '</div>' : '<div><img src="' . asset('images/icons/exclamation.png') . '"/>OUT:-</div>';
-                }
-            } else {
-                $checkin = $this->event['check_in'] ? '<div>IN:' . Carbon::parse($this->event['check_in'])->format('g:i:s A') . '</div>' : '<div>IN:-</div>';
-                $checkout = $this->event['check_out'] ? '<div>OUT:' . Carbon::parse($this->event['check_out'])->format('g:i:s A') . '</div>' : '<div>OUT:-</div>';
-            }
+            //if (Utility::kesalahanCheckOut($this->event['kesalahan']) == Kehadiran::FLAG_KESALAHAN_AWAL) {
+            $checkout = $this->subTitleCheckout($this->chkJustifikasiStatusIcon($this->event['justifikasi'], Justifikasi::FLAG_MEDAN_KESALAHAN_PETANG));
+            //} else {
+            //$checkout = $this->event['check_out'] ? '<div>OUT:' . Carbon::parse($this->event['check_out'])->format('g:i:s A') . '</div>' : '<div><img src="' . asset('images/icons/exclamation.png') . '"/>OUT:-</div>';
+            //}
 
             return $checkin . $checkout;
         }
 
-        return $event['title'];
+        return $this->event['title'];
     }
 
     private function subTitleCheckin($icon = '')
     {
-        if ($this->event['check_in']) {
-            return $this->startTag . 'IN:' . Carbon::parse($this->event['check_in'])->format('g:i:s A') . $this->endTag;
-        }
+        if ($this->event['tatatertib_flag'] == Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB && !$this->event['cuti']) {
+            if ($this->event['check_in']) {
+                return $this->startTag . 'IN:' . Carbon::parse($this->event['check_in'])->format('g:i:s A') . $this->endTag;
+            }
 
-        if ($icon) {
-            return $this->startTag . '<img src="' . $icon . '"/>IN:-' . $this->endTag;
+            if ($icon) {
+                return $this->startTag . '<img src="' . $icon . '"/>IN:-' . $this->endTag;
+            }
         }
 
         return $this->startTag . 'IN:-' . $this->endTag;
+    }
+
+    private function subTitleCheckout($icon = '')
+    {
+        if ($this->event['tatatertib_flag'] == Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB && !$this->event['cuti']) {
+            if ($this->event['check_out']) {
+                if (!Utility::kesalahanCheckOut($this->event['kesalahan']) == Kehadiran::FLAG_KESALAHAN_AWAL) {
+                    return $this->startTag . 'OUT:' . Carbon::parse($this->event['check_out'])->format('g:i:s A') . $this->endTag;
+                }
+            }
+
+            if ($icon) {
+                return $this->startTag . '<img src="' . $icon . '"/>OUT:-' . $this->endTag;
+            }
+        }
+
+        return $this->startTag . 'OUT:-' . $this->endTag;
+    }
+
+    private function chkJustifikasiStatusIcon($justifikasi, $medan)
+    {
+        $justifikasi = collect($justifikasi);
+
+        if ($justifikasi->isNotEmpty()) {
+            $justifikasi = $justifikasi->where('medan_kesalahan', $medan)->first();
+
+            if ($justifikasi) {
+                return asset(Self::FLAG_KELULUSAN_ICON[$justifikasi['flag_kelulusan']]);
+            }
+        }
+
+        return asset(Self::FLAG_KELULUSAN_ICON['DEFAULT']);
     }
 }
