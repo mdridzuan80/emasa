@@ -41,7 +41,7 @@ class Event extends TransformerAbstract
         ];
     }
 
-    public function colorTS()
+    private function colorTS()
     {
         if (isset($this->event['tatatertib_flag']) && $this->event['tatatertib_flag'] == Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB) {
             return 'Red';
@@ -77,6 +77,8 @@ class Event extends TransformerAbstract
             if ($icon) {
                 return $this->startTag . '<img src="' . $icon . '"/>IN:-' . $this->endTag;
             }
+        } else {
+            return $this->startTag . 'IN:' . Carbon::parse($this->event['check_in'])->format('g:i:s A') . $this->endTag;
         }
 
         return $this->startTag . 'IN:-' . $this->endTag;
@@ -94,6 +96,8 @@ class Event extends TransformerAbstract
             if ($icon) {
                 return $this->startTag . '<img src="' . $icon . '"/>OUT:-' . $this->endTag;
             }
+        } else {
+            return $this->startTag . 'OUT:' . Carbon::parse($this->event['check_out'])->format('g:i:s A') . $this->endTag;
         }
 
         return $this->startTag . 'OUT:-' . $this->endTag;
