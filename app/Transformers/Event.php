@@ -54,12 +54,7 @@ class Event extends TransformerAbstract
     {
         if ($this->event['table_name'] == 'final') {
             $checkin = $this->subTitleCheckin($this->chkJustifikasiStatusIcon($this->event['justifikasi'], Justifikasi::FLAG_MEDAN_KESALAHAN_PAGI));
-
-            //if (Utility::kesalahanCheckOut($this->event['kesalahan']) == Kehadiran::FLAG_KESALAHAN_AWAL) {
             $checkout = $this->subTitleCheckout($this->chkJustifikasiStatusIcon($this->event['justifikasi'], Justifikasi::FLAG_MEDAN_KESALAHAN_PETANG));
-            //} else {
-            //$checkout = $this->event['check_out'] ? '<div>OUT:' . Carbon::parse($this->event['check_out'])->format('g:i:s A') . '</div>' : '<div><img src="' . asset('images/icons/exclamation.png') . '"/>OUT:-</div>';
-            //}
 
             return $checkin . $checkout;
         }
@@ -71,10 +66,10 @@ class Event extends TransformerAbstract
     {
         if ($this->event['tatatertib_flag'] == Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB && !$this->event['cuti']) {
             if ($this->event['check_in']) {
-                if (!Utility::kesalahanCheckIn($this->event['kesalahan']) == Kehadiran::FLAG_KESALAHAN_LEWAT) {
-                    return $this->startTag . 'IN:' . Carbon::parse($this->event['check_in'])->format('g:i:s A') . $this->endTag;
-                } else {
+                if (Utility::kesalahanCheckIn($this->event['kesalahan']) == Kehadiran::FLAG_KESALAHAN_LEWAT) {
                     return $this->startTag . '<img src="' . $icon . '"/>IN:' . Carbon::parse($this->event['check_in'])->format('g:i:s A') . $this->endTag;
+                } else {
+                    return $this->startTag . 'IN:' . Carbon::parse($this->event['check_in'])->format('g:i:s A') . $this->endTag;
                 }
             }
 
@@ -93,13 +88,11 @@ class Event extends TransformerAbstract
     private function subTitleCheckout($icon = '')
     {
         if ($this->event['tatatertib_flag'] == Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB && !$this->event['cuti']) {
-
             if ($this->event['check_out']) {
-
-                if (!Utility::kesalahanCheckOut($this->event['kesalahan']) == Kehadiran::FLAG_KESALAHAN_AWAL) {
-                    return $this->startTag . 'OUT:' . Carbon::parse($this->event['check_out'])->format('g:i:s A') . $this->endTag;
-                } else {
+                if (Utility::kesalahanCheckOut($this->event['kesalahan']) == Kehadiran::FLAG_KESALAHAN_AWAL) {
                     return $this->startTag . '<img src="' . $icon . '"/>OUT:' . Carbon::parse($this->event['check_out'])->format('g:i:s A') . $this->endTag;
+                } else {
+                    return $this->startTag . 'OUT:' . Carbon::parse($this->event['check_out'])->format('g:i:s A') . $this->endTag;
                 }
             }
 
@@ -107,7 +100,6 @@ class Event extends TransformerAbstract
                 return $this->startTag . '<img src="' . $icon . '"/>OUT:-' . $this->endTag;
             }
         } else {
-
             if ($this->event['check_out']) {
                 return $this->startTag . 'OUT:' . Carbon::parse($this->event['check_out'])->format('g:i:s A') . $this->endTag;
             }
