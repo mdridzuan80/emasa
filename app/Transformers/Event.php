@@ -71,7 +71,11 @@ class Event extends TransformerAbstract
     {
         if ($this->event['tatatertib_flag'] == Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB && !$this->event['cuti']) {
             if ($this->event['check_in']) {
-                return $this->startTag . 'IN:' . Carbon::parse($this->event['check_in'])->format('g:i:s A') . $this->endTag;
+                if (!Utility::kesalahanCheckIn($this->event['kesalahan']) == Kehadiran::FLAG_KESALAHAN_LEWAT) {
+                    return $this->startTag . 'IN:' . Carbon::parse($this->event['check_in'])->format('g:i:s A') . $this->endTag;
+                } else {
+                    return $this->startTag . '<img src="' . $icon . '"/>IN:' . Carbon::parse($this->event['check_in'])->format('g:i:s A') . $this->endTag;
+                }
             }
 
             if ($icon) {
@@ -94,6 +98,8 @@ class Event extends TransformerAbstract
 
                 if (!Utility::kesalahanCheckOut($this->event['kesalahan']) == Kehadiran::FLAG_KESALAHAN_AWAL) {
                     return $this->startTag . 'OUT:' . Carbon::parse($this->event['check_out'])->format('g:i:s A') . $this->endTag;
+                } else {
+                    return $this->startTag . '<img src="' . $icon . '"/>OUT:' . Carbon::parse($this->event['check_out'])->format('g:i:s A') . $this->endTag;
                 }
             }
 
