@@ -2,7 +2,6 @@
 
 namespace App;
 
-use DB;
 use App\Traits\HasPermissionTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;

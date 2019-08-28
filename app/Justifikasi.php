@@ -8,7 +8,7 @@ class Justifikasi extends Model
 {
     const FLAG_KELULUSAN_MOHON = "MOHON";
     const FLAG_KELULUSAN_LULUS = "LULUS";
-    const FLAG_KELULUSAN_TOLAK = "BATAL";
+    const FLAG_KELULUSAN_TOLAK = "TOLAK";
 
     const FLAG_MEDAN_KESALAHAN_PAGI = "PAGI";
     const FLAG_MEDAN_KESALAHAN_PETANG = "PETANG";
@@ -29,6 +29,11 @@ class Justifikasi extends Model
         $this->table = 'justifikasi';
     }
 
+    public function finalAttendance()
+    {
+        return $this->belongsTo(FinalAttendance::class);
+    }
+
     public function simpan(array $data)
     {
         $this->basedept_id = $data['basedept_id'];
@@ -37,6 +42,7 @@ class Justifikasi extends Model
         $this->medan_kesalahan = $data['medan_kesalahan'];
         $this->flag_justifikasi = $data['flag_justifikasi'];
         $this->keterangan = $data['alasan'];
+        $this->pelulus_id = $data['pelulus_id'];
         $this->save();
     }
 }

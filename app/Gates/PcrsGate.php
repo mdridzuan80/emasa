@@ -52,16 +52,21 @@ class PcrsGate
         Gate::define('add-shift', $this->minPrivilege(Role::ADMIN));
         Gate::define('edit-shift', $this->minPrivilege(Role::ADMIN));
         Gate::define('delete-shift', $this->minPrivilege(Role::ADMIN));
+
+        Gate::define('view-kelulusan', $this->kelulusan());
     }
 
-    public function minPrivilege($minPriv)
+    private function minPrivilege($minPriv)
     {
         return function ($user) use ($minPriv) {
-            if ($user->perananSemasa()->priority > Role::where('key', $minPriv)->first()->priority) {
-                return false;
-            }
+            return !($user->perananSemasa()->priority > Role::where('key', $minPriv)->first()->priority);
+        };
+    }
 
-            return true;
+    private function kelulusan()
+    {
+        return function ($user) {
+            return $user->hasKelulusanSubmitter();
         };
     }
 }

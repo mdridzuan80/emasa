@@ -12,14 +12,17 @@ trait HasPermissionTrait
 
     public function hasRole(...$roles)
     {
-        foreach ($roles as $role)
-        {
-            if ($this->roles->contains('key', $role))
-            {
+        foreach ($roles as $role) {
+            if ($this->roles->contains('key', $role)) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    public function hasKelulusanSubmitter()
+    {
+        return $this->xtraAnggota->pegawaiYangDinilai()->where('pegawai_flag', 1)->count();
     }
 }

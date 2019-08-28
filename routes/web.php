@@ -30,6 +30,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/pengguna', 'PenggunaController@index')->name('pengguna');
     });
 
+    Route::middleware('can:view-kelulusan')->group(function () {
+        Route::get('/kelulusan', 'JustifikasiController@index')->name('kelulusan');
+    });
+
     Route::middleware('can:view-laporan')->group(function () {
         Route::get('/laporan', 'LaporanController@index')->name('laporan');
         Route::prefix('laporan')->group(function () {
@@ -110,6 +114,7 @@ Route::middleware('auth')->group(function () {
         });
 
         // Justifikasi
-        Route::post('/justifikasi/{profil}', 'JustifikasiController@store');
+        Route::post('/justifikasi/{profil}', 'JustifikasiController@rpcStore');
+        Route::put('/justifikasi/{justifikasi}', 'JustifikasiController@rpcUpdate');
     });
 });

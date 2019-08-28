@@ -348,7 +348,7 @@
                                     resolve();
                                 },
                                 error: function(jqXHR, textStatus, errorThrown) {
-                                    reject(textStatus);
+                                    reject(jqXHR);
                                 },
                                 statusCode: login()
                             });
@@ -363,9 +363,10 @@
                         type: 'success'
                     });
                 }).catch((error) => {
+                    console.log(error.responseText);
                     swal({
                         title: 'Ralat!',
-                        text: "Operasi tidak berjaya!.\nSila berhubung dengan Pentadbir sistem",
+                        html: "Operasi tidak berjaya!<br/>"+error.responseText+".<br/>Sila berhubung dengan Pentadbir sistem.",
                         type: 'error'
                     });
                 });

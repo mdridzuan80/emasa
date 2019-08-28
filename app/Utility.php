@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Kehadiran;
+use App\Justifikasi;
 use Illuminate\Support\Collection;
 
 class Utility
@@ -85,5 +86,17 @@ class Utility
         }
 
         return Kehadiran::FLAG_KESALAHAN_NONE;
+    }
+
+    public static function kesalahan($medan, $data)
+    {
+        switch ($medan) {
+            case Justifikasi::FLAG_MEDAN_KESALAHAN_PAGI:
+                return self::kesalahanCheckIn($data);
+                break;
+            case Justifikasi::FLAG_MEDAN_KESALAHAN_PETANG:
+                return self::kesalahanCheckOut($data);
+                break;
+        }
     }
 }

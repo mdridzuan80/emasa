@@ -36,13 +36,13 @@ class FlowService
         return $flowly->flag;
     }
 
-    public function pelulus($profil)
+    public function pelulus(Flowable $profil)
     {
         if ($this->getFlowAnggota($profil) == Flow::KETUA) {
             return RoleUser::where('department_id', $profil->xtraAttr->basedept_id)
                 ->where('role_id', 3)->first()->user->anggota;
         }
 
-        return $profil->pegawaiYangMenilai()->where('pegawai_flag', 1)->first()->penilai;
+        return optional($profil->pegawaiYangMenilai()->where('pegawai_flag', 1)->first())->penilai;
     }
 }

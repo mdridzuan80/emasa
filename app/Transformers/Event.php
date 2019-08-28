@@ -17,10 +17,11 @@ class Event extends TransformerAbstract
     private $endTag = '</div>';
 
     const FLAG_KELULUSAN_ICON = [
-        'DEFAULT' => 'images/icons/exclamation.png',
-        'MOHON' => 'images/icons/bandaid.png',
-        'LULUS' => 'images/icons/tick.png',
-        'BATAL' => 'images/icons/tick.png',
+        'DEFAULT' => 'images/icons/user--exclamation.png',
+        'MOHON' => 'images/icons/user--pencil.png',
+        'LULUS' => 'images/icons/user--plus.png',
+        'TOLAK' => 'images/icons/user--minus.png',
+        'BATAL' => 'images/icons/user--exclamation.png',
     ];
 
     public function transform($event)

@@ -43,6 +43,11 @@ class XtraAnggota extends Model
         return $this->hasOne(FlowBahagian::class, 'dept_id', 'basedept_id');
     }
 
+    public function flow()
+    {
+        return $this->hasOne(FlowAnggota::class, 'anggota_id');
+    }
+
     public function shifts()
     {
         return $this->belongsToMany(Shift::class, 'anggota_shift', 'anggota_id', 'shift_id')
@@ -55,7 +60,22 @@ class XtraAnggota extends Model
         return $this->hasMany(finalAttendance::class, 'anggota_id', 'anggota_id');
     }
 
+    public function pegawaiYangDinilai()
+    {
+        return $this->hasMany(PegawaiPenilai::class, 'pegawai_id');
+    }
+
+    public function pemohonJustifikasi()
+    {
+        return $this->hasMany(Justifikasi::class, 'pelulus_id');
+    }
+
     //----End Relationship-----
+
+    public function scopeKelulusanJustifikasi()
+    {
+        return $this->pemohonJustifikasi()->where('flag_kelulusan', Justifikasi::FLAG_KELULUSAN_MOHON)->with('finalAttendance.anggota');
+    }
 
     public static function setupXtra($profil, User $user)
     {

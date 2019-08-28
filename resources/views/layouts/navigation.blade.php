@@ -10,6 +10,13 @@
             <i class="fa fa-dashboard"></i></i> <span>Dashboard</span>
           </a>
         </li>
+        @can('view-kelulusan')
+        <li class="{{ pcrsMenuActiveCondition('kelulusancontroller_index', $collection->get('activeMenu')) }}">
+          <a href="{{ route('kelulusan') }}">
+            <i class="fa fa-commenting"></i></i> <span>Kelulusan Justifikasi</span>
+          </a>
+        </li>
+        @endcan
         @can('view-anggota')
         <li class="{{ pcrsMenuActiveCondition('anggotacontroller_index', $collection->get('activeMenu')) }}">
           <a href="{{ route('anggota') }}">
