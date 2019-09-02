@@ -66,7 +66,7 @@ class PcrsGate
     private function kelulusan()
     {
         return function ($user) {
-            return $user->hasKelulusanSubmitter();
+            return ($user->username == 'admin') ? false : $user->hasKelulusanSubmitter();
         };
     }
 }

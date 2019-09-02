@@ -39,6 +39,11 @@ class Event extends TransformerAbstract
             'scheme' => $event['table_name'],
             'kesalahan' => $event['kesalahan'] ?? json_encode([]),
             'tatatertib_flag' => $event['tatatertib_flag'] ?? Kehadiran::FLAG_TATATERTIB_CLEAR,
+            'checkIn' => $event['check_in'] ?? null,
+            'checkOut' => $event['check_out'] ?? null,
+            'table' => $event['table_name'],
+            'justifikasi' => $event['justifikasi'] ?? null,
+            'cuti' => $event['cuti'] ?? null,
         ];
     }
 

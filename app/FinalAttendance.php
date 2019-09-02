@@ -2,9 +2,10 @@
 
 namespace App;
 
+use DB;
+use Carbon\Carbon;
 use App\Abstraction\Eventable;
 use Awobaz\Compoships\Compoships;
-use Illuminate\Support\Facades\DB;
 
 
 class FinalAttendance extends Eventable
@@ -76,6 +77,15 @@ class FinalAttendance extends Eventable
             DB::raw('\'#000\' as \'textColor\''),
             DB::raw('\'' . Eventable::FINALATT . '\' as \'table_name\'')
         )->with(['justifikasi', 'cuti']);
+    }
+
+    public function scopeGetEventBetween($query, array $waktu)
+    {
+        list($mula, $tamat) = $waktu;
+
+        $tamat = Carbon::parse($tamat)->subDay()->format('Y-m-d');
+
+        return $query->whereBetween('tarikh', [$mula, $tamat]);
     }
 
     public function eventCheckIn()

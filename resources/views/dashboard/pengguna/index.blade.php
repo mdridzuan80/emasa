@@ -94,19 +94,29 @@
                     alasan: ''
                 };
 
+            var gEvents = {};
+
             var cal = $('#calendar').fullCalendar({
                 firstDay: 1,
                 showNonCurrentDates: false,
-                /* customButtons: {
-                    myCustomButton: {
+                customButtons: {
+                    /*aktiviti: {
                         text: 'Tambah Aktiviti',
                         click: function() {
                             $('#modal-default').modal({backdrop: 'static',});
                         }
+                    },*/
+                    laporan: {
+                        text: 'Laporan Bulanan',
+                        click: function() {
+                            exportPDF(
+                                _.filter(gEvents.data, { 'table': 'final' })
+                            );
+                        }
                     }
-                }, */
+                },
                 header: {
-                    right: 'myCustomButton prev,today,next'
+                    right: 'laporan aktiviti prev,today,next'
                 },
                 dayClick: function(date, jsEvent, view) {
                     var modal = $('#modal-acara-anggota');
@@ -123,6 +133,7 @@
                             end: end.toISOString()
                         },
                         success: function(events) {
+                            gEvents = events;
                             callback(events.data);
                         }
                     });
@@ -399,6 +410,94 @@
                         });
                     }
                 })
+            }
+
+            function exportPDF(result) {
+                try {     
+                    var doc = new jsPDF('p', 'pt', 'a4');
+                    var head = [["Tarikh", "Check-In", "Check-Out", "Catatan"]];
+                    var body = result.map((item)=>[moment(item.start).format("DD-MM-YYYY"), (item.checkIn) ? moment(item.checkIn).format("h:mm A") : '', (item.checkOut) ? moment(item.checkOut).format("h:mm A") : '', '']);
+                    
+                    var totalPagesExp = "{total_pages_count_string}";
+
+                    doc.autoTable({
+                        head,
+                        body,
+                        theme: 'grid',
+                        showHead: 'firstPage',
+                        margin: {top: 80},
+                        columnStyles: {
+                            0: {cellWidth:1},
+                            1: {cellWidth:1},
+                            2: {cellWidth:1},
+                            3: {cellWidth:'auto'}
+                        },
+                        didParseCell: function(data) {
+                            if(moment(result[data.row.index].start).format('d') === '0' || moment(result[data.row.index].start).format('d') === '6' || result[data.row.index].cuti ) {
+                                if (data.row.index === data.row.index) {
+                                    data.cell.styles.fillColor = [240, 240, 240];
+                                }
+                            }
+
+                            if (data.row.section === 'body' && data.column.dataKey === '0') {
+                                data.cell.text = moment(result[data.row.index].start).format('DD-MMM-YYYY (ddd)');
+                            }
+
+                            if (data.row.section === 'body' && data.column.dataKey === '3') {
+                                if(result[data.row.index].cuti) {
+                                    data.cell.text = result[data.row.index].cuti.perihal;
+                                }
+                            }
+                        },
+                        didDrawPage: function (data) {
+                            // Header
+                            doc.setFontSize(16);
+                            doc.setTextColor(40);
+                            doc.setFontStyle('normal');
+                            /* if (base64Img) {
+                                doc.addImage(base64Img, 'JPEG', data.settings.margin.left, 15, 10, 10);
+                            } */                        
+                            doc.setFontSize(12);
+                            doc.text("LAPORAN KEHADIRAN BULANAN", data.settings.margin.left, 30);
+                            doc.text("Nama : " + "{{ Auth::user()->xtraAnggota->nama }}", data.settings.margin.left, 45);
+                            doc.text("Jabatan/ Bahagian/ Unit : " + "{{ Auth::user()->xtraAnggota->department->deptname }}", data.settings.margin.left, 60);
+                            doc.text("Bulan : " + cal.fullCalendar('getDate').format('MMMM YYYY'), data.settings.margin.left, 75);
+
+                            // Footer
+                            var str = "Muka " + doc.internal.getNumberOfPages()
+
+                            // Total page number plugin only available in jspdf v1.0+
+                            if (typeof doc.putTotalPages === 'function') {
+                                str = str + " drp " + totalPagesExp;
+                            }
+                            doc.setFontSize(9);
+
+                            // jsPDF 1.4+ uses getWidth, <1.4 uses .width
+                            var pageSize = doc.internal.pageSize;
+                            var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+                            var pageWidth = doc.internal.pageSize.width ? doc.internal.pageSize.width : doc.internal.pageSize.getWidth();
+
+                            doc.text("{{ env('APP_NAME') }}", data.settings.margin.left, pageHeight - 20);
+                            doc.text("Dicetak pada : "+moment().format("lll"), data.settings.margin.left, pageHeight - 10, 'left');
+                            doc.writeText(data.settings.margin.left + 20, pageHeight - 10 ,str, { align: 'right' });
+                        }
+                    });
+
+                    // Total page number plugin only available in jspdf v1.0+
+                    if (typeof doc.putTotalPages === 'function') {
+                        doc.putTotalPages(totalPagesExp);
+                    }
+
+                    doc.output("dataurlnewwindow");
+                    //pdf.save();
+                } catch (error) {
+                    console.log(error);
+                    swal({
+                        title: 'Ralat!',
+                        html: "Janaan tidak berjaya!.<br/>Sila pastikan data kehadiran wujud.",
+                        type: 'error'
+                    });
+                }
             }
         });
     </script>

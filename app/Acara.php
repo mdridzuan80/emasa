@@ -36,7 +36,7 @@ class Acara extends Eventable
 
     public function scopeEvents($query)
     {
-        return $query->select(DB::raw('perkara as \'title\''), DB::raw('masa_mula as \'start\''), DB::raw('masa_tamat as \'end\''), DB::raw('\'false\' as \'allDay\''), DB::raw('\'#e74c3c\' as \'color\''), DB::raw('\'white\' as \'textColor\''), DB::raw('id'), DB::raw('jenis_acara'), DB::raw('keterangan'), DB::raw('\'' . Eventable::ACARA . '\' as \'table_name\''));
+        return $query->select(DB::raw('perkara as \'title\''), DB::raw('masa_mula as \'start\''), DB::raw('masa_tamat as \'end\''), DB::raw('\'false\' as \'allDay\''), DB::raw('\'#00c0ef\' as \'color\''), DB::raw('\'black\' as \'textColor\''), DB::raw('id'), DB::raw('jenis_acara'), DB::raw('keterangan'), DB::raw('\'' . Eventable::ACARA . '\' as \'table_name\''));
     }
 
     public function scopeGetByDateRange($query, $start, $end)
@@ -48,9 +48,17 @@ class Acara extends Eventable
 
     public function scopeGetEventablesByDate($query, Carbon $tarikh)
     {
-        $tarikh_tamat = clone $tarikh;
+        $acaraMula = clone $query;
+        $acaraMula2 = clone $query;
+        $tarikMulaTamat2 = clone $tarikh;
+        $tarikhTamatMula2 = clone $tarikh;
 
-        return $query->events()->getByDateRange($tarikh, $tarikh_tamat->addDay());
+
+        return $query->events()
+            ->where('masa_mula', '>=', $tarikh)
+            ->where('masa_mula', '<', $tarikMulaTamat2->addDay()->subMinute()->toDateTimeString())
+            ->union($acaraMula->events()->where('masa_tamat', '>', $tarikh)->Where('masa_tamat', '<', $tarikhTamatMula2->addDay()))
+            ->union($acaraMula2->events()->where('masa_mula', '<', $tarikh)->where('masa_tamat', '>', $tarikh));
     }
 
     public static function storeAcara(Anggota $profil, Request $request)

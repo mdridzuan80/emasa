@@ -4,11 +4,11 @@ namespace App\Services;
 
 use App\Cuti;
 use App\Anggota;
-use App\XtraAnggota;
 use App\Parameter;
 use App\Kehadiran;
-use Carbon\Carbon;
 use App\Kelewatan;
+use Carbon\Carbon;
+use App\XtraAnggota;
 use App\FinalAttendance;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
@@ -87,8 +87,8 @@ class FinalAttendanceService
             'tarikh' => $tarikh,
             'check_in' => $check_in = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_IN, $profil->ZIP),
             'check_out' => $check_out = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_OUT, $profil->ZIP),
-            'check_in_mid' => $check_min = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_MIN, $profil->ZIP),
-            'check_out_mid' => $check_mout = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_MOUT, $profil->ZIP),
+            'check_in_mid' => $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_MIN, $profil->ZIP),
+            'check_out_mid' => $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_MOUT, $profil->ZIP),
             'kesalahan' => json_encode($kesalahan = $this->getKesalahan($tarikh, $check_in, $check_out, $cuti, $shift)),
             'tatatertib_flag' => $this->getFlag($kesalahan),
             'shift_id' => $shift->id,
