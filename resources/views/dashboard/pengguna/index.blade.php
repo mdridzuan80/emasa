@@ -444,9 +444,29 @@
                             }
 
                             if (data.row.section === 'body' && data.column.dataKey === '3') {
+                                var justifikasi = '';
+                                
                                 if(result[data.row.index].cuti) {
-                                    data.cell.text = result[data.row.index].cuti.perihal;
+                                    justifikasi += "Cuti Umum : " + result[data.row.index].cuti.perihal + "\n";
                                 }
+
+                                if(result[data.row.index].justifikasi) {
+                                    result[data.row.index].justifikasi.forEach(function(item, index) {
+                                        if(index === 0 && item.flag_kelulusan === 'LULUS') {
+                                            if(item.flag_justifikasi === 'SAMA') {
+                                                justifikasi += "Justifikasi : " + item.keterangan + "\n";
+                                            } else {
+                                                justifikasi += "Justifikasi Pagi : " + item.keterangan + "\n";
+                                            }
+                                        }
+
+                                        if(index === 1 && item.flag_kelulusan === 'LULUS' && item.flag_justifikasi === 'XSAMA') {
+                                            justifikasi += "Justifikasi Petang : " + item.keterangan + "\n";
+                                        }
+                                    });
+                                }
+
+                                data.cell.text = justifikasi;
                             }
                         },
                         didDrawPage: function (data) {
