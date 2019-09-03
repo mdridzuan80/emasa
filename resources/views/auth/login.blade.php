@@ -35,7 +35,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <img src="{{ asset('dist/img/logo_dalam.png') }}" alt="Logo Rasmi PCRS">
+    <img src="{{ asset('dist/img/logo_dalam.png') }}" alt="Logo Rasmi eMasa">
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
