@@ -37,7 +37,7 @@
                         @if ($event->tatatertib_flag == $Kehadiran::FLAG_TATATERTIB_TUNJUK_SEBAB)
                             <tr>
                                 <td style="width: 50%;">
-                                    @if (!$pagi && $Utility::kesalahanCheckIn($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE)
+                                    @if (!$pagi && $Utility::kesalahanCheckIn($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE && $isValid)
                                         <form id="frm-mohon-justifikasi-pagi" class="form-horizontal">
                                             <input type="hidden" name="txt-final-attendance-id" value="{{ $event->id }}">
                                             <input type="hidden" name="txt-tarikh" class="txt-tarikh">
@@ -65,7 +65,7 @@
                                     @endif
                                 </td>
                                 <td style="width: 50%;">
-                                    @if (!$petang && $Utility::kesalahanCheckOut($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE)
+                                    @if (!$petang && $Utility::kesalahanCheckOut($event->kesalahan) != $Kehadiran::FLAG_KESALAHAN_NONE && $isValid)
                                         <form id="frm-mohon-justifikasi-petang" class="form-horizontal">
                                             <input type="hidden" name="txt-final-attendance-id" value="{{ $event->id }}">
                                             <input type="hidden" name="txt-tarikh" class="txt-tarikh">

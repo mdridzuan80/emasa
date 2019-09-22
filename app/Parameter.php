@@ -10,4 +10,9 @@ class Parameter extends Model
     {
         $this->setDateFormat(config('pcrs.modelDateFormat'));
     }
+
+    public static function nilai($kod)
+    {
+        return SELF::where('kod', $kod)->first()->nilai;
+    }
 }

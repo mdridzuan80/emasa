@@ -7,6 +7,7 @@ use App\Cuti;
 use App\Acara;
 use App\Anggota;
 use App\Kehadiran;
+use App\Parameter;
 use Carbon\Carbon;
 use League\Fractal\Manager;
 use App\Transformers\Event;
@@ -95,7 +96,9 @@ class KalendarController extends BaseController
             $events = $events->merge($profil->getAcaraTerlibat($eventable, $tarikh));
         }
 
-        return view('dashboard.acara.show.acara', compact('events', 'tarikh'));
+        $isValid = $this->isValidDateForSendJustify($tarikh);
+
+        return view('dashboard.acara.show.acara', compact('events', 'tarikh', 'isValid'));
     }
 
     private function viewAcara($jenisSumber, $event)
@@ -107,5 +110,11 @@ class KalendarController extends BaseController
         ];
 
         return view($this->_viewAcara[$jenisSumber], compact('event'));
+    }
+
+    private function isValidDateForSendJustify($tarikh)
+    {
+        return Carbon::parse($tarikh)->greaterThanOrEqualTo(Carbon::parse(today()->format('Y-m') . '-01'))
+        && Carbon::parse($tarikh)->lessThanOrEqualTo(Carbon::parse($tarikh)->addMonth()->format('Y-m') . '-' . Parameter::nilai('P_DAY_JUSTIFY_SEND'));
     }
 }
