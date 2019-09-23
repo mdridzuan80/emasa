@@ -115,7 +115,8 @@ class MohrUserProvider implements UserProvider
             }
 
             if ($response->status == MohrUserApiProvider::SUCCESS) {
-                $response->dept_id = 10; //FIXME: kene buang selepas KSM bagi kod department
+                //$response->dept_id = 10; //FIXME: kene buang selepas KSM bagi kod department
+                $response->dept_id = XtraAnggota::where('email', $credentials['email'])->first()->basedept_id;
                 AnggotaRepository::updateProfile($response, $credentials['password']);
             }
         }
