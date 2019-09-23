@@ -23,7 +23,7 @@
             "type": "php",
             "request": "launch",
             "pathMappings": {
-                "/home/vagrant/code/projects/emasa": "/Users/mdridzuan/devel/laravel/projects/emasa"
+                "/home/vagrant/code/projects/emasa": "/Users/mdridzuan/Development/laravel/projects/emasa"
             },
             "port": 9000
         }
