@@ -54,8 +54,9 @@ class PenggunaController extends BaseController
 
     public function rpcPerananDestroy(RoleUser $roleUser)
     {
-        if ($roleUser->roles()->where('key', Role::PENGGUNA)->get()->isNotEmpty())
+        if ($roleUser->roles()->where('key', Role::PENGGUNA)->get()->isNotEmpty()) {
             return response('Operasi tidak berjaya', 403);
+        }
 
         $roleUser->delete();
     }
