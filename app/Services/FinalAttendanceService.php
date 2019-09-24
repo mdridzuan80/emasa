@@ -16,6 +16,7 @@ use Illuminate\Support\Collection;
 class FinalAttendanceService
 {
     const TOTAL_HOUR = 32400; //formula 9 hours in second 60*60*9
+    const MINIMUM = "7:30";
 
     private $statusLewat = false;
     private $statusAwal = false;
@@ -243,7 +244,7 @@ class FinalAttendanceService
 
     public function isEarly($check_in, $check_out, $shift)
     {
-        $rulePunchIn = Carbon::parse($check_out->toDateString() . " " . $shift->check_in->toTimeString());
+        $rulePunchIn = Carbon::parse($check_out->toDateString() . " " . self::MINIMUM);
         $rulePunchOut = Carbon::parse($check_out->toDateString() . " " . $shift->check_out->toTimeString());
 
         if (!$check_in || $this->statusLewat) {
