@@ -15,13 +15,16 @@ use Illuminate\Support\Collection;
 
 class FinalAttendanceService
 {
+    const TOTAL_HOUR = 32400; //formula 9 hours in second 60*60*9
+
     private $statusLewat = false;
     private $statusAwal = false;
 
     public function tarikhTamat($tkhTamat)
     {
-        if ($tkhTamat->lt(Carbon::now()))
+        if ($tkhTamat->lt(Carbon::now())) {
             return $tkhTamat;
+        }
 
         return Carbon::now()->subDays(1);
     }
@@ -186,7 +189,8 @@ class FinalAttendanceService
         }
 
         if ($this->isLate($checkIn, $shift)) {
-            return Kehadiran::FLAG_KESALAHAN_LEWAT;;
+            return Kehadiran::FLAG_KESALAHAN_LEWAT;
+            ;
         }
 
         return Kehadiran::FLAG_KESALAHAN_NONE;
@@ -239,13 +243,18 @@ class FinalAttendanceService
 
     public function isEarly($check_in, $check_out, $shift)
     {
+        $rulePunchIn = Carbon::parse($check_out->toDateString() . " " . $shift->check_in->toTimeString());
         $rulePunchOut = Carbon::parse($check_out->toDateString() . " " . $shift->check_out->toTimeString());
 
         if (!$check_in || $this->statusLewat) {
             return $this->statusAwal = $check_out->lte($rulePunchOut);
         }
 
-        return $this->statusAwal = $check_in->diffInSeconds($check_out) < (60 * 60 * 9);
+        if ($check_in->lt($rulePunchIn)) {
+            return $this->statusAwal = $rulePunchIn->diffInSeconds($check_out) < self::TOTAL_HOUR;
+        }
+
+        return $this->statusAwal = $check_in->diffInSeconds($check_out) < self::TOTAL_HOUR;
     }
 
     public function janaFinalAttendance($profil, $preData, $shift)
