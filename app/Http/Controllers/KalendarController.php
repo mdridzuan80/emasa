@@ -76,8 +76,9 @@ class KalendarController extends BaseController
 
     public function rpcEventAnggotaShow(Anggota $profil, $acaraId, $jenisSumber)
     {
-        if ($jenisSumber !== Eventable::CURRENTATT)
+        if ($jenisSumber !== Eventable::CURRENTATT) {
             $event = $this->_eventable[$jenisSumber]::events()->findOrFail($acaraId);
+        }
 
         if ($jenisSumber === Eventable::CURRENTATT) {
             $jenisSumber = Eventable::FINALATT;
