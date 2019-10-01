@@ -13,6 +13,6 @@ class Parameter extends Model
 
     public static function nilai($kod)
     {
-        return SELF::where('kod', $kod)->first()->nilai;
+        return self::where('kod', $kod)->first()->nilai;
     }
 }
