@@ -114,7 +114,8 @@ class KalendarController extends BaseController
 
     private function isValidDateForSendJustify($tarikh)
     {
-        return Carbon::parse($tarikh)->greaterThanOrEqualTo(Carbon::parse(today()->format('Y-m') . '-01'))
-        && Carbon::parse($tarikh)->lessThanOrEqualTo(Carbon::parse($tarikh)->addMonth()->format('Y-m') . '-' . Parameter::nilai('P_DAY_JUSTIFY_SEND'));
+        return today()->lessThanOrEqualTo(Carbon::parse($tarikh)->addMonth()->format('Y-m')
+            . '-'
+            . Parameter::nilai('P_DAY_JUSTIFY_SEND'));
     }
 }
