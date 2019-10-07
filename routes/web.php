@@ -37,7 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware('can:view-laporan')->group(function () {
         Route::get('/laporan', 'LaporanController@index')->name('laporan');
         Route::prefix('laporan')->group(function () {
-            Route::get('/harian', 'LaporanController@harian');
+            Route::get('/harian', 'LaporanController@harian')->name('laporan.harian');
+            Route::get('/bulanan', 'LaporanController@bulanan')->name('laporan.bulanan');
         });
     });
 

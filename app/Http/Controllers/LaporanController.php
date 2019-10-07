@@ -23,14 +23,21 @@ class LaporanController extends BaseController
         return $this->renderView('laporan.index');
     }
 
-    
     public function harian()
     {
         return $this->renderView('laporan.harian');
     }
 
-    public function rpcHarian(LaporanHarianRequest $request, Manager $fractal, LaporanHarianTransformer $LaporanHariantransformer)
+    public function bulanan()
     {
+        return $this->renderView('laporan.bulanan');
+    }
+
+    public function rpcHarian(
+        LaporanHarianRequest $request,
+        Manager $fractal,
+        LaporanHarianTransformer $LaporanHariantransformer
+    ) {
         $bahagian = Department::find($request->input('txtDepartmentId'));
         $rekod = LaporanRepository::laporanHarian($request->input('txtDepartmentId'), $request->input('txtTarikh'));
 
