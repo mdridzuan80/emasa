@@ -66,7 +66,6 @@ Route::middleware('auth')->group(function () {
         //Route::patch('/waktu_bekerja/{shift}', 'WaktuBerperingkatController@rcpHapusWaktuBekerja')->middleware('can:edit-shift');
         Route::delete('/cuti', 'KonfigurasiController@rcpCutiDestroy')->middleware('can:delete-shift');
 
-
         // Anggota
         Route::post('/anggota_grid', 'AnggotaController@rpcAnggotaGrid')->middleware('can:view-anggota');
         Route::post('/anggota_penilai_grid', 'AnggotaController@rpcAnggotaPenilaiGrid')->middleware('can:view-anggota');
@@ -115,6 +114,7 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('laporan')->group(function () {
             Route::post('/harian', 'LaporanController@rpcHarian')->middleware('can:view-laporan');
+            Route::post('/bulanan', 'LaporanController@rpcBulanan')->middleware('can:view-laporan');
         });
 
         Route::prefix('konfigurasi')->group(function () {

@@ -9,6 +9,7 @@ use Illuminate\Support\Arr;
 use App\Base\BaseController;
 use League\Fractal\Resource\Collection;
 use App\Http\Requests\LaporanHarianRequest;
+use App\Http\Requests\LaporanBulananRequest;
 use App\Transformers\LaporanHarianTransformer;
 
 class LaporanController extends BaseController
@@ -33,11 +34,19 @@ class LaporanController extends BaseController
         return $this->renderView('laporan.bulanan');
     }
 
-    public function rpcHarian(
-        LaporanHarianRequest $request,
-        Manager $fractal,
-        LaporanHarianTransformer $LaporanHariantransformer
-    ) {
+    public function rpcHarian(LaporanBulananRequest $request, Manager $fractal, LaporanHarianTransformer $LaporanHariantransformer)
+    {
+        $bahagian = Department::find($request->input('txtDepartmentId'));
+        $rekod = LaporanRepository::laporanHarian($request->input('txtDepartmentId'), $request->input('txtTarikh'));
+
+        $resource = new Collection($rekod, $LaporanHariantransformer);
+        $transform = $fractal->createData($resource);
+
+        return response()->json(Arr::add($transform->toArray(), 'bahagian', $bahagian->deptname));
+    }
+
+    public function rpcBulanan(LaporanHarianRequest $request, Manager $fractal, LaporanHarianTransformer $LaporanHariantransformer)
+    {
         $bahagian = Department::find($request->input('txtDepartmentId'));
         $rekod = LaporanRepository::laporanHarian($request->input('txtDepartmentId'), $request->input('txtTarikh'));
 

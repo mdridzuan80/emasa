@@ -20,4 +20,5 @@ class LaporanRepository
             })->orderBy('xtra_userinfo.nama')
             ->get();
     }
+    
 }

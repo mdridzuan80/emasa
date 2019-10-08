@@ -12,7 +12,7 @@
             <div class="col-md-12">
                 <div class="box box-primary" >
                     <div class="box-body table-responsive">
-                        <form id="frm-laporan-harian">
+                        <form id="frm-laporan-bulanan">
                             <table class="table table-bordered">
                                 <tbody>
                                     <tr>
@@ -34,14 +34,10 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><b>ANGGOTA</b></td>
+                                        <td><b>PEGAWAI</b></td>
                                         <td>
-                                            <select multiple size="13" class="form-control">
+                                            <select id="comSenPPP" multiple size="13" class="form-control">
                                                 <option disabled>Semua</option>
-                                                <option>option 2</option>
-                                                <option>option 3</option>
-                                                <option>option 4</option>
-                                                <option>option 5</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -112,6 +108,7 @@
                             $('.departmentDisplayId').val(id);
                             $("#treeDisplay").hide();
 
+                            getSenaraiAnggota(id);
                         });
 
                         $('#departmentDisplay').on('click', function(e) {
@@ -133,14 +130,33 @@
             }
 
             function getSenaraiAnggota(departmentId) {
+                var options = $("#comSenPPP");
+                options.children().remove();
+                options.append(new Option('Loading...', 0));
+
                 $.ajax({
                     method:'post',
-                    data: departmentId,
-                    url: base_url+'rpc/'
+                    data: {
+                        searchKey: "",
+                        subDept:"true",
+                        searchDept: departmentId
+                    },
+                    url: base_url+'rpc/anggota_penilai_grid',
+                    success: function(data, textStatus, jqXHR) {
+                        options.children().remove();
+
+                        $.each(data.data, function(key, val) {
+                            options.append(new Option(val.nama+' ('+val.jawatan+')', val.anggota_id, false));
+                        });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+
+                    },
+                    statusCode: login()
                 });
             }
 
-            $('#frm-laporan-harian').on('submit', function(e) {
+            $('#frm-laporan-bulanan').on('submit', function(e) {
                 e.preventDefault();
                 
                 if(e.target.txtDepartmentId.value) {
@@ -152,10 +168,10 @@
                         cache       : false,
                         contentType : false,
                         processData : false,
-                        url: base_url+'rpc/laporan/harian',
+                        url: base_url+'rpc/laporan/bulanan',
                         dataType: 'json',
                         success: function( result, textStatus, jqXHR ) {
-                            exportPDF(e, result);
+                            //exportPDF(e, result);
                         }
                     });
                 }

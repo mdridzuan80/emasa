@@ -32,13 +32,13 @@ class Department extends BaseModel implements Flowable
 
     public static function senaraiDepartment()
     {
-        return SELF::when(Auth::user()->username !== env('PCRS_DEFAULT_USER_ADMIN', 'admin'), function ($query) {
+        return self::when(Auth::user()->username !== env('PCRS_DEFAULT_USER_ADMIN', 'admin'), function ($query) {
             $query->authorize();
         })
             ->orderBy('deptname')->get();
     }
 
-    static public function scopeAuthorize($query)
+    public static function scopeAuthorize($query)
     {
         $related = [];
         $effectedDept = Auth::user()->roles()->where('key', Auth::user()->perananSemasa()->key)->get()->map(function ($item, $key) {
