@@ -38,10 +38,12 @@ class ApiController extends Controller
         foreach ($records as $record) {
             $xtraAttr = XtraAnggota::where('nokp', $record['nokp'])->first();
 
-            $checkinout = new Checkinout;
-            $checkinout->userid = $xtraAttr->anggota_id;
-            $checkinout->checktime = $record['checktime'];
-            $checkinout->save();
+            if ($xtraAttr) {
+                $checkinout = new Checkinout;
+                $checkinout->userid = $xtraAttr->anggota_id;
+                $checkinout->checktime = $record['checktime'];
+                $checkinout->save();
+            }
         }
     }
 }
