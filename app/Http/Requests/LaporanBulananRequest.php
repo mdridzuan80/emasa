@@ -26,6 +26,7 @@ class LaporanBulananRequest extends FormRequest
         return [
             'txtTarikh' => 'required',
             'txtDepartmentId' => 'required',
+            'comPegawai' => 'required'
         ];
     }
 }

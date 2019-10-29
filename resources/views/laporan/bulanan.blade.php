@@ -36,8 +36,8 @@
                                     <tr>
                                         <td><b>PEGAWAI</b></td>
                                         <td>
-                                            <select id="comSenPPP" multiple size="13" class="form-control">
-                                                <option disabled>Semua</option>
+                                            <select id="comSenPPP" name="comPegawai[]" multiple size="13" class="form-control" required>
+                                                <option disabled>Sila pilih Bahagian/ Unit</option>
                                             </select>
                                         </td>
                                     </tr>
