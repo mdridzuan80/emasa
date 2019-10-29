@@ -37,7 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware('can:view-laporan')->group(function () {
         Route::get('/laporan', 'LaporanController@index')->name('laporan');
         Route::prefix('laporan')->group(function () {
-            Route::get('/harian', 'LaporanController@harian');
+            Route::get('/harian', 'LaporanController@harian')->name('laporan.harian');
+            Route::get('/bulanan', 'LaporanController@bulanan')->name('laporan.bulanan');
         });
     });
 
@@ -64,7 +65,6 @@ Route::middleware('auth')->group(function () {
         //Route::post('/waktu_bekerja', 'WaktuBerperingkatController@rcpTambahWaktuBekerja')->middleware('can:add-shift');
         //Route::patch('/waktu_bekerja/{shift}', 'WaktuBerperingkatController@rcpHapusWaktuBekerja')->middleware('can:edit-shift');
         Route::delete('/cuti', 'KonfigurasiController@rcpCutiDestroy')->middleware('can:delete-shift');
-
 
         // Anggota
         Route::post('/anggota_grid', 'AnggotaController@rpcAnggotaGrid')->middleware('can:view-anggota');
@@ -114,6 +114,7 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('laporan')->group(function () {
             Route::post('/harian', 'LaporanController@rpcHarian')->middleware('can:view-laporan');
+            Route::post('/bulanan', 'LaporanController@rpcBulanan')->middleware('can:view-laporan');
         });
 
         Route::prefix('konfigurasi')->group(function () {

@@ -144,6 +144,23 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td><b>FLEKSI</b></td>
+                                    <td>
+                                        <div class="bootstrap-timepicker">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <select name="comFleksi" id="comFleksi">
+                                                        <option value="YA">YA</option>
+                                                        <option value="TIDAK">TIDAK</option>
+                                                    </select>
+                                                </div>
+                                            <!-- /.input group -->
+                                            </div>
+                                            <!-- /.form group -->
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

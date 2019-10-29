@@ -415,6 +415,7 @@
             function exportPDF(result) {
                 try {     
                     var doc = new jsPDF('p', 'pt', 'a4');
+                    
                     var head = [["Tarikh", "Check-In", "Check-Out", "Catatan"]];
                     var body = result.map((item)=>[moment(item.start).format("DD-MM-YYYY"), (item.checkIn) ? moment(item.checkIn).format("h:mm A") : '', (item.checkOut) ? moment(item.checkOut).format("h:mm A") : '', '']);
                     
