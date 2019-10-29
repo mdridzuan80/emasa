@@ -115,7 +115,8 @@ class Anggota extends BaseModel implements Flowable
             ->when($search->get('key'), function ($query) use ($search) {
                 $query->whereRaw("concat(badgenumber, if(isnull(nama), '', nama), if(isnull(nokp), '', nokp), if(isnull(jawatan), '', jawatan)) LIKE '%" . $search->get('key') . "%'");
             })
-            ->when(Auth::user()->email !== env('PCRS_DEFAULT_USER_ADMIN', 'admin@internal'), function ($query) {
+
+            ->when(Auth::user()->roles()->orderBy('priority')->first()->key !== Role::SUPER_ADMIN, function ($query) {
                 $query->authorize();
             });
     }
