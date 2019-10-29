@@ -17,6 +17,7 @@ use App\Abstraction\Eventable;
 use League\Fractal\Resource\Item;
 use League\Fractal\Resource\Collection;
 use App\Http\Requests\StoreAcaraRequest;
+use App\Repositories\LaporanRepository;
 
 class KalendarController extends BaseController
 {
@@ -46,19 +47,7 @@ class KalendarController extends BaseController
 
     public function rpcEventAnggotaIndex(Anggota $profil, Request $request, Manager $fractal, Event $event)
     {
-        $checkinout = collect(($profil->finalKehadiran()->events()->getEventBetween([$request->input('start'), $request->input('end')])->get())->load('cuti')->toArray());
-        $cuti = Cuti::events()->getEventBetween([$request->input('start'), $request->input('end')])->get()->toArray();
-        $acara = $profil->acara()->events()->getByDateRange($request->input('start'), $request->input('end'))->get();
-
-        $events = $checkinout->merge($cuti)->merge($acara);
-
-        if ($checkIn = optional($profil->kehadiran()->events()->whereBetween('CHECKTIME', [today()->addHours(4), today()->addHours(13)])->first())->toArray()) {
-            $events = $events->push($checkIn);
-        } else {
-            $events->push(Kehadiran::itemEventableNone());
-        }
-
-        $resource = new Collection($events, $event);
+        $resource = new Collection((new LaporanRepository)->laporanBulanan($profil, $request->input('start'), $request->input('end')), $event);
         $transform = $fractal->createData($resource);
 
         return response()->json($transform->toArray());

@@ -171,65 +171,133 @@
                         url: base_url+'rpc/laporan/bulanan',
                         dataType: 'json',
                         success: function( result, textStatus, jqXHR ) {
-                            //exportPDF(e, result);
+                            exportPDF(result);
                         }
                     });
                 }
             });
 
-            function exportPDF(e, result) {
-                var doc = new jsPDF('p', 'pt', 'a4');
-                var head = [["Badge Number", "Nama", "WBF", "Check-In", "Check-Out"]];
-                var body = result.data.map((item)=>[item.badgenumber, item.nama, item.shift, (item.check_in) ? moment(item.check_in).format("h:mm A") : '', (item.check_out) ? moment(item.check_out).format("h:mm A") : '']);
-                
-                var totalPagesExp = "{total_pages_count_string}";
+            function exportPDF(results) {
 
-                doc.autoTable({
-                    head,
-                    body,
-                    theme: 'grid',
-                    showHead: 'firstPage',
-                    margin: {top: 70},
-                    didDrawPage: function (data) {
-                        // Header
-                        doc.setFontSize(16);
-                        doc.setTextColor(40);
-                        doc.setFontStyle('normal');
-                        /* if (base64Img) {
-                            doc.addImage(base64Img, 'JPEG', data.settings.margin.left, 15, 10, 10);
-                        } */                        
-                        doc.setFontSize(12);
-                        doc.text("LAPORAN HARIAN KEHADIRAN PENUH", data.settings.margin.left, 30);
-                        doc.text("Jabatan/ Bahagian/ Unit : " + result.bahagian, data.settings.margin.left, 45);
-                        doc.text("Tarikh : " + moment(e.target.txtTarikh.value).format("D-MMM-YYYY"), data.settings.margin.left, 60);
+                try {
+                    var doc = new jsPDF('p', 'pt', 'a4');
+                    var totalPagesExp = "{total_pages_count_string}";
+                    var i = 0;
+                    results.forEach(function(row) {
+                        var result = row.events;
+                        var head = [["Tarikh", "Check-In", "Check-Out", "Catatan"]];
+                        console.log(result.filter((item) => item.table_name === 'final'));
+                        var body = result.filter((item) => item.table_name === 'final').map((item)=>[moment(item.start).format("DD-MM-YYYY"), (item.check_in) ? moment(item.check_in).format("h:mm A") : '', (item.check_out) ? moment(item.check_out).format("h:mm A") : '', '']);
+                        
+                                                                console.log(body);
+                        //var totalPagesExp = "{total_pages_count_string}";
 
-                        // Footer
-                        var str = "Muka " + doc.internal.getNumberOfPages()
-
-                        // Total page number plugin only available in jspdf v1.0+
-                        if (typeof doc.putTotalPages === 'function') {
-                            str = str + " drp " + totalPagesExp;
+                        if(i !== 0) {
+                            doc.addPage();
                         }
-                        doc.setFontSize(9);
 
-                        // jsPDF 1.4+ uses getWidth, <1.4 uses .width
-                        var pageSize = doc.internal.pageSize;
-                        var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
-                        var pageWidth = doc.internal.pageSize.width ? doc.internal.pageSize.width : doc.internal.pageSize.getWidth();
+                        doc.autoTable({
+                            head,
+                            body,
+                            theme: 'grid',
+                            showHead: 'firstPage',
+                            margin: {top: 80},
+                            columnStyles: {
+                                0: {cellWidth:1},
+                                1: {cellWidth:1},
+                                2: {cellWidth:1},
+                                3: {cellWidth:'auto'}
+                            },
+                            didParseCell: function(data) {
+                                if(moment(result[data.row.index].start).format('d') === '0' || moment(result[data.row.index].start).format('d') === '6' || result[data.row.index].cuti ) {
+                                    if (data.row.index === data.row.index) {
+                                        data.cell.styles.fillColor = [240, 240, 240];
+                                    }
+                                }
 
-                        doc.text("{{ env('APP_NAME') }}", data.settings.margin.left, pageHeight - 20);
-                        doc.text("Dicetak pada : "+moment().format("lll"), data.settings.margin.left, pageHeight - 10, 'left');
-                        doc.writeText(data.settings.margin.left + 20, pageHeight - 10 ,str, { align: 'right' });
+                                if (data.row.section === 'body' && data.column.dataKey === '0') {
+                                    data.cell.text = moment(result[data.row.index].start).format('DD-MMM-YYYY (ddd)');
+                                }
+
+                                if (data.row.section === 'body' && data.column.dataKey === '3') {
+                                    var justifikasi = '';
+                                    
+                                    if(result[data.row.index].cuti) {
+                                        justifikasi += "Cuti Umum : " + result[data.row.index].cuti.perihal + "\n";
+                                    }
+
+                                    if(result[data.row.index].justifikasi) {
+                                        result[data.row.index].justifikasi.forEach(function(item, index) {
+                                            if(index === 0 && item.flag_kelulusan === 'LULUS') {
+                                                if(item.flag_justifikasi === 'SAMA') {
+                                                    justifikasi += "Justifikasi : " + item.keterangan + "\n";
+                                                } else {
+                                                    justifikasi += "Justifikasi Pagi : " + item.keterangan + "\n";
+                                                }
+                                            }
+
+                                            if(index === 1 && item.flag_kelulusan === 'LULUS' && item.flag_justifikasi === 'XSAMA') {
+                                                justifikasi += "Justifikasi Petang : " + item.keterangan + "\n";
+                                            }
+                                        });
+                                    }
+
+                                    data.cell.text = justifikasi;
+                                }
+                            },
+                            didDrawPage: function (data) {
+                                // Header
+                                doc.setFontSize(16);
+                                doc.setTextColor(40);
+                                doc.setFontStyle('normal');
+                                /* if (base64Img) {
+                                    doc.addImage(base64Img, 'JPEG', data.settings.margin.left, 15, 10, 10);
+                                } */                        
+                                doc.setFontSize(12);
+                                doc.text("LAPORAN KEHADIRAN BULANAN", data.settings.margin.left, 30);
+                                doc.text("Nama : " + row.name, data.settings.margin.left, 45);
+                                doc.text("Jabatan/ Bahagian/ Unit : " + row.deptname, data.settings.margin.left, 60);
+                                doc.text("Bulan : " + row.bulan, data.settings.margin.left, 75);
+
+                                // Footer
+                                var str = "Muka " + doc.internal.getNumberOfPages()
+
+                                // Total page number plugin only available in jspdf v1.0+
+                                if (typeof doc.putTotalPages === 'function') {
+                                    str = str + " drp " + totalPagesExp;
+                                }
+                                doc.setFontSize(9);
+
+                                // jsPDF 1.4+ uses getWidth, <1.4 uses .width
+                                var pageSize = doc.internal.pageSize;
+                                var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+                                var pageWidth = doc.internal.pageSize.width ? doc.internal.pageSize.width : doc.internal.pageSize.getWidth();
+
+                                doc.text("{{ env('APP_NAME') }}", data.settings.margin.left, pageHeight - 20);
+                                doc.text("Dicetak pada : "+moment().format("lll"), data.settings.margin.left, pageHeight - 10, 'left');
+                                doc.writeText(data.settings.margin.left + 20, pageHeight - 10 ,str, { align: 'right' });
+
+                                //doc.output("dataurlnewwindow");
+                            }
+                        });
+                        i++;
+                    });
+
+                    // Total page number plugin only available in jspdf v1.0+
+                    if (typeof doc.putTotalPages === 'function') {
+                        doc.putTotalPages(totalPagesExp);
                     }
-                });
 
-                // Total page number plugin only available in jspdf v1.0+
-                if (typeof doc.putTotalPages === 'function') {
-                    doc.putTotalPages(totalPagesExp);
+                    doc.output("dataurlnewwindow");
+                    //pdf.save();
+                } catch (error) {
+                    console.log(error);
+                    swal({
+                        title: 'Ralat!',
+                        html: "Janaan tidak berjaya!.<br/>Sila pastikan data kehadiran wujud.",
+                        type: 'error'
+                    });
                 }
-
-                doc.output("dataurlnewwindow");
-                //pdf.save();
             }
         });
     </script>

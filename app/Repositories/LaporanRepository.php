@@ -3,6 +3,9 @@
 namespace App\Repositories;
 
 use DB;
+use App\Cuti;
+use App\Anggota;
+use App\Kehadiran;
 
 class LaporanRepository
 {
@@ -20,5 +23,21 @@ class LaporanRepository
             })->orderBy('xtra_userinfo.nama')
             ->get();
     }
-    
+
+    public function laporanBulanan(Anggota $profil, $mula, $tamat)
+    {
+        $checkinout = collect(($profil->finalKehadiran()->events()->getEventBetween([$mula, $tamat])->get())->load('cuti')->toArray());
+        $cuti = Cuti::events()->getEventBetween([$mula, $tamat])->get()->toArray();
+        $acara = $profil->acara()->events()->getByDateRange($mula, $tamat)->get();
+
+        $events = $checkinout->merge($cuti)->merge($acara);
+
+        if ($checkIn = optional($profil->kehadiran()->events()->whereBetween('CHECKTIME', [today()->addHours(4), today()->addHours(13)])->first())->toArray()) {
+            $events = $events->push($checkIn);
+        } else {
+            $events->push(Kehadiran::itemEventableNone());
+        }
+
+        return $events;
+    }
 }
