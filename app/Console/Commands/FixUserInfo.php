@@ -51,21 +51,37 @@ class FixUserInfo extends Command
 
                 DB::transaction(function () use ($oldUser, $mapUser) {
 
-                    DB::update('update att2000_mohr.checkinout set userid = ' . $mapUser->userid . ' where userid = ?', [$oldUser->userid]);
+                    $data = DB::table('att2000_mohr.checkinout')
+                        ->where('userid', $oldUser->userid)
+                        ->update(['userid' => $mapUser->userid]);
 
-                    DB::update('update anggota_shift set anggota_id = ' . $mapUser->userid . ' where anggota_id = ?', [$oldUser->userid]);
+                    DB::table('anggota_shift')
+                        ->where('anggota_id', $oldUser->userid)
+                        ->update(['anggota_id' => $mapUser->userid]);
 
-                    DB::update('update final_attendances set anggota_id = ' . $mapUser->userid . ' where anggota_id = ?', [$oldUser->userid]);
+                    DB::table('final_attendances')
+                        ->where('anggota_id', $oldUser->userid)
+                        ->update(['anggota_id' => $mapUser->userid]);
 
-                    DB::update('update flow_anggota set anggota_id = ' . $mapUser->userid . ' where anggota_id = ?', [$oldUser->userid]);
+                    DB::table('flow_anggota')
+                        ->where('anggota_id', $oldUser->userid)
+                        ->update(['anggota_id' => $mapUser->userid]);
 
-                    DB::update('update kelewatan set anggota_id = ' . $mapUser->userid . ' where anggota_id = ?', [$oldUser->userid]);
+                    DB::table('kelewatan')
+                        ->where('anggota_id', $oldUser->userid)
+                        ->update(['anggota_id' => $mapUser->userid]);
 
-                    DB::update('update pegawai_penilai set anggota_id = ' . $mapUser->userid . ' where anggota_id = ?', [$oldUser->userid]);
+                    DB::table('pegawai_penilai')
+                        ->where('anggota_id', $oldUser->userid)
+                        ->update(['anggota_id' => $mapUser->userid]);
 
-                    DB::update('update pegawai_penilai set pegawai_id = ' . $mapUser->userid . ' where pegawai_id = ?', [$oldUser->userid]);
+                    DB::table('pegawai_penilai')
+                        ->where('pegawai_id', $oldUser->userid)
+                        ->update(['pegawai_id' => $mapUser->userid]);
 
-                    DB::update('update pegawai_penilai set anggota_id = ' . $mapUser->userid . ' where anggota_id = ?', [$oldUser->userid]);
+                    DB::table('users')
+                        ->where('anggota_id', $oldUser->userid)
+                        ->update(['anggota_id' => $mapUser->userid]);
                 });
             }
         }
