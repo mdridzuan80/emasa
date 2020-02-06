@@ -48,9 +48,11 @@
                     </li>
                     <!-- Menu Footer-->
                     <li class="user-footer">
-                    <div class="pull-left">
-                        <a href="#" class="btn btn-default btn-default btn-flat">Profile</a>
-                    </div>
+                    @if (Auth::user()->ableChangePassword())
+                        <div class="pull-left">
+                            <a id="btn-tukar-password" href="#" class="btn btn-default btn-default btn-flat">Tukar Katalaluan</a>
+                        </div>
+                    @endif
                     <div class="pull-right">
                         <a href="{{ route('logout') }}" class="btn btn-default btn-flat"
                             onclick="event.preventDefault();
@@ -67,3 +69,55 @@
         </div>
     </nav>
 </header>
+
+<!-- Modal --> 
+<div class="modal fade" id="modal-tukar-katalaluan">
+    <div class="modal-dialog modal-md">
+    <div class="modal-content">
+        <div class="modal-header" style="background:steelblue;color:white">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" >TUKAR KATALALUAN</h4>
+        </div>
+        <div class="modal-body">
+            <div class="table-responsive">
+                <form id="frm-tukar-katalaluan">
+                    <table class="table table-bordered">
+                        <input id="txtId" type="hidden" name="txtId" value="{{ Auth::user()->id }}">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-3"><b>KATALALUAN LAMA</b></td>
+                                <td><input id="txtKatalaluanLama" class="form-control" type="password" name="txtKatalauanLama" required></td>
+                            </tr>
+                            <tr>
+                                <td><b>KATALALUAN BARU</b></td>
+                                <td><input id="txtKatalaluanBaru" class="form-control" type="password" name="txtKatalauanBaru" required></td>
+                            </tr>
+                            <tr>
+                                <td><b>RE-KATALALAUAN BARU</b></td>
+                                <td><input id="txtReKatalaluanLama" class="form-control" type="password" name="txtReKatalauanLama" required></td>
+                            </tr>
+                            <tr>
+                                <td><b>METER KOMPLEKSITI</b></td>
+                                <td>
+                                    <div id="meter_wrapper">
+                                        <div id="meter"></div>
+                                    </div>
+                                    <br>
+                                    <span id="pass_type"></span>
+                                </td>
+                            </tr>
+                        </body>
+                    </table>
+
+                    <button class="btn btn-success pull-right" type="submit">HANTAR</button>
+                    <button id="btn-batal" type="button" class="btn btn-link pull-right" style="color:#dd4b39;" >BATAL</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

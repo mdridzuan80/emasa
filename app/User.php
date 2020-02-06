@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Str;
 use App\Traits\HasPermissionTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -101,6 +102,26 @@ class User extends Authenticatable
         $this->email = $request->input('txtEmail');
         $this->save();
         $this->roles()->attach(Role::where('key', Role::PENGGUNA)->first(), ['department_id' => $profil->xtraAttr->basedept_id]);
+    }
+
+    public function isLdapDomain()
+    {
+        list($username, $domain) = explode('@', $this->email);
+
+        if (Str::contains(config("pcrs.loginDomain"), $domain)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function ableChangePassword()
+    {
+        if ($this->email == env("PCRS_DEFAULT_USER_ADMIN", "admin@internal") || !$this->isLdapDomain()) {
+            return true;
+        }
+
+        return false;
     }
 
     public static function setupLogin($profil, $password)

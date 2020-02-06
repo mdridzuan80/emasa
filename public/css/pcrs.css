@@ -34,3 +34,21 @@
     margin: 0;
     float: right;
 }
+
+#meter_wrapper {
+    border: 1px solid grey;
+    width: 200px;
+    height: 10px;
+    border-radius: 3px;
+}
+
+#meter {
+    width: 0px;
+    height: 10px;
+    border-radius: 3px;
+}
+
+#pass_type {
+    text-align: center;
+    color: grey;
+}
