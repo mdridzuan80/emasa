@@ -14,6 +14,7 @@ use Adldap\Laravel\Facades\Adldap;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use League\Fractal\Resource\Collection;
+use App\Http\Requests\TukarKatalaluanRequest;
 use App\Transformers\LdapAttr as LdapAttrTransformer;
 
 class PenggunaController extends BaseController
@@ -44,6 +45,15 @@ class PenggunaController extends BaseController
         });
 
         return $this->rpcLoginIndex($profil);
+    }
+
+    public function rpcTukarKatalaluan(TukarKatalaluanRequest $request)
+    {
+        $user = Auth::user();
+
+        if (!$user->tukarKatalaluan($request->input("txtKatalaluanLama"), $request->input("txtKatalaluanBaru"))) {
+            return response('Operasi tidak berjaya', 400);
+        }
     }
 
     public function rpcPerananStore(Request $request, Anggota $profil)

@@ -103,6 +103,8 @@ Route::middleware('auth')->group(function () {
 
             Route::post('/{profil}/peranan', 'PenggunaController@rpcPerananStore')->middleware('can:add-peranan');
             Route::delete('/peranan/{roleUser}', 'PenggunaController@rpcPerananDestroy')->middleware('can:delete-peranan');
+
+            Route::post("/tukarkatalaluan", "PenggunaController@rpcTukarKatalaluan");
         });
 
         Route::prefix('kalendar')->group(function () {

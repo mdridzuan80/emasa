@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Support\Str;
 use App\Traits\HasPermissionTrait;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -118,6 +119,18 @@ class User extends Authenticatable
     public function ableChangePassword()
     {
         if ($this->email == env("PCRS_DEFAULT_USER_ADMIN", "admin@internal") || !$this->isLdapDomain()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function tukarKatalaluan($lama, $baru)
+    {
+        if (Hash::check($lama, $this->password)) {
+            $this->password = bcrypt($baru);
+            $this->save();
+
             return true;
         }
 

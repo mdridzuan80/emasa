@@ -83,19 +83,18 @@
             <div class="table-responsive">
                 <form id="frm-tukar-katalaluan">
                     <table class="table table-bordered">
-                        <input id="txtId" type="hidden" name="txtId" value="{{ Auth::user()->id }}">
                         <tbody>
                             <tr>
                                 <td class="col-md-3"><b>KATALALUAN LAMA</b></td>
-                                <td><input id="txtKatalaluanLama" class="form-control" type="password" name="txtKatalauanLama" required></td>
+                                <td><input id="txtKatalaluanLama" class="form-control" type="password" name="txtKatalaluanLama" required></td>
                             </tr>
                             <tr>
                                 <td><b>KATALALUAN BARU</b></td>
-                                <td><input id="txtKatalaluanBaru" class="form-control" type="password" name="txtKatalauanBaru" required></td>
+                                <td><input id="txtKatalaluanBaru" class="form-control" type="password" name="txtKatalaluanBaru" required></td>
                             </tr>
                             <tr>
                                 <td><b>RE-KATALALAUAN BARU</b></td>
-                                <td><input id="txtReKatalaluanLama" class="form-control" type="password" name="txtReKatalauanLama" required></td>
+                                <td><input id="txtReKatalaluanLama" class="form-control" type="password" name="txtReKatalaluanLama" required></td>
                             </tr>
                             <tr>
                                 <td><b>METER KOMPLEKSITI</b></td>

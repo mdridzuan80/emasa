@@ -225,13 +225,13 @@
             preConfirm: () => {
                 return new Promise((resolve, reject) => {
                     
-                    /* $.ajax({
+                    $.ajax({
                         method: 'post',
                         data: formData,
                         cache       : false,
                         contentType : false,
                         processData : false,
-                        url: base_url+'rpc/anggota/waktu_bekerja_harian/'+mProfil.userId,
+                        url: base_url+"rpc/pengguna/tukarkatalaluan",
                         success: function() {
                             resolve();
                         },
@@ -239,27 +239,20 @@
                             reject(err);
                         },
                         statusCode: login()
-                    }); */
+                    });
                 })
             }
         }).then((result) => {
             if (result.value) {
                 swal({
                     title: 'Berjaya!',
-                    text: 'Maklumat telah ditambah',
+                    text: 'Katalaluan telah dikemaskini.',
                     type: 'success'
                 });
                 formEl.trigger('reset');
-                loadWbbBulanan($('#jadualWbbBulanan'));
-                loadWbbHarian($('#jadualWbbHarian'));
+                $("#modal-tukar-katalaluan").modal('hide');
             }
         }).catch(function (error) {
-            var errorMsg = error.statusText;
-
-            if (error.status == 409) {
-                errorMsg = 'Rekod Waktu Bekerja telah wujud!';
-            }
-
             swal({
                 title: 'Ralat!',
                 text: errorMsg,
