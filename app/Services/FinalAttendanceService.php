@@ -106,12 +106,10 @@ class FinalAttendanceService
                 case Kehadiran::PUNCH_IN:
                     if ($this->isCuti($tarikh, $cuti)) {
                         return $value->checktime->gte($tarikh->copy()->addHours(4)) &&
-                            $value->checktime->lt($tarikh->copy()->addDays(1)->addHours(4)) &&
-                            $value->checktype != '1' && $value->checktype != 'i';
+                            $value->checktime->lt($tarikh->copy()->addDays(1)->addHours(4));
                     } else {
                         return $value->checktime->gte($tarikh->copy()->addHours(4)) &&
-                            $value->checktime->lt($tarikh->copy()->addHours(13)) &&
-                            $value->checktype != '1' && $value->checktype != 'i';
+                            $value->checktime->lt($tarikh->copy()->addHours(13));
                     }
 
                     break;
@@ -119,12 +117,10 @@ class FinalAttendanceService
                 case Kehadiran::PUNCH_OUT:
                     if ($this->isCuti($tarikh, $cuti)) {
                         return $value->checktime->gte($tarikh->copy()->addHours(4)) &&
-                            $value->checktime->lt($tarikh->copy()->addDays(1)->addHours(4)) &&
-                            $value->checktype != '1' && $value->checktype != 'i';
+                            $value->checktime->lt($tarikh->copy()->addDays(1)->addHours(4));
                     } else {
                         return $value->checktime->gte($tarikh->copy()->addHours(13)) &&
-                            $value->checktime->lt($tarikh->copy()->addDays(1)->addHours(4)) &&
-                            $value->checktype != '1' && $value->checktype != 'i';
+                            $value->checktime->lt($tarikh->copy()->addDays(1)->addHours(4));
                     }
 
                     break;
@@ -191,7 +187,6 @@ class FinalAttendanceService
 
         if ($this->isLate($checkIn, $shift)) {
             return Kehadiran::FLAG_KESALAHAN_LEWAT;
-            ;
         }
 
         return Kehadiran::FLAG_KESALAHAN_NONE;
@@ -244,12 +239,13 @@ class FinalAttendanceService
 
     public function isEarly($check_in, $check_out, $shift)
     {
-        $rulePunchIn = Carbon::parse($check_out->toDateString() . " " . self::MINIMUM);
         $rulePunchOut = Carbon::parse($check_out->toDateString() . " " . $shift->check_out->toTimeString());
 
         if (!$check_in || $this->statusLewat) {
             return $this->statusAwal = $check_out->lte($rulePunchOut);
         }
+
+        $rulePunchIn = Carbon::parse($check_in->toDateString() . " " . self::MINIMUM);
 
         if ($check_in->lt($rulePunchIn)) {
             return $this->statusAwal = $rulePunchIn->diffInSeconds($check_out) < self::TOTAL_HOUR;
