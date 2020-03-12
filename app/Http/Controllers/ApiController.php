@@ -33,6 +33,8 @@ class ApiController extends Controller
 
     public function storeCheckinout(Request $request)
     {
+        $response = ["data" => []];
+
         $records = $request->json()->all();
 
         foreach ($records as $record) {
@@ -44,6 +46,10 @@ class ApiController extends Controller
                 $checkinout->checktime = $record['checktime'];
                 $checkinout->save();
             }
+
+            $response["data"][] = ["nokp" => $record['nokp']];
         }
+
+        response()->json($response);
     }
 }
