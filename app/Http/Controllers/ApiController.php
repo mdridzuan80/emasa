@@ -38,16 +38,21 @@ class ApiController extends Controller
         $records = $request->json()->all();
 
         foreach ($records as $record) {
-            $xtraAttr = XtraAnggota::where('nokp', $record['nokp'])->first();
+            try {
+                $xtraAttr = XtraAnggota::where('nokp', $record['nokp'])->first();
 
-            if ($xtraAttr) {
-                $checkinout = new Checkinout;
-                $checkinout->userid = $xtraAttr->anggota_id;
-                $checkinout->checktime = $record['checktime'];
-                $checkinout->save();
+                if ($xtraAttr) {
+                    $checkinout = new Checkinout;
+                    $checkinout->userid = $xtraAttr->anggota_id;
+                    $checkinout->checktime = $record['checktime'];
+                    $checkinout->save();
+                }
+
+                $response["data"][] = ["nokp" => $record['nokp']];
+            } catch (\Throwable $th) {
+                //throw $th;
+                $response["data"][] = ["nokp" => $record['nokp'], "error" => "1"];
             }
-
-            $response["data"][] = ["nokp" => $record['nokp']];
         }
 
         response()->json($response);
