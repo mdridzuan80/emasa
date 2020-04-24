@@ -133,6 +133,8 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('dist/js/demo.js') }}"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+
 <script>
   var base_url = '{{ url('') }}/';
   var bulan = {!! pcrsBulan()->toJson(JSON_NUMERIC_CHECK) !!};

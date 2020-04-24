@@ -58,6 +58,9 @@ class PcrsGate
         Gate::define('edit-cuti', $this->minPrivilege(Role::ADMIN));
         Gate::define('delete-cuti', $this->minPrivilege(Role::ADMIN));
 
+        Gate::define('view-puasa', $this->minPrivilege(Role::ADMIN));
+        Gate::define('add-puasa', $this->minPrivilege(Role::ADMIN));
+
         Gate::define('view-kelulusan', $this->kelulusan());
     }
 

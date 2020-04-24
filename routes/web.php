@@ -124,6 +124,9 @@ Route::middleware('auth')->group(function () {
             Route::post('/flow_bahagian/{department}', 'KonfigurasiController@rpcFlowBahagianUpdate')->middleware('can:edit-flow-bahagian-setting');
         });
 
+        Route::get('/puasa', 'PuasaController@index')->middleware('can:view-puasa');
+        Route::post('/puasa', 'PuasaController@store')->middleware('can:add-puasa');
+
         // Justifikasi
         Route::post('/justifikasi/{profil}', 'JustifikasiController@rpcStore');
         Route::put('/justifikasi/{justifikasi}', 'JustifikasiController@rpcUpdate');
