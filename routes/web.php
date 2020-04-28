@@ -126,6 +126,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/puasa', 'PuasaController@index')->middleware('can:view-puasa');
         Route::post('/puasa', 'PuasaController@store')->middleware('can:add-puasa');
+        Route::delete('/puasa/{puasa}', 'PuasaController@destroy')->middleware('can:delete-puasa');
+
 
         // Justifikasi
         Route::post('/justifikasi/{profil}', 'JustifikasiController@rpcStore');

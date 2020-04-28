@@ -91,7 +91,10 @@
                                                         <td colspan="3">
                                                             <ol>
                                                             <li v-for="puasa of senPuasa" :key="puasa" >
-                                                                Mula: @{{ puasa.tkhmula }} - Tamat: @{{ puasa.tkhtamat }}&nbsp;<a title="Hapus Peranan" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
+                                                                Mula: @{{ puasa.tkhmula }} - Tamat: @{{ puasa.tkhtamat }}&nbsp;
+                                                                <a title="Hapus Peranan" class="btn btn-danger btn-xs" @click="deleteTarikh(puasa.id)">
+                                                                    <i class="fa fa-trash-o"></i>
+                                                                </a>
                                                             </li>
                                                             </ol>
                                                         </td>
@@ -714,10 +717,7 @@
                             }
                         }).then((result) => {
                             if (result.value) {
-                                this.senPuasa.push({
-                                    tkhmula: moment(result.value.data.tkhmula).format('DD-MM-YYYY'),
-                                    tkhtamat: moment(result.value.data.tkhtamat).format('DD-MM-YYYY')
-                                });
+                                this.senPuasa.push(result.value.data);
 
                                 this.tkhMula = null;
                                 this.tkhTamat = null;
@@ -730,8 +730,44 @@
                             });
                         });
                     },
-                    deleteTarikh() {
-
+                    deleteTarikh(id) {
+                        swal({
+                            title: 'Amaran!',
+                            text: 'Anda pasti untuk menghapuskan rekod pengisytiharan puasa?',
+                            type: 'warning',
+                            cancelButtonText: 'Tidak',
+                            showCancelButton: true,
+                            confirmButtonText: 'Ya!',
+                            showLoaderOnConfirm: true,
+                            allowOutsideClick: () => !swal.isLoading(),
+                            preConfirm: (email) => {
+                                return new Promise((resolve, reject) => {
+                                    $.ajax({
+                                        method: "delete",
+                                        url: base_url + "rpc/puasa/"+id,
+                                        data: {tkhMula: this.tkhMula, tkhTamat: this.tkhTamat},                
+                                        success: function(result) {
+                                            console.log(result);
+                                            resolve(result);
+                                        },
+                                        error: function(result) {
+                                            reject(result);
+                                        },
+                                        statusCode: login()
+                                    });
+                                })
+                            }
+                        }).then((result) => {
+                            if (result.value) {
+                                this.senPuasa = this.senPuasa.filter(puasa => puasa.id != id);
+                            }
+                        }).catch(function () {
+                            swal({
+                                title: 'Ralat!',
+                                text: 'Anda tidak dibenarkan untuk melakukan tindakan ini!',
+                                type: 'error'
+                            });
+                        });
                     }
                 },
                 mounted () {
@@ -751,7 +787,7 @@
                     $.ajax({
                         url: base_url + "rpc/puasa/",                
                         success: response => {
-                            this.senPuasa = response.map((item)=> {
+                            this.senPuasa = response.data.map((item)=> {
                                 item.tkhmula = moment(item.tkhmula).format('DD-MM-YYYY');
                                 item.tkhtamat = moment(item.tkhtamat).format('DD-MM-YYYY');
                                 return item;

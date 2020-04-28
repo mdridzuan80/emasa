@@ -9,8 +9,9 @@ class PuasaTransformer extends TransformerAbstract
     public function transform($item)
     {
         return [
-            'tkhmula' => $item->tkhMula,
-            'tkhtamat' => $item->tkhTamat,
+            'id' => $item->id,
+            'tkhmula' => $item->tkhmula,
+            'tkhtamat' => $item->tkhtamat,
         ];
     }
 }
