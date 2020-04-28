@@ -11,24 +11,21 @@ use App\Transformers\PuasaTransformer;
 
 class PuasaController extends Controller
 {
-    public function index(Puasa $puasa)
+    public function index(Puasa $puasa, Manager $fractal)
     {
-        $fractal = new Manager;
         $resource = new Collection($puasa->byTahun(), new PuasaTransformer);
         $transform = $fractal->createData($resource);
 
         return response()->json($transform->toArray());
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Puasa $puasa, Manager $fractal)
     {
-        $addPuasa = new Puasa;
-        $addPuasa->tkhmula = $request->input("tkhMula");
-        $addPuasa->tkhtamat = $request->input("tkhTamat");
-        $addPuasa->save();
+        $puasa->tkhmula = $request->input("tkhMula");
+        $puasa->tkhtamat = $request->input("tkhTamat");
+        $puasa->save();
 
-        $fractal = new Manager;
-        $resource = new Item($addPuasa, new PuasaTransformer);
+        $resource = new Item($puasa, new PuasaTransformer);
         $transform = $fractal->createData($resource);
 
         return response()->json($transform->toArray(), 201);
