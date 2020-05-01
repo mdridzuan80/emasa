@@ -55,6 +55,11 @@ class XtraAnggota extends Model
             ->withPivot('id', 'tkh_mula', 'tkh_tamat');
     }
 
+    public function shiftConfs()
+    {
+        return $this->hasMany(ShiftConf::class, 'anggota_id', 'anggota_id');
+    }
+
     public function finalAttendance()
     {
         return $this->hasMany(finalAttendance::class, 'anggota_id', 'anggota_id');

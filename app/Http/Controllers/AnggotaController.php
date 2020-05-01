@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Puasa;
 use App\Utility;
 use App\Anggota;
+use App\ShiftConf;
 use League\Fractal\Manager;
 use App\Base\BaseController;
 use Illuminate\Http\Request;
@@ -99,5 +101,40 @@ class AnggotaController extends BaseController
     public function rpcFlowUpdate(Request $request, Anggota $profil)
     {
         $profil->updateFlow($request);
+    }
+
+    public function rpcPuasaConf(Anggota $profil, Puasa $puasa)
+    {
+        $senPuasa = $puasa->tahunSemasa()->with(['confs' => function ($query) use ($profil) {
+            $query->where('anggota_id', $profil->userid)->orderBy('id');
+        }])->get();
+
+        $senPuasaAssocConf = $senPuasa->map(function ($item, $key) use ($profil) {
+            $confs = $item->confs;
+            unset($item->confs);
+            if ($confs->isNotEmpty()) {
+                $item->conf = $confs->last();
+            } else {
+                $item->conf = ["pilihan" => ShiftConf::PUASA];
+            }
+
+            return $item;
+        });
+
+        return response()->json($senPuasaAssocConf, 200);
+    }
+
+    public function rpcPuasaConfStore(Request $request, Anggota $profil)
+    {
+        ShiftConf::updateOrCreate(
+            [
+                'anggota_id' => $profil->userid,
+                'puasa_id' => $request->input('puasa_id'),
+                'jenis' => ShiftConf::PUASA
+            ],
+            [
+                'pilihan' => $request->input('pilihan')
+            ]
+        );
     }
 }
