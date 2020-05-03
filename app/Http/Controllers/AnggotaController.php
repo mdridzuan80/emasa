@@ -137,4 +137,35 @@ class AnggotaController extends BaseController
             ]
         );
     }
+
+    public function rpcMengandungConf(Anggota $profil)
+    {
+        $senMengandung = ShiftConf::where('anggota_id', $profil->userid)
+            ->where('jenis', ShiftConf::MENGANDUNG)
+            ->tahunSemasa()
+            ->get();
+
+        return response()->json($senMengandung, 200);
+    }
+
+    public function rpcMengandungConfStore(Request $request, Anggota $profil)
+    {
+        $shiftMengandungConf = ShiftConf::create(
+            [
+                'anggota_id' => $profil->userid,
+                'puasa_id' => $request->input('puasa_id'),
+                'jenis' => $request->input('jenis'),
+                'pilihan' => $request->input('pilihan'),
+                'tkh_mula' => $request->input('tkh_mula'),
+                'tkh_tamat' => $request->input('tkh_tamat'),
+            ]
+        );
+
+        return response()->json($shiftMengandungConf, 201);
+    }
+
+    public function rpcMengandungConfDelete(Anggota $profil, ShiftConf $shiftConf)
+    {
+        $shiftConf->delete();
+    }
 }

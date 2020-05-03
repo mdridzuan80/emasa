@@ -112,26 +112,46 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div id="waktu-mengandung" class="col-md-4">
-                                            <form id="frmMengandungConf" method="post" role="form" v-on:submit.prevent="addConf">
-                                                <div class="form-group">
-                                                    <label for="comBulan">TARIKH MULA</label>
-                                                    <input type="text" class="form-control" name="txtTarikhMula" id="txtTarikhMula" autocomplete="off" v-model="tkhmula" required>
+                                        <div id="waktu-mengandung">
+                                            <div class="col-md-4">
+                                                <form id="frmMengandungConf" method="post" role="form" v-on:submit.prevent="addConf">
+                                                    <div class="form-group">
+                                                        <label for="comBulan">TARIKH MULA</label>
+                                                        <input type="text" class="form-control" name="txtTarikhMula" id="txtTarikhMula" autocomplete="off" v-model="tkhmula" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="comBulan">TARIKH TAMAT</label>
+                                                        <input type="text" class="form-control" name="txtTarikhTamat" id="txtTarikhTamat" autocomplete="off" v-model="tkhtamat" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <button :disabled="buttonCond" type="submit" class="btn btn-success btn-block" title="Simpan maklumat Waktu berperingkat" @>SIMPAN</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div id="jadualShiftMengandungConf" class="table-responsive">
+                                                    <div class="col-md-12" v-if="senMengandung.length !== 0">
+                                                        <table class="table table-striped">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th>Tempoh Mengandung</th>
+                                                                    <th>OPERASI</th>
+                                                                </tr>
+                                                                <tr v-for="mengandung of senMengandung" :key="mengandung">
+                                                                    <td>@{{ mengandung.tkh_mula }} - @{{ mengandung.tkh_tamat }}</td>
+                                                                    <td>
+                                                                        <button title="Hapus rekod tempoh mengandung" class="btn btn-danger btn-xs btn-hapus-wbb" @click="delConf(mengandung.id)">
+                                                                            <i class="fa fa-trash-o"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col-md-12" v-else>
+                                                        <p style="color: red">Anda tiada maklumat tempoh mengandung.</p>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="comBulan">TARIKH TAMAT</label>
-                                                    <input type="text" class="form-control" name="txtTarikhTamat" id="txtTarikhTamat" autocomplete="off" v-model="tkhtamat" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <button type="submit" class="btn btn-success btn-block" title="Simpan maklumat Waktu berperingkat">SIMPAN</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div id="jadualShiftConf" class="table-responsive">
-                                                <h4>
-                                                    <i class="fa fa-refresh fa-spin"></i> Janaan jadual...
-                                                </h4>
                                             </div>
                                         </div>
                                     </td>
@@ -201,8 +221,116 @@
     var mengandungConf = new Vue({
         el: "#waktu-mengandung",
         data: {
+            senMengandung: [],
             tkhmula: null,
-            tkhtamat: null
-        }
+            tkhtamat: null,
+            buttonCond: false,
+        },
+        mounted () {
+                var mula = $('#txtTarikhMula');
+                var tamat = $('#txtTarikhTamat');
+
+                mula.datepicker({
+                    format: 'yyyy-mm-dd',
+                    autoclose: true
+                })
+                .on('changeDate', function(e) {
+                    console.log(e.date)
+                    tamat.datepicker('setStartDate', e.date);
+                    this.tkhmula = moment(e.date).format('YYYY-MM-DD');
+                }.bind(this))
+                .on('show', function(e) {
+                    e.stopPropagation(); 
+                });
+
+                tamat.datepicker({
+                    format: 'yyyy-mm-dd',
+                    autoclose: true
+                })
+                .on('changeDate', function(e) {
+                    mula.datepicker('setEndtDate', e.date);
+                    this.tkhtamat = moment(e.date).format('YYYY-MM-DD');
+                }.bind(this))
+                .on('show', function(e) {
+                    e.stopPropagation(); 
+                });
+        },
+        methods: {
+            addConf() {
+                this.buttonCond = true;
+
+                $.ajax({
+                    url: `${base_url}rpc/anggota/mengandung_conf/${mProfil.userId}`,
+                    method: 'post',
+                    data: {
+                        'puasa_id': 0,
+                        'jenis': '{{ \App\ShiftConf::MENGANDUNG }}',
+                        'pilihan': '{{ \App\ShiftConf::MENGANDUNG }}',
+                        'tkh_mula': this.tkhmula,
+                        'tkh_tamat': this.tkhtamat
+                    },
+                    success: (resp) => {
+                        resp.tkh_mula = moment(resp.tkh_mula).format('DD-MM-YYYY');
+                        resp.tkh_tamat = moment(resp.tkh_tamat).format('DD-MM-YYYY');
+
+                        this.senMengandung.push(resp);
+                        this.tkhmula = null;
+                        this.tkhtamat = null;
+                    },
+                    complete: () => this.buttonCond = false
+
+                });
+            },
+
+            delConf(id) {
+                swal({
+                    title: 'Amaran!',
+                    text: 'Anda pasti untuk menghapuskan rekod tempoh mengandung ini?',
+                    type: 'warning',
+                    cancelButtonText: 'Tidak',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya!',
+                    showLoaderOnConfirm: true,
+                    allowOutsideClick: () => !swal.isLoading(),
+                    preConfirm: () => {
+                        return new Promise((resolve, reject) => {
+                            $.ajax({
+                                url: `${base_url}rpc/anggota/${mProfil.userId}/mengandung_conf/${id}`,
+                                method: 'delete',
+                                success: function(result) {
+                                    resolve(result);
+                                },
+                                error: function(result) {
+                                    reject(result);
+                                },
+                                statusCode: login()
+                            });
+                        })
+                    }
+                }).then((result) => {
+                    if (result.value) {
+                        this.senMengandung = this.senMengandung.filter(mengandung => mengandung.id != id);
+                    }
+                }).catch(function (result) {
+                    swal({
+                        title: 'Ralat!',
+                        text: 'Anda tidak dibenarkan untuk melakukan tindakan ini!',
+                        type: 'error'
+                    });
+                });
+            }
+        },
+        created () {
+            $.ajax({
+                url: `${base_url}rpc/anggota/mengandung_conf/${mProfil.userId}`,
+                success: (resp) => {
+                    this.senMengandung = resp.map((item)=> {
+                        item.tkh_mula = moment(item.tkh_mula).format('DD-MM-YYYY');
+                        item.tkh_tamat = moment(item.tkh_tamat).format('DD-MM-YYYY');
+                        return item;
+                    });
+                }
+            });
+        },
     });
 </script>

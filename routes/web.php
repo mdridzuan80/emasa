@@ -86,6 +86,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/puasa_conf/{profil}', 'AnggotaController@rpcPuasaConf');
             Route::post('/puasa_conf/{profil}', 'AnggotaController@rpcPuasaConfStore');
 
+            Route::get('/mengandung_conf/{profil}', 'AnggotaController@rpcMengandungConf');
+            Route::post('/mengandung_conf/{profil}', 'AnggotaController@rpcMengandungConfStore');
+            Route::delete('/{profil}/mengandung_conf/{shiftConf}', 'AnggotaController@rpcMengandungConfDelete');
 
             // Pegawai Penilai
             Route::get('/{profil}/penilai', 'AnggotaController@rpcPenilaiIndex')->middleware('can:view-penilai');
