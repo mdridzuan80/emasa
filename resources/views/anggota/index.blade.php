@@ -234,7 +234,7 @@
                 <div class="modal-footer">
                     <?php //if (lib('lauthz')->minRole('kerani')) : ?>
                         <button class="btn btn-success pull-right btn-kemaskini-simpan" type="submit">OK</button>
-                        <button id="btn-batal" type="button" class="btn btn-link pull-right" style="color:#dd4b39;" data-dismiss="modal" aria-label="Close" >BATAL</button>
+                        <button type="button" class="btn btn-link pull-right" style="color:#dd4b39;" data-dismiss="modal" aria-label="Close" >BATAL</button>
                     <?php //endif ?>
                 </div>
             </form>
@@ -280,7 +280,7 @@
                     <div id="ctxJabatan"></div>
                 </div>
                 <div class="modal-footer">
-                    <button id="btn-batal" type="button" class="btn btn-link pull-right" style="color:#dd4b39;" data-dismiss="modal" aria-label="Close" >BATAL</button>
+                    <button type="button" class="btn btn-link pull-right" style="color:#dd4b39;" data-dismiss="modal" aria-label="Close" >BATAL</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -403,6 +403,8 @@
 
 <script>
 
+    var mProfil = {};
+
     $(function() {
         var dataSearch = {
             searchKey: '',
@@ -416,7 +418,7 @@
             subDept: false
         };
 
-        var mProfil = {
+        mProfil = {
             title: '',
             userId: '',
             operasi: '',
