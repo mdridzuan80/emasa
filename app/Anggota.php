@@ -79,6 +79,11 @@ class Anggota extends BaseModel implements Flowable
         return $this->hasOne(XtraAnggota::class, 'anggota_id');
     }
 
+    public function shiftConfs()
+    {
+        return $this->hasMany(ShiftConf::class, 'anggota_id');
+    }
+
     public function scopeXtraAnggota($query)
     {
         return $query

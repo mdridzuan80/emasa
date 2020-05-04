@@ -12,6 +12,7 @@ use App\XtraAnggota;
 use App\FinalAttendance;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
+use App\Services\FinalAttendance\KesalahanCalculatorManager;
 
 class FinalAttendanceService
 {
@@ -85,15 +86,21 @@ class FinalAttendanceService
 
     private function preDataFinalAttendance(Anggota $profil, Carbon $tarikh, $shift, $cuti, $rekodKehadiran)
     {
+        $check_in = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_IN, $profil->ZIP);
+        $check_out = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_OUT, $profil->ZIP);
+        $check_in_mid = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_MIN, $profil->ZIP);
+        $check_out_mid = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_MOUT, $profil->ZIP);
+        $kesalahan = (new KesalahanCalculatorManager)->calculate($profil, $tarikh, $check_in, $check_out, $cuti, $shift);
+
         return (object) [
             'anggota_id' => $profil->userid,
             'basedept_id' => $profil->xtraAttr->basedept_id,
             'tarikh' => $tarikh,
-            'check_in' => $check_in = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_IN, $profil->ZIP),
-            'check_out' => $check_out = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_OUT, $profil->ZIP),
-            'check_in_mid' => $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_MIN, $profil->ZIP),
-            'check_out_mid' => $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_MOUT, $profil->ZIP),
-            'kesalahan' => json_encode($kesalahan = $this->getKesalahan($tarikh, $check_in, $check_out, $cuti, $shift)),
+            'check_in' => $check_in,
+            'check_out' => $check_out,
+            'check_in_mid' => $check_in_mid,
+            'check_out_mid' => $check_out_mid,
+            'kesalahan' => json_encode($kesalahan),
             'tatatertib_flag' => $this->getFlag($kesalahan),
             'shift_id' => $shift->id,
         ];
@@ -160,7 +167,7 @@ class FinalAttendanceService
         return null;
     }
 
-    public function getKesalahan($tarikh, $checkIn, $checkOut, $cuti, $shift)
+    public function getKesalahan(Anggota $anggota, $tarikh, $checkIn, $checkOut, $cuti, $shift)
     {
         $kesalahan = [];
 

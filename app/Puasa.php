@@ -27,6 +27,11 @@ class Puasa extends Model
         return $this->where('tkhmula', '<=', $tarikh)->orWhere('tkhtamat', '>', $tarikh)->exists();
     }
 
+    public function scopeByTarikh($tarikh)
+    {
+        return $this->where('tkhmula', '<=', $tarikh)->orWhere('tkhtamat', '>', $tarikh);
+    }
+
     public function byTahun()
     {
         $tkhMula = Carbon::now()->year . "-01-01 00:00:00";

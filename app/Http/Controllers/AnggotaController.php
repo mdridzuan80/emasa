@@ -126,16 +126,24 @@ class AnggotaController extends BaseController
 
     public function rpcPuasaConfStore(Request $request, Anggota $profil)
     {
+        $puasa = Puasa::find($request->input('puasa_id'));
+
         ShiftConf::updateOrCreate(
             [
                 'anggota_id' => $profil->userid,
-                'puasa_id' => $request->input('puasa_id'),
+                'puasa_id' => $puasa->id,
                 'jenis' => ShiftConf::PUASA
             ],
             [
                 'pilihan' => $request->input('pilihan')
             ]
         );
+
+        \Artisan::call('emasa:janafinalatt', [
+            '--mula' => $puasa->tkh_mula,
+            '--tamat' =>  $puasa->tkh_tamat,
+            'users' => $profil->userid,
+        ]);
     }
 
     public function rpcMengandungConf(Anggota $profil)
@@ -161,11 +169,26 @@ class AnggotaController extends BaseController
             ]
         );
 
+        \Artisan::call('emasa:janafinalatt', [
+            '--mula' => $request->input('tkh_mula'),
+            '--tamat' =>  $request->input('tkh_tamat'),
+            'users' => $profil->userid,
+        ]);
+
         return response()->json($shiftMengandungConf, 201);
     }
 
     public function rpcMengandungConfDelete(Anggota $profil, ShiftConf $shiftConf)
     {
+        $tkh_mula = $shiftConf->tkh_mula;
+        $tkh_tamat = $shiftConf->tkh_tamat;
+
         $shiftConf->delete();
+
+        \Artisan::call('emasa:janafinalatt', [
+            '--mula' => $mula,
+            '--tamat' =>  $tamat,
+            'users' => $profil->userid,
+        ]);
     }
 }
