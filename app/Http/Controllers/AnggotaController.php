@@ -186,8 +186,8 @@ class AnggotaController extends BaseController
         $shiftConf->delete();
 
         \Artisan::call('emasa:janafinalatt', [
-            '--mula' => $mula,
-            '--tamat' =>  $tamat,
+            '--mula' => $tkh_mula,
+            '--tamat' =>  $tkh_tamat,
             'users' => $profil->userid,
         ]);
     }
