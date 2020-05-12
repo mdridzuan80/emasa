@@ -680,6 +680,15 @@
                 });
             });
 
+            $('#cuti_content').on('click', '.btn-page', function(e) {
+                e.preventDefault();
+                $('#top-btn-cuti-edit').prop('disabled', true);
+                $('#top-btn-cuti-delete').prop('disabled', true);
+
+                url = $(this).attr('href');
+                populateDgCuti(url,'#cuti_content');
+            });
+
             var appPuasa = new Vue({
                 el: "#app-puasa",
                 data: {
