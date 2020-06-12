@@ -10,8 +10,8 @@ abstract class AbstractKesalahanCalculator
 {
     abstract protected function calcKesalahanPetang($checkIn, $checkOut, $shift);
 
-    private $statusLewat = false;
-    private $statusAwal = false;
+    protected $statusLewat = false;
+    protected $statusAwal = false;
 
     public function kesalahanCalculator($tarikh, $checkIn, $checkOut, $shift, $cuti)
     {
