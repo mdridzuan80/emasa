@@ -8,10 +8,12 @@ use Carbon\Carbon;
 
 abstract class AbstractKesalahanCalculator
 {
-    abstract protected function calcKesalahanPetang($checkIn, $checkOut, $shift);
+    //abstract protected function calcKesalahanPetang($checkIn, $checkOut, $shift);
 
     protected $statusLewat = false;
     protected $statusAwal = false;
+
+    const MINIMUM = "7:30";
 
     public function kesalahanCalculator($tarikh, $checkIn, $checkOut, $shift, $cuti)
     {
@@ -57,12 +59,42 @@ abstract class AbstractKesalahanCalculator
         return $this->statusLewat = $check_in->gte($rulePunchIn->addMinutes($paramBenarLewat));
     }
 
-    protected function isCuti(Carbon $tarikh, $cuti)
+    private function isCuti(Carbon $tarikh, $cuti)
     {
         return $cuti->contains(function ($item, $key) use ($tarikh) {
             return $item->tarikh->eq($tarikh);
         }) ||
             $tarikh->dayOfWeek == Carbon::SATURDAY ||
             $tarikh->dayOfWeek == Carbon::SUNDAY;
+    }
+
+    private function calcKesalahanPetang($checkIn, $checkOut, $shift)
+    {
+        if (!$checkOut) {
+            return Kehadiran::FLAG_KESALAHAN_NONEOUT;
+        }
+
+        if ($this->isEarly($checkIn, $checkOut, $shift)) {
+            return Kehadiran::FLAG_KESALAHAN_AWAL;
+        }
+
+        return Kehadiran::FLAG_KESALAHAN_NONE;
+    }
+
+    private function isEarly($check_in, $check_out, $shift)
+    {
+        $rulePunchOut = Carbon::parse($check_out->toDateString() . " " . $shift->check_out->toTimeString());
+
+        if (!$check_in || $this->statusLewat) {
+            return $this->statusAwal = $check_out->lte($rulePunchOut);
+        }
+
+        $rulePunchIn = Carbon::parse($check_in->toDateString() . " " . self::MINIMUM);
+
+        if ($check_in->lt($rulePunchIn)) {
+            return $this->statusAwal = $rulePunchIn->diffInSeconds($check_out) < $this->total_hour;
+        }
+
+        return $this->statusAwal = $check_in->diffInSeconds($check_out) < $this->total_hour;
     }
 }
