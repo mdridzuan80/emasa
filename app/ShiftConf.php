@@ -20,7 +20,7 @@ class ShiftConf extends Model
         $tkhMula = Carbon::now()->year . "-01-01 00:00:00";
         $tkhTamat = Carbon::now()->year + 1 . "-01-01 00:00:00";
 
-        return $this->where('tkh_mula', '>=', $tkhMula)->orWhere('tkh_tamat', '>', $tkhTamat);
+        return $query->where('tkh_mula', '>=', $tkhMula)->orWhere('tkh_tamat', '>', $tkhTamat);
     }
 
     private function puasaSemasa($anggota_id)
