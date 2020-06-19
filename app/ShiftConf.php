@@ -40,6 +40,7 @@ class ShiftConf extends Model
         $puasa = $this->puasaSemasa($anggota_id);
         return $this->tahunSemasa()
             ->select('id', 'anggota_id', 'jenis', 'pilihan', 'puasa_id', 'tkh_mula', 'tkh_tamat')
+            ->where('anggota_id', $anggota_id)
             ->union($puasa)->orderBy('id')->get();
     }
 
