@@ -91,7 +91,6 @@ class FinalAttendanceService
         $check_in_mid = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_MIN, $profil->ZIP);
         $check_out_mid = $this->punch($rekodKehadiran, $tarikh, $cuti, Kehadiran::PUNCH_MOUT, $profil->ZIP);
         $kesalahan = (new KesalahanCalculatorManager)->calculate($profil, $tarikh, $check_in, $check_out, $cuti, $shift);
-
         return (object) [
             'anggota_id' => $profil->userid,
             'basedept_id' => $profil->xtraAttr->basedept_id,

@@ -112,6 +112,7 @@ Route::middleware('auth')->group(function () {
             Route::delete('/peranan/{roleUser}', 'PenggunaController@rpcPerananDestroy')->middleware('can:delete-peranan');
 
             Route::post("/tukarkatalaluan", "PenggunaController@rpcTukarKatalaluan");
+            Route::post("/{profil}/resetkatalaluan/", "PenggunaController@rpcResetKatalaluan");
         });
 
         Route::prefix('kalendar')->group(function () {

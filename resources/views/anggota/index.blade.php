@@ -1579,6 +1579,116 @@
             $('.btn-pcrs-hapus-peranan').prop('disabled', false);
         });
 
+        //-- reset katalaluan
+        $("#modal-man-login").on("submit", "#frm-tukar-katalaluan-personal", function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            var formEl = $(this);
+            
+            swal({
+                title: 'Amaran!',
+                text: 'Anda pasti untuk mengemaskini maklumat ini?',
+                type: 'warning',
+                cancelButtonText: 'Tidak',
+                showCancelButton: true,
+                confirmButtonText: 'Ya!',
+                showLoaderOnConfirm: true,
+                allowOutsideClick: false,
+                allowOutsideClick: () => !swal.isLoading(),
+                preConfirm: () => {
+                    return new Promise((resolve, reject) => {
+                        
+                        $.ajax({
+                            method: 'post',
+                            data: formData,
+                            cache       : false,
+                            contentType : false,
+                            processData : false,
+                            url: base_url+"rpc/pengguna/"+mProfil.userId+"/resetkatalaluan",
+                            success: function() {
+                                resolve();
+                            },
+                            error: function(err) {
+                                reject(err);
+                            },
+                            statusCode: login()
+                        });
+                    })
+                }
+            }).then((result) => {
+                if (result.value) {
+                    swal({
+                        title: 'Berjaya!',
+                        text: 'Katalaluan telah dikemaskini.',
+                        type: 'success'
+                    });
+                    formEl.trigger('reset');
+                    $("#modal-man-login").modal('hide');
+                }
+            }).catch(function (error) {
+                swal({
+                    title: 'Ralat!',
+                    text: errorMsg,
+                    type: 'error'
+                });
+            });
+        });
+
+        $("#modal-man-login").on("keyup", "#txtKatalaluanBaruPersonal", function(e) {
+            check_pass_personal();
+        });
+
+        function check_pass_personal() {
+            var val=$("#txtKatalaluanBaruPersonal").val();
+            var meter=document.getElementById("meter-personal");
+            console.log(meter);
+
+            var no=0;
+            if(val!="")
+            {
+                // If the password length is less than or equal to 6
+                if(val.length<=6) no=1;
+
+                // If the password length is greater than 6 and contain any lowercase alphabet or any number or any special character
+                if(val.length>6 && (val.match(/[a-z]/) || val.match(/\d+/) || val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/))) no=2;
+
+                // If the password length is greater than 6 and contain alphabet,number,special character respectively
+                if(val.length>6 && ((val.match(/[a-z]/) && val.match(/\d+/)) || (val.match(/\d+/) && val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)) || (val.match(/[a-z]/) && val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/))))no=3;
+
+                // If the password length is greater than 6 and must contain alphabets,numbers and special characters
+                if(val.length>6 && val.match(/[a-z]/) && val.match(/\d+/) && val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)) no=4;
+
+                if(no==1) {
+                    $("#meter-personal").animate({width:'50px'},300);
+                    meter.style.backgroundColor="red";
+                    document.getElementById("pass_type_personal").innerHTML="Very Weak";
+                }
+
+                if(no==2) {
+                    $("#meter-personal").animate({width:'100px'},300);
+                    meter.style.backgroundColor="#F5BCA9";
+                    document.getElementById("pass_type_personal").innerHTML="Weak";
+                }
+
+                if(no==3) {
+                    $("#meter-personal").animate({width:'150px'},300);
+                    meter.style.backgroundColor="#FF8000";
+                    document.getElementById("pass_type_personal").innerHTML="Good";
+                }
+
+                if(no==4) {
+                    $("#meter-personal").animate({width:'200px'},300);
+                    meter.style.backgroundColor="#00FF40";
+                    document.getElementById("pass_type_personal").innerHTML="Strong";
+                }
+            } else {
+                $("#meter-personal").animate({width:'0'},300);
+                meter.style.backgroundColor="white";
+                document.getElementById("pass_type_personal").innerHTML="";
+            }
+        }
+        //-- end reset katalaluan
+
         $('#modal-peranan').on('show.bs.modal', function (e) {
             $(this).find('.modal-header').css('backgroundColor','#99CC00');
             $(this).find('.modal-header').css('color','white');

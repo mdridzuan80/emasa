@@ -137,6 +137,14 @@ class User extends Authenticatable
         return false;
     }
 
+    public function resetKatalaluan($baru)
+    {
+        $this->password = bcrypt($baru);
+        $this->save();
+
+        return true;
+    }
+
     public static function setupLogin($profil, $password)
     {
         $user = self::updateOrCreate(

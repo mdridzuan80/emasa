@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use League\Fractal\Resource\Collection;
 use App\Http\Requests\TukarKatalaluanRequest;
+use App\Http\Requests\ResetKatalaluanRequest;
 use App\Transformers\LdapAttr as LdapAttrTransformer;
 
 class PenggunaController extends BaseController
@@ -55,6 +56,16 @@ class PenggunaController extends BaseController
             return response('Operasi tidak berjaya', 400);
         }
     }
+
+    public function rpcResetKatalaluan(Anggota $profil, ResetKatalaluanRequest $request)
+    {
+        $user = $profil->user;
+
+        if (!$user->resetKatalaluan($request->input("txtKatalaluanBaruPersonal"))) {
+            return response('Operasi tidak berjaya', 400);
+        }
+    }
+
 
     public function rpcPerananStore(Request $request, Anggota $profil)
     {

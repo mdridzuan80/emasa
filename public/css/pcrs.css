@@ -35,20 +35,20 @@
     float: right;
 }
 
-#meter_wrapper {
+#meter_wrapper, #meter_wrapper_personal {
     border: 1px solid grey;
     width: 200px;
     height: 10px;
     border-radius: 3px;
 }
 
-#meter {
+#meter, #meter-personal {
     width: 0px;
     height: 10px;
     border-radius: 3px;
 }
 
-#pass_type {
+#pass_type, #pass_type_personal {
     text-align: center;
     color: grey;
 }
