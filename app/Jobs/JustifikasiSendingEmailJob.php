@@ -19,6 +19,7 @@ class JustifikasiSendingEmailJob implements ShouldQueue
     private $profil;
     private $finalAttendanceId;
     private $medanKesalahan;
+    public $tries = 10;
     /**
      * Create a new job instance.
      *
