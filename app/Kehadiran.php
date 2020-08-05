@@ -48,7 +48,7 @@ class Kehadiran extends Eventable
     public function scopeRekodByMulaTamat($query, Carbon $tkhMula, Carbon $tkhTamat)
     {
         return $query->where('checktime', '>=', $tkhMula)
-            ->where('checktime', '<', $tkhTamat);
+            ->where('checktime', '<', $tkhTamat->addHours(4));
     }
 
     public function scopeEvents($query)
