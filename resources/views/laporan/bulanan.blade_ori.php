@@ -76,7 +76,7 @@
 
             $('#txtTarikh').datepicker({
                 format: "M-yyyy",
-                startView: "months",
+                startView: "months", 
                 minViewMode: "months"
             })
 
@@ -89,7 +89,7 @@
                     dataType: 'json',
                     success: function( result, textStatus, jqXHR ) {
                         departments = result;
-
+                        
                         $('#departmentsTree').jstree({
                             core:{
                                 multiple : false,
@@ -97,7 +97,7 @@
                                 data: departments
                             }
                         });
-
+                        
                         $('#departmentDisplay').prop('disabled', false);
 
                         $('#departmentsTree').on('select_node.jstree', function (e, data) {
@@ -118,13 +118,13 @@
                             $('#treeDisplay').toggle();
 
                             $(document).click(function (e) {
-                                if (!$(e.target).hasClass("departmentDisplay")
-                                    && $(e.target).parents("#treeDisplay").length === 0)
+                                if (!$(e.target).hasClass("departmentDisplay") 
+                                    && $(e.target).parents("#treeDisplay").length === 0) 
                                 {
                                     $("#treeDisplay").hide();
                                 }
                             });
-                        });
+                        });                        
                     }
                 });
             }
@@ -158,7 +158,7 @@
 
             $('#frm-laporan-bulanan').on('submit', function(e) {
                 e.preventDefault();
-
+                
                 if(e.target.txtDepartmentId.value) {
                     var formData = new FormData(this);
 
@@ -194,8 +194,8 @@
 					xhr.send();
 				  }
 
-
-
+  
+  
             function exportPDF(results) {
 
                 try {
@@ -205,7 +205,7 @@
                     results.forEach(function(row) {
                         var result = row.events;
                         var head = [["Tarikh", "Check-In", "Check-Out", "Catatan"]];
-
+						
                         console.log(result.filter((item) => item.table_name === 'final'));
                         var body = result.filter((item) => item.table_name === 'final').map((item)=>[moment(item.start).format("DD-MM-YYYY"), (item.check_in) ? moment(item.check_in).format("h:mm A") : '', (item.check_out) ? moment(item.check_out).format("h:mm A") : '', '']);
                         console.log(body);
@@ -214,17 +214,17 @@
                         if(i !== 0) {
                             doc.addPage();
                         }
-
+				
                         doc.autoTable({
-
-
+							 
+						
 							head ,
 							headerStyles:{columnWidth:2.3},
                             body,
                             theme: 'grid',
                             showHead: 'firstPage',
                             margin: {top: 80},
-                            columnStyles: {
+                            columnStyles: { 
                                 0: {cellWidth:5},
                                 1: {cellWidth:2},
                                 2: {cellWidth:2},
@@ -243,41 +243,24 @@
 
                                 if (data.row.section === 'body' && data.column.dataKey === '3') {
                                     var justifikasi = '';
-
-                                    //if(result[data.row.index].cuti) {
-                                        //justifikasi += "Cuti Umum : " + result[data.row.index].cuti.perihal + "\n";
-                                   //}
-				    if(result[data.row.index].cuti) {
-                                        justifikasi += result[data.row.index].cuti.perihal + "\n";
+                                    
+                                    if(result[data.row.index].cuti) {
+                                        justifikasi += "Cuti Umum : " + result[data.row.index].cuti.perihal + "\n";
                                     }
 
-            if(result[data.row.index].justifikasi) {
-              result[data.row.index].justifikasi.forEach(function(item, index) {
-                if(index === 0 && item.flag_kelulusan === 'LULUS') {
-                  if(item.flag_justifikasi === 'SAMA') {
-                    justifikasi += "Justifikasi : " + item.keterangan + "\n";
-                  } else  {
-                    justifikasi += "Justifikasi Pagi/Petang : " + item.keterangan + "\n";
-                  }
-					    }
-					    if(index === 0 && item.flag_kelulusan === 'MOHON') {
-                if(item.flag_justifikasi === 'SAMA') {
-                  justifikasi += "*Justifikasi : " + item.keterangan + "\n";
-                } else {
-                  data.cell.styles.textColor = ('red');
-                  //doc.setTextColor('red');
-                  //var keterangan = doc.text("test");
-                  //item.keterangan.setTextColor = 'red';
-                  justifikasi += "*Justifikasi Pagi/Petang : " + item.keterangan + "\n";
-                }
-              }
+                                    if(result[data.row.index].justifikasi) {
+                                        result[data.row.index].justifikasi.forEach(function(item, index) {
+                                            if(index === 0 && item.flag_kelulusan === 'LULUS') {
+                                                if(item.flag_justifikasi === 'SAMA') {
+                                                    justifikasi += "Justifikasi : " + item.keterangan + "\n";
+                                                } else {
+                                                    justifikasi += "Justifikasi Pagi/Petang : " + item.keterangan + "\n";
+                                                }
+                                            }
 
-            if(index === 1 && item.flag_kelulusan === 'LULUS' && item.flag_justifikasi === 'XSAMA') {
-              justifikasi += "Justifikasi Petang : " + item.keterangan + "\n";
-            }
-					    if(index === 1 && item.flag_kelulusan === 'MOHON' && item.flag_justifikasi === 'XSAMA') {
-                	justifikasi += "*Justifikasi Petang : " + item.keterangan + "\n";
-					    }
+                                            if(index === 1 && item.flag_kelulusan === 'LULUS' && item.flag_justifikasi === 'XSAMA') {
+                                                justifikasi += "Justifikasi Petang : " + item.keterangan + "\n";
+                                            }
                                         });
                                     }
 
@@ -290,9 +273,9 @@
                                 doc.setTextColor(40);
                                 doc.setFontStyle('normal');
 								/*var base64Img;
-
+								
 								imgToBase64("http://emasa.mohr.gov.my/public/images/rsz_logo_jata_ksm_bm.png", function(base64) { base64Img = base64; });
-
+                            
 								if (base64Img) {
                                     doc.addImage(base64Img, 'JPEG', data.settings.margin.left, 15, 10, 10);
                                 }                        */
@@ -302,7 +285,7 @@
                                 doc.text("Jabatan/ Bahagian/ Unit : " + row.deptname, data.settings.margin.left, 60);
                                 doc.text("Bulan : " + row.bulan, data.settings.margin.left, 75);
 
-
+								
                                 // Footer
                                 var str = "Muka " + doc.internal.getNumberOfPages()
 
@@ -310,18 +293,14 @@
                                 if (typeof doc.putTotalPages === 'function') {
                                     str = str + " drp " + totalPagesExp;
                                 }
-				doc.setFontSize(12);
-				doc.setTextColor('red');
-				doc.text("*Belum Disahkan", data.settings.margin.left,800);
+                                doc.setFontSize(9);
 
-				doc.setFontSize(9);
-				doc.setTextColor('black');
                                 // jsPDF 1.4+ uses getWidth, <1.4 uses .width
                                 var pageSize = doc.internal.pageSize;
                                 var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
                                 var pageWidth = doc.internal.pageSize.width ? doc.internal.pageSize.width : doc.internal.pageSize.getWidth();
 
-				doc.text("{{ env('APP_NAME') }}", data.settings.margin.left, pageHeight - 20);
+                                doc.text("{{ env('APP_NAME') }}", data.settings.margin.left, pageHeight - 20);
                                 doc.text("Dicetak pada : "+moment().format("lll"), data.settings.margin.left, pageHeight - 10, 'left');
                                 doc.writeText(data.settings.margin.left + 20, pageHeight - 10 ,str, { align: 'right' });
 

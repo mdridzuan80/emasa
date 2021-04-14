@@ -2,9 +2,7 @@
 
 namespace App;
 
-use DB;
 use Illuminate\Database\Eloquent\Model;
-
 
 class Justifikasi extends Model
 {
@@ -44,30 +42,7 @@ class Justifikasi extends Model
         $this->medan_kesalahan = $data['medan_kesalahan'];
         $this->flag_justifikasi = $data['flag_justifikasi'];
         $this->keterangan = $data['alasan'];
-
         $this->pelulus_id = $data['pelulus_id'];
         $this->save();
-    }
-
-    public function pkpSimpan(array $data)
-    {
-        $this->basedept_id = $data['basedept_id'];
-        $this->final_attendance_id = $data['finalattendance_id'];
-        $this->tarikh = $data['tarikh'];
-        $this->medan_kesalahan = $data['medan_kesalahan'];
-        $this->flag_justifikasi = $data['flag_justifikasi'];
-        $this->flag_kelulusan = $data['flag_kelulusan'];
-        $this->keterangan = $data['alasan'];
-
-        $this->pelulus_id = $data['pelulus_id'];
-        $this->save();
-    }
-
-
-    public static function years()
-    {
-        return self::select(DB::raw('year(tarikh) as year'))
-            ->groupBy('year')
-            ->get();
     }
 }

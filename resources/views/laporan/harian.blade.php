@@ -124,7 +124,7 @@
                 
                 if(e.target.txtDepartmentId.value) {
                     var formData = new FormData(this);
-
+                    
                     $.ajax({
                         method: 'post',
                         data: formData,
@@ -134,6 +134,7 @@
                         url: base_url+'rpc/laporan/harian',
                         dataType: 'json',
                         success: function( result, textStatus, jqXHR ) {
+                            console.log(result);
                             exportPDF(e, result);
                         }
                     });

@@ -17,11 +17,17 @@ Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/', 'KalendarController@index');
+	
+	 //Pkpb  
+    Route::get('/pkpb', 'JustifikasiController@pkpbCreate');
+    Route::post('/pkpb/add', 'JustifikasiController@pkpbStore');
+    Route::delete('/pkpb/destroy', 'JustifikasiController@pkpbDestroy');
 
     //Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/dashboard', 'KalendarController@index')->name('dashboard');
     Route::get('/kalendar', 'KalendarController@index')->name('kalendar');
-
+    Route::get('/pengurusan', 'PengurusanController@index')->name('pengurusan');
+    
     Route::middleware('can:view-anggota')->group(function () {
         Route::get('/anggota', 'AnggotaController@index')->name('anggota');
     });

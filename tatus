@@ -1,0 +1,1205 @@
+commit a93ff349627e32c64c069bb4defb94b9b64b5718
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Jul 1 15:07:20 2020 +0800
+
+    New features reset password
+
+commit 0a431362bb6f43a206d13b3434b5bdde1613be77
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Jun 19 10:47:12 2020 +0800
+
+    fix ShiftConf model
+    
+    Add filter for anggota_id untuk mengandung config
+
+commit 3c9ea4e65de67b913648ac3f01bd8c777dd012b8
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Jun 19 10:23:51 2020 +0800
+
+    fix eloquent mengandung
+
+commit 27bc99500cd8b8abdab3ee737dcadbb5d18c4406
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Jun 18 18:39:39 2020 +0800
+
+    Enhance finalAttendance abstract
+
+commit 0a8b350f9459fdfb33cbed64a62a709c5121547c
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Jun 12 12:08:36 2020 +0800
+
+    change private property to protected property
+
+commit 3961f842510dcec814afcd518ec5e308b13aaa16
+Merge: b3d5187 898a845
+Author: Md Ridzuan <wanlatiah@gmail.com>
+Date:   Fri Jun 12 11:58:04 2020 +0800
+
+    Merge pull request #18 from mdridzuan80/dependabot/npm_and_yarn/websocket-extensions-0.1.4
+    
+    Bump websocket-extensions from 0.1.3 to 0.1.4
+
+commit 898a845516cff760eaf31de1ec0f57cd7922c004
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Sun Jun 7 05:12:14 2020 +0000
+
+    Bump websocket-extensions from 0.1.3 to 0.1.4
+    
+    Bumps [websocket-extensions](https://github.com/faye/websocket-extensions-node) from 0.1.3 to 0.1.4.
+    - [Release notes](https://github.com/faye/websocket-extensions-node/releases)
+    - [Changelog](https://github.com/faye/websocket-extensions-node/blob/master/CHANGELOG.md)
+    - [Commits](https://github.com/faye/websocket-extensions-node/compare/0.1.3...0.1.4)
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+commit b3d5187676ecef7721c3cc8ae7a489633542b6ba
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue May 12 13:26:37 2020 +0800
+
+    Fix paging for konfigursi cuti umum
+
+commit 03625a141f48338b029e7b26bb5a5a35b2abbeee
+Merge: ba01f92 5c2c622
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed May 6 06:19:53 2020 +0800
+
+    Merge branch 'master' into develop
+
+commit 5c2c622264e22aba3e8686c6571034fefea3f900
+Merge: bf7b1ed a428bc9
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed May 6 06:19:53 2020 +0800
+
+    Merge branch 'hotfix/delete_mengandung'
+
+commit a428bc912cfdd7e87eef77b719d709a43222ba82
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed May 6 06:19:36 2020 +0800
+
+    fix variable tarikh
+
+commit bf7b1ed51f049d0c907d3e9df833accb8f7febec
+Merge: ba01f92 5af633f
+Author: Md Ridzuan <wanlatiah@gmail.com>
+Date:   Tue May 5 11:21:46 2020 +0800
+
+    Merge pull request #16 from mdridzuan80/dependabot/npm_and_yarn/jquery-3.5.0
+    
+    Bump jquery from 3.4.1 to 3.5.0
+
+commit ba01f92dcb8336fecf4b041af5cb103943d3a34d
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue May 5 07:51:46 2020 +0800
+
+    Final Attendance Calculation done
+
+commit e7edc66591322d7576b799db19d6c1d438edad3b
+Merge: 389e268 f738e7f
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sun May 3 13:13:08 2020 +0800
+
+    Merge branch 'feature/status_mengandung_dan_puasa' into develop
+
+commit f738e7f7e731830c56b61d5b7db45c9d42272b58
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sun May 3 13:12:46 2020 +0800
+
+    insert and delete anggota waktu mengandung
+
+commit ec81f8227cf4fb7c0bcf76b3705001b548b9db5d
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri May 1 14:48:53 2020 +0800
+
+    Selesai set setiap anggota semasa puasa
+
+commit 5af633ff07d3720c45c65ab8cbe6717e3d1b427f
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Thu Apr 30 11:29:56 2020 +0000
+
+    Bump jquery from 3.4.1 to 3.5.0
+    
+    Bumps [jquery](https://github.com/jquery/jquery) from 3.4.1 to 3.5.0.
+    - [Release notes](https://github.com/jquery/jquery/releases)
+    - [Commits](https://github.com/jquery/jquery/compare/3.4.1...3.5.0)
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+commit 389e26829dcc2104c4fd87eb2cabab596d6ab5f7
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Apr 28 13:42:11 2020 +0800
+
+    Enhance to use DI
+
+commit 72b3977d3756d62bd47578b514c4ade51f33ddc1
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Apr 28 09:22:03 2020 +0800
+
+    selesai operasi hapus untuk puasa
+
+commit 212d20cf526539cff14aa0d997b349f017e34548
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Apr 24 16:15:38 2020 +0800
+
+    isytihar waktu bermula puasa.
+    
+    di menu konfigurasi dan hanya superadmin
+
+commit 7ce30cb5c4de2b0ead0bb645ed548c6b7aa1b609
+Merge: d65b68c 110025b
+Author: Md Ridzuan <wanlatiah@gmail.com>
+Date:   Sun Apr 12 14:23:50 2020 +0800
+
+    Merge pull request #12 from mdridzuan80/dependabot/composer/symfony/http-foundation-4.4.7
+    
+    Bump symfony/http-foundation from 4.4.4 to 4.4.7
+
+commit 110025b20f47c736d91328b34e30bae3693417b3
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Mon Mar 30 21:43:39 2020 +0000
+
+    Bump symfony/http-foundation from 4.4.4 to 4.4.7
+    
+    Bumps [symfony/http-foundation](https://github.com/symfony/http-foundation) from 4.4.4 to 4.4.7.
+    - [Release notes](https://github.com/symfony/http-foundation/releases)
+    - [Changelog](https://github.com/symfony/http-foundation/blob/master/CHANGELOG.md)
+    - [Commits](https://github.com/symfony/http-foundation/compare/v4.4.4...v4.4.7)
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+commit d65b68ce691e99cb96d3f45e0f181ef35f4ab821
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Mar 12 16:33:50 2020 +0800
+
+    fix return
+
+commit d72d856fe883394cd23c7d01b043dfa6110455cd
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Mar 12 15:52:27 2020 +0800
+
+    fix ralat
+
+commit 3dfd2d0bf00172e961cdfebe92d2b1c282900e8c
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Mar 12 12:05:46 2020 +0800
+
+    add response when update checkinout
+
+commit 35fd74fac6e7741447044ffe65f2a1534dd1b1bc
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Mon Feb 17 18:03:54 2020 +0800
+
+    Fix paparan name optional
+
+commit 99164e250456c18e578412cea629f40a3817036a
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Feb 7 12:10:43 2020 +0800
+
+    Fix kesalahan petang
+
+commit 54383c67f8aac2cc4011a1838b12d7cba536d17b
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Feb 7 04:01:18 2020 +0800
+
+    New features
+    
+    User can change password
+
+commit c7e38b2901b25cae35d7f85e23cb112775032de3
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Feb 6 12:46:58 2020 +0800
+
+    update app laravel (compoer)
+    create form untuk reset katalaluan
+
+commit 45467964fb93c578d929c5f958c261a8832940e2
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Jan 23 22:28:21 2020 +0800
+
+    enhance
+
+commit f1ad74e54feb8b4612b6c511ff62736c58aaba3b
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Jan 23 21:52:04 2020 +0800
+
+    command fix userinfo
+
+commit 6038c7869e7afcbf8d45a938d06dc9ef0dac25b1
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Jan 23 17:45:05 2020 +0800
+
+    update package
+
+commit 937fd0df589f56ce2795f821d82c45e9205321bf
+Merge: 36a2bf0 08fd82f
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Nov 21 10:30:38 2019 +0800
+
+    Merge branch 'master' into develop
+
+commit 08fd82fc941ee156d6622f36fad1111351b9e71b
+Merge: adc0126 abbbeca
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Nov 21 10:30:37 2019 +0800
+
+    Merge branch 'hotfix/laporan_harian'
+
+commit abbbeca57d1f03b60d9b6a8498ca7eff259fcd20
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Nov 21 10:30:19 2019 +0800
+
+    add static function
+
+commit 36a2bf074b88e489b9088b011d8a64617d6c01d4
+Merge: e10bd6d adc0126
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 29 22:26:00 2019 +0800
+
+    Merge branch 'master' into develop
+
+commit adc0126f4407854ce4422ba3899ff7eb410ccf5a
+Merge: e10bd6d 1f100c9
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 29 22:26:00 2019 +0800
+
+    Merge branch 'hotfix/profil'
+
+commit 1f100c9edd010abc35d5a8af69e67f6c42f55f56
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 29 22:25:38 2019 +0800
+
+    fix error profil
+
+commit e10bd6dbf9217034201b324d5495a1e4e626971e
+Merge: c351a74 c22a2b4
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 29 17:20:22 2019 +0800
+
+    Merge branch 'feature/laporan_bulanan' into develop
+
+commit c22a2b4d2995ab42de7c2e19061269f3e6d5ac59
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 29 17:19:49 2019 +0800
+
+    Laporan bulanan done
+
+commit c351a7436e75ab9c8cf87d648c3a8586d2685abc
+Merge: 2db8b90 86b5274
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 29 12:22:50 2019 +0800
+
+    Merge branch 'master' into develop
+
+commit 86b52745ea5b6dfa5995110cf0fb73bbc6a0bd15
+Merge: 714664d 1b59fbc
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 29 12:22:50 2019 +0800
+
+    Merge branch 'hotfix/maklumat_pegawai'
+
+commit 1b59fbc12e769611500bf4b544f72189d508a783
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 29 12:22:30 2019 +0800
+
+    fix role for authorize
+
+commit 1e9b353f551f9f7c8cb460d28b0845334446b4b6
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 29 11:03:45 2019 +0800
+
+    laporan bulanan form
+
+commit 2db8b9080ce14635aead015751b557ef701d4ae7
+Merge: e976bf5 714664d
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 22 20:36:57 2019 +0800
+
+    Merge branch 'master' into develop
+
+commit 714664d72de0ffb535e63d5f0b3e995bcc750114
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 22 20:36:46 2019 +0800
+
+    fix paparan profil
+
+commit e976bf5a5c709a03cd7cd04c563675496d5fe445
+Merge: 32096e4 15930f3
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 22 16:16:01 2019 +0800
+
+    Merge branch 'master' into develop
+
+commit 15930f36943c50a16f2205e351477b171206b44b
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 22 16:15:47 2019 +0800
+
+    fix senarai anggota
+
+commit 32096e458e2b0b4d5557d0bd6e6a63ce9979511b
+Merge: e3efa6c 8c1ffe5
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 22 15:49:57 2019 +0800
+
+    Merge branch 'master' into develop
+
+commit 8c1ffe536c0598c0c9cb66a341029af2827b7072
+Merge: b788e55 75eefdb
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 22 15:49:57 2019 +0800
+
+    Merge branch 'hotfix/anggota'
+
+commit 75eefdbe74df358c4ac8d968415db3c3a5a62769
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 22 15:49:37 2019 +0800
+
+    fix senarai anggota
+
+commit e3efa6cb82212def58d60263ede7696dc2d613e1
+Merge: b2cafc6 b788e55
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 22 15:06:26 2019 +0800
+
+    Merge branch 'master' into develop
+
+commit faf887545afcf18fb9f206389b0464cc31015683
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 22 11:55:10 2019 +0800
+
+    add fleksi option to shift
+
+commit b788e55fe78ab132f64a6a47cbededfa7291f086
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 8 14:30:15 2019 +0800
+
+    fix Checkinout api
+
+commit b2cafc654a0c62f905d21f97ed76622450696afe
+Merge: fb8959c 440a22b
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 8 09:38:41 2019 +0800
+
+    Merge branch 'feature/api_remote' into develop
+
+commit ca4e93cfe2eb81b35039c1c4b60628a0d26102f6
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 8 09:37:58 2019 +0800
+
+    initial jana laporan
+
+commit 65d8aa150d296396ee9473dc46edbce57e5fc779
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 8 07:14:30 2019 +0800
+
+    done make form
+
+commit 440a22bb291994db8e4681c0103091bb3ee34eb5
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Mon Oct 7 16:12:26 2019 +0800
+
+    refactor api save checkinout
+
+commit fad8f98760fd2d4faae072a1a7fb0dec1217ccb9
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Mon Oct 7 16:09:43 2019 +0800
+
+    save api checkinout
+
+commit 4cfe06b5784ae08b9abab361aabcf25db37f3ccb
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Mon Oct 7 16:07:56 2019 +0800
+
+    api store userinfo
+
+commit fb8959c5d06f8212ed9ed253827fb000f2f23677
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Oct 2 16:55:08 2019 +0800
+
+    Revert "MohrSso global middleware"
+    
+    This reverts commit 61341563b0d00320979aee1d7a8b51f5addba890.
+
+commit 61341563b0d00320979aee1d7a8b51f5addba890
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Oct 2 10:58:06 2019 +0800
+
+    MohrSso global middleware
+
+commit 9403b3d47b4a989f93612567e38d5a812241067d
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Oct 2 06:13:00 2019 +0800
+
+    fix phpcs
+
+commit 4634c1a8eb608452f5dc70cdc97a5c5a27b345fa
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 1 21:20:32 2019 +0800
+
+    fix cs
+
+commit 5d985f33f55735531e6c3f7bc9f218a379998759
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 1 21:20:16 2019 +0800
+
+    New Features enable sso from gerbang
+
+commit 2724c7436d7ebaf6bfdaff360378f1270695e85f
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 1 10:48:38 2019 +0800
+
+    fix mohon justifikasi
+
+commit 39b728d020c673b5c8c5dfb4dc5e0f1b80d9cd2d
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Oct 1 09:54:19 2019 +0800
+
+    install phpcs for dev dependency
+
+commit f6e710a5b20a00d57930840d55ae49a0981c94c7
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Sep 24 15:21:15 2019 +0800
+
+    fix calculation isEarly
+
+commit 82fbabd17dde32b82e7ee3d5eba97efe0e05ead3
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Sep 24 13:19:14 2019 +0800
+
+    fix tambah peranan
+
+commit 3a12b3680dd6b791fd4d1aa8721b9e1eb098d73f
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Sep 24 12:37:55 2019 +0800
+
+    Fix pengiraan balik awal
+
+commit 8472073e60cbce1a1b56cfc8b118511290dda935
+Merge: a3a73a8 99ce1f1
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Mon Sep 23 19:55:01 2019 +0800
+
+    Merge branch 'master' into develop
+
+commit 99ce1f13c65bd12734fe29d3db66387590affdb9
+Merge: 4892860 4ec76de
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Mon Sep 23 19:55:00 2019 +0800
+
+    Merge branch 'hotfix/authorize'
+
+commit 4ec76de7c9ec546543070fa7c8f97f8844bd8b74
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Mon Sep 23 19:53:59 2019 +0800
+
+    fix list authorize
+
+commit a3a73a8809d952acd65779323d9b6d2531d78a24
+Merge: 2775d6b 4892860
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Mon Sep 23 18:30:01 2019 +0800
+
+    Merge branch 'master' into develop
+
+commit 4892860252c409daf4e18711de3421bca607b8f1
+Merge: 2775d6b c31bb5a
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Mon Sep 23 18:30:01 2019 +0800
+
+    Merge branch 'hotfix/login'
+
+commit c31bb5adb4992d27479c4ce0dec0760aa3310000
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Mon Sep 23 18:29:43 2019 +0800
+
+    fix login autosave
+
+commit 2775d6b626b8a3594346627345f020fe63bfab03
+Author: Md Ridzuan Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Mon Sep 23 06:18:31 2019 +0800
+
+    done new feature validate for submit justification date after 10 days
+
+commit f3074b60db949311741c2ff17846fc19560fce57
+Merge: 2b5b727 5397547
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sun Sep 15 14:52:58 2019 +0800
+
+    Merge branch 'master' into develop
+
+commit 5397547322a5280e2dc205e986734f94689da4ff
+Merge: 2b5b727 981b51e
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sun Sep 15 14:52:57 2019 +0800
+
+    Merge branch 'hotfix/cuti'
+
+commit 981b51e1dd203b84b6e674d71d918766f1b12ea2
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sun Sep 15 14:52:39 2019 +0800
+
+    fix controller name
+
+commit 2b5b727ed112194eecd86164a5d858e36b5567be
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sun Sep 15 14:36:01 2019 +0800
+
+    manage cuti umum done
+
+commit 1d49636af6c20414d859be5a19cbb72145c49b15
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sat Sep 14 12:40:38 2019 +0800
+
+    new features admin config public holiday
+
+commit acf3ecb2eb4862bf066b636414a2005b467dce93
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Sep 12 07:56:47 2019 +0800
+
+    composer update
+
+commit 423deb72a83e3237aedc3b78614eeded8a0ef085
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Sep 3 21:27:46 2019 +0800
+
+    update new eMasa logo
+
+commit e7bf4f17fd6b70f462feab8e6458e850b9e21c70
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Sep 3 20:49:48 2019 +0800
+
+    papar justifikasi yang lulus di dalam ruangan catatan
+
+commit e2371e31debd79a138e3d103f9e0dbba3667736d
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Sep 3 06:12:16 2019 +0800
+
+    laporan bulan untuk anggota
+
+commit 521e9074716eb0f2dae5bcdfa2699e2784d3cfbf
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Aug 28 11:29:48 2019 +0800
+
+    done justifikasi
+
+commit 91a39b7d1e3289140b9a4286ceed82087f4d37d2
+Merge: 89b758a d0d9427
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sat Aug 24 08:26:48 2019 +0800
+
+    Merge branch 'hotfix/kalendar' into develop
+
+commit d0d9427136ca6257af25ff1f5508f70766dae49d
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sat Aug 24 08:26:06 2019 +0800
+
+    fix indicator
+
+commit 89b758a486e3b7f747b191e7628f531129e5fa7a
+Merge: f1b426b 11eb1a3
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sat Aug 24 08:08:32 2019 +0800
+
+    Merge branch 'hotfix/planner' into develop
+
+commit 11eb1a35ceb9da63d29a73c84dadc13791cea0ec
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sat Aug 24 08:07:56 2019 +0800
+
+    fix paparan waktu
+
+commit f1b426b552640d3b01f88ddbcce3affeedf1e1d8
+Merge: 3b42e36 e8501e2
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sat Aug 24 00:29:30 2019 +0800
+
+    Merge branch 'hotfix/api' into develop
+
+commit e8501e2218f3d6f1510524168dfa93584c7c01ed
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sat Aug 24 00:28:48 2019 +0800
+
+    exception lost connection
+
+commit 3b42e36dbe8c9082cd2ca458d352c34230d2bc90
+Merge: 572ddb4 65c280b
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 23 21:06:19 2019 +0800
+
+    Merge branch 'hotfix/laporan-harian' into develop
+
+commit 65c280bf4ecfd06f072af6aaf8300c43a7b0c6b4
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 23 21:03:31 2019 +0800
+
+    fix #7
+    
+    set default date yesterday
+
+commit 572ddb46b314ea5e2deec64c3f6c149b59087446
+Merge: 7724feb ac4747e
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 23 20:35:20 2019 +0800
+
+    Merge branch 'hotfix/kalendar' into ridzuan
+
+commit ac4747ed13aeb794e5efe4ebcc6c805832a52fc4
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 23 20:34:48 2019 +0800
+
+    fix masa null
+
+commit 7724febc67bd2d399c5b560bbea563998529bc2f
+Merge: 2cbeaa1 3caac6d
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 23 20:28:52 2019 +0800
+
+    Merge branch 'hotfix/kalendar' into ridzuan
+
+commit 3caac6d4c0537634d2fac34c97f90122b8e286f6
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 23 20:27:57 2019 +0800
+
+    fix paparan masa di kalendar
+
+commit 2cbeaa1bf34dad221abdddb93ebd0f1819f822d1
+Merge: c86a758 5690543
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 23 18:20:36 2019 +0800
+
+    Merge branch 'indicator_justifikasi_kalendar' into ridzuan
+
+commit 74bbba45f06057ef67e894cceb00469e4b8b15a9
+Merge: d45406b 5690543
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 23 18:20:22 2019 +0800
+
+    Merge branch 'indicator_justifikasi_kalendar' into release
+
+commit 56905439740122a08a16a96895bc0d0fc9424b51
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 23 18:19:45 2019 +0800
+
+    done get icon status untuk justifikasi
+
+commit c86a758fa4bf72d0981b6920b30eb404ccbfe378
+Merge: 87e86c5 d45406b
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 23 05:46:54 2019 +0800
+
+    Merge branch 'hotfix/justifikasi' into ridzuan
+
+commit d45406bbe58ac844a493441168532b9ca4cf6a9e
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 23 05:46:11 2019 +0800
+
+    fix unique index
+
+commit 87e86c58e625b277a031da6728353e848b91c7c6
+Merge: ace1e2a 9d01aea
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 23 05:09:48 2019 +0800
+
+    Merge branch 'hotfix/register-login' into ridzuan
+
+commit 9d01aea10d92d2668e59e3bed0704d9137a4997d
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 23 05:08:38 2019 +0800
+
+    refactor untuk create login untuk ldap
+
+commit ace1e2a469df8d0fc1c19b03fa6f4bb1b8524dd9
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 23 04:52:49 2019 +0800
+
+    update user according return from api
+
+commit c010ff99ffaa2847a9373caf273fc5c39914ff8d
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Aug 22 11:10:32 2019 +0800
+
+    initial refactor subtitle calendar
+
+commit e248de8c3a83633f3c94d7a890f9eff422e37f22
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Aug 21 23:23:34 2019 +0800
+
+    create indicator for flag ts in calendar
+
+commit 9a507686f4c9e2293ebc58d52287d8531268a25b
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Aug 20 21:07:41 2019 +0800
+
+    fix ref anggota_id field
+
+commit c0ff2fb5142865b19968ebd20b4d7120a94b445b
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Aug 20 12:15:01 2019 +0800
+
+    fix save hash password
+
+commit 0535b0908a57d7bdda3c44f704f23963ceddd776
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sun Aug 18 11:13:58 2019 +0800
+
+    enhance validate Laporan request
+
+commit fd4c068a8f8b7607006d05654288f21fd0dcf34a
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 16 11:58:42 2019 +0800
+
+    use fractal as view for apis
+
+commit e01cb238f7debdbcd139d1debd9a8e82622b9935
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 16 06:10:08 2019 +0800
+
+    done laporan harian
+
+commit bb4a7806192c59e764fd43cc9a666d9b545abfad
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Aug 14 07:13:20 2019 +0800
+
+    fix janaan final attendance
+
+commit baa5418a0958a32333aa64297f4c56407cfc84c4
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Aug 14 06:54:26 2019 +0800
+
+    janaan final attendance
+
+commit c8996c78d925e0d87fd16f6cc1f61e4958572662
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Aug 14 06:24:05 2019 +0800
+
+    register a scheduler
+
+commit 7e0fab794cca5d1d6081e4af5ec4da85f9a7ad0b
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Aug 14 05:24:34 2019 +0800
+
+    refactor
+
+commit 2fd4c143adb7e48e0644c6eabb20e6b01940cae4
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Aug 13 22:29:07 2019 +0800
+
+    justifikasi with queue
+
+commit d5c5d4ed3d6d99e3d5f902786d97bf518a6aa870
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Aug 13 16:37:54 2019 +0800
+
+    fix lowercase field
+
+commit 36745abb372fede05592d57cb08ae719b2453d3a
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Aug 13 12:24:14 2019 +0800
+
+    fix optional
+
+commit aebb00f6a559df737d35bd4187c087fae790da4b
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Aug 13 12:21:15 2019 +0800
+
+    fix optional
+
+commit 5d66fc1af25a3d8cbc6c15e0b3f3f566a867329d
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Aug 13 12:17:13 2019 +0800
+
+    fix optional
+
+commit b1df617c25b81e62de2333dae0d43cca4cab6963
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Aug 13 12:15:46 2019 +0800
+
+    fix iptional
+
+commit e44178ed28c9791f518138853c9f8a0d24fa7288
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Aug 13 12:13:19 2019 +0800
+
+    fix dd
+
+commit 2d3678569c44e9e9f4b9428ba85001fe93ed5748
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Aug 13 12:10:53 2019 +0800
+
+    fix optional to view penilai
+
+commit 877a12335056af754322d828a76e212f6fccb954
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Aug 13 11:00:35 2019 +0800
+
+    fix drop column
+
+commit 0000c7c6fba7e4b4792bcef69c42e699f2c29c62
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Aug 13 10:56:43 2019 +0800
+
+    fix justifikasi migration
+
+commit 6173c93c3aab9e815ecf0cf827ed25fedd8ba3ae
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Aug 13 03:44:18 2019 +0800
+
+    Fix lowercase fields
+
+commit d28f3f6ffebee73f61a36f8c597431bd4cb73a75
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Aug 13 03:04:12 2019 +0800
+
+    fix justifikasi flow submission
+
+commit 258efaf13e00eb32fca1cdb1bce2758e071223e5
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Mon Aug 12 21:49:11 2019 +0800
+
+    done send email for justification
+
+commit 80bf16b0ef20cb16b98b98c252d1ee0ec9dd4f25
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sat Aug 10 22:09:48 2019 +0800
+
+    show status on detail acara for justification
+
+commit 48468509b9c7fbce181124cc3c507f84da40b672
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 9 12:21:01 2019 +0800
+
+    enhance justifikasi acara
+
+commit 203dcfe6bbe2da53c9c02b207d59aff368977225
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Aug 9 11:30:39 2019 +0800
+
+    enhance view acara
+
+commit d73512e74b6eb3e1400253bf2f87683c17453177
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Aug 8 17:30:57 2019 +0800
+
+    refactor
+
+commit cf0222c9d709d2435cfddf62ae6b25729153dccb
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Aug 8 17:15:26 2019 +0800
+
+    Done add justifikasi
+
+commit 8166070ee00af5fccb4375bc1c15d88e56d62c83
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Mon Aug 5 22:50:17 2019 +0800
+
+    done form justifikasi di acara detail
+
+commit 3f8d171130b3336587aab1d8496075f9e41e6d69
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Mon Aug 5 04:59:03 2019 +0800
+
+    refactor all model code
+
+commit b3e1f3f9157c3a4c62f432849e44abf8dec35312
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Mon Aug 5 04:53:11 2019 +0800
+
+    refactor code for kalendar
+
+commit 7df72f9bfe06302bdf043c026753e4eda112b9b0
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sun Aug 4 13:06:01 2019 +0800
+
+    show kesalahan dalam detail event
+
+commit 036de27400e7a4a8e066d2bb1f9f46a7612dbeb1
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sun Aug 4 13:04:32 2019 +0800
+
+    fix isEarly calculation
+
+commit 285b0ba0b55c568176584607e06bb889d7c25939
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sun Aug 4 10:31:24 2019 +0800
+
+    create migration justifikasi
+
+commit b536716ab07074404c67ff667d7c5f8f56a01acc
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sun Aug 4 10:30:59 2019 +0800
+
+    refactor add final attendance basedept_id
+
+commit ab824950e668ba08b705fa1cbeb0791cf743eda0
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sun Aug 4 08:46:40 2019 +0800
+
+    get kesalahan
+
+commit e347c3acbb5ed63cdbb14fe2c52891eef64862d4
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sun Aug 4 04:06:10 2019 +0800
+
+    refactor
+
+commit 412a9f4ba1ecb25be0602006b36b42b915dc98b6
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sat Aug 3 17:38:21 2019 +0800
+
+    fix isEarly
+
+commit 190cc438add89e968f0b1854b1ca14faa23be6e3
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sat Aug 3 16:22:46 2019 +0800
+
+    initial ts
+
+commit 92f9e13973d02720c413cf3edc47b4552920eead
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sat Aug 3 14:25:06 2019 +0800
+
+    remove dependencies for att2000 db
+
+commit 1e0a705f7c43f9be955fac03dcdbf2627e162c82
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sat Aug 3 14:11:15 2019 +0800
+
+    Refactor userinfo, departments, checkinout
+
+commit ce78e406656d14a3e0517761581e637379d5d3e4
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sat Aug 3 13:55:21 2019 +0800
+
+    laporan harian
+
+commit 118567f94187810edb05d76ad7b3ac2cbe89e5f9
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Jul 31 18:02:25 2019 +0800
+
+    update dependencies
+
+commit abc5b308de40cab79e1552b0ae81f1846cc0c3a0
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Jul 31 18:01:45 2019 +0800
+
+    Fix Lowercase field
+
+commit b16df7d1ae0f7aad4b15971917a8c6698a36b98f
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Jul 31 16:51:43 2019 +0800
+
+    Done add status Awal untuk final attendance
+
+commit 15428cb26ffc883cd916371ee2705133189ca799
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Jul 31 13:28:57 2019 +0800
+
+    Done for insert wbb
+
+commit b04d4ab1888e18b2c6ccfc16b3f38791a2fc7f13
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Jul 31 13:28:12 2019 +0800
+
+    Fix field name
+    
+    Uppercase for userinfo->USERID to lowercase
+
+commit 11529ae265057a8e7eb64817666a4ca6e18d8ee0
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Jul 31 09:53:22 2019 +0800
+
+    Fix privilege for Waktu Bekerja
+
+commit 639040e4707d4c986b48baeb076428b72e1ff785
+Merge: 05f19a3 4e7d086
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Jul 26 17:18:51 2019 +0800
+
+    Merge branch 'develop'
+    
+    # Conflicts:
+    #	app/Auth/MohrUserApiProvider.php
+
+commit 4e7d086c17febfae4e307b9a7aeda161ac6a41dd
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Jul 26 17:02:52 2019 +0800
+
+    ignore pekeliling polisi
+
+commit b0c4902dac83f26727893b760ad5363239153668
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Jul 26 17:02:03 2019 +0800
+
+    add url for api in env file
+
+commit 05f19a3a94fd5452e3289ac9bef564d00a7d9da2
+Author: Azwin Sani <azwinwiween@gmail.com>
+Date:   Mon Jul 8 16:57:15 2019 +0800
+
+    https untuk ad
+
+commit b99252cad5b99d8a6276897754ff9a5b2a2dcfbd
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Jun 18 17:37:01 2019 +0800
+
+    Fix icon for konfigurasi
+
+commit 3fe6988ce6b28646fb8b66086b86d4f2bd9dc367
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Jun 18 17:31:29 2019 +0800
+
+    Placeholder for admin dashboard
+
+commit 41b598686f03e663627654d04a1a477b3c362434
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Mon Apr 8 17:03:43 2019 +0800
+
+    fix error show particular date view
+
+commit 60641d408f2a008f0df6d3f6ee5b43191ef854b6
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Mon Apr 8 12:25:29 2019 +0800
+
+    fix for replication
+
+commit 3cb02958cd5781556411b5331f9794fbdc1c3502
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Apr 5 17:14:58 2019 +0800
+
+    half implementation for shift dictionary
+
+commit 1c2095cd611fe52e17ebe17c233051b01c233915
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Mar 5 16:11:39 2019 +0800
+
+    konfigurasi show waktu bekerja
+
+commit 65a78f2160963a9cbdd95204dd41783e604f18db
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Feb 28 10:48:39 2019 +0800
+
+    fix jana final attendance from cli
+
+commit 3fefb27a93ab1da89da1e40dfde573a44bd85a1c
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sun Feb 24 12:33:10 2019 +0800
+
+    Arahan melaksanakan final attendance melalui cli
+
+commit e20b22bc0bf8adb9f403db11a5650cf8c16db62b
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sun Feb 24 12:32:25 2019 +0800
+
+    Enhance App Name
+
+commit 95c457943ea5a8d3efce835e845911044c5c8d53
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Feb 21 20:32:37 2019 +0800
+
+    fix view pegawai penilai
+
+commit 084d22e9c57337f901f9ef83e43988a8ab73d985
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Feb 21 18:01:24 2019 +0800
+
+    Enhance show profil, update profi
+
+commit 0469343742b4b1826c543097eae25b2bb245af68
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Feb 20 22:50:49 2019 +0800
+
+    enhance login, header, profil
+
+commit 6f9c344304d7e7f89000340d74f6215fb240e3b9
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Wed Feb 20 20:43:03 2019 +0800
+
+    selesai untuk grid anggota
+
+commit 4ba160ca7c9dc25971c7bedda150e0ecfe8c04b0
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Feb 12 12:32:20 2019 +0800
+
+    house keeping auth guard
+
+commit bce46fac4ed28078b09d7cf9110ab4f673df96d8
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Feb 12 11:53:38 2019 +0800
+
+    add exception when ad api down
+
+commit 0bb35f3d129631170a3ed7794cfd3035f8a5c9ab
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Tue Feb 12 09:56:15 2019 +0800
+
+    Done Mohr user provider using their api
+
+commit 1909ec2a00135f47b7f6eb702101810f59be6276
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sun Feb 10 11:08:50 2019 +0800
+
+    prod
+
+commit 03390f8438645297c150902b08a0ce1733c3f490
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Sat Feb 9 13:33:02 2019 +0800
+
+    latest wan
+
+commit 2ab2540db56914be0a7e3d4e07aee1cf5531bb24
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Feb 8 18:52:56 2019 +0800
+
+    fix create acara date
+
+commit 9ddac3875e6591ef0cc74d2ee00f08d05d39d2e6
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Feb 8 18:35:30 2019 +0800
+
+    Enhance Waktu Berperingkat harian
+
+commit 92723916e5b7a07ece65c4a25a2f2a3f5424c4c2
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Fri Feb 8 08:09:44 2019 +0800
+
+    fix error in search box at maklumat anggota
+
+commit f9902dd937533f77429088569350f56f080c2669
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Feb 7 18:18:33 2019 +0800
+
+    enhance for mysql db
+
+commit 39a740c6042ad5542d4c658f5b9b34ec5a695257
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Feb 7 12:54:22 2019 +0800
+
+    remove unsigned
+
+commit a2b6b29a2852c0c90afb9ea9a03ffeaef80c24e5
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Feb 7 09:13:54 2019 +0800
+
+    update all package
+
+commit e77ac6a24205c3cf41635d1af4cc6d7e03f1a082
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Feb 7 01:15:33 2019 +0800
+
+    .env example
+
+commit 90616a84d8d1ca8e6eb784e2d89739930134212c
+Author: Md Ridzuan <wanlatiah@gmail.com>
+Date:   Thu Feb 7 01:06:57 2019 +0800
+
+    update README.md
+
+commit 94a6ea9b78d966691bcdc7c9de6ad93cd03717d0
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Feb 7 00:53:06 2019 +0800
+
+    initial
+
+commit becc3a76fae60d66d4b5769667d56c9db860202c
+Author: Md Ridzuan bin Mohammad Latiah <wanlatiah@gmail.com>
+Date:   Thu Feb 7 00:51:38 2019 +0800
+
+    first commit

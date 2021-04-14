@@ -40,4 +40,5 @@ class LaporanRepository
 
         return $events;
     }
+
 }

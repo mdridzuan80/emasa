@@ -51,7 +51,7 @@ class FixUserInfo extends Command
 
                 DB::transaction(function () use ($oldUser, $mapUser) {
 
-                    $data = DB::table('att2000_mohr.checkinout')
+                    $data = DB::table('att2000.checkinout')
                         ->where('userid', $oldUser->userid)
                         ->update(['userid' => $mapUser->userid]);
 

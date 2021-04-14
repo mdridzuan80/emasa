@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('emasa:janafinalatt')
-            ->dailyAt('05:00');
+        $schedule->command('emasa:janafinalatt --mula='.date('Y-m-d').' --tamat='.date('Y-m-d').' ')
+            ->everyMinute();
     }
 
     /**

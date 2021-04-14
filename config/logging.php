@@ -36,6 +36,7 @@ return [
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],
+	    'level' => 'error',
         ],
 
         'single' => [

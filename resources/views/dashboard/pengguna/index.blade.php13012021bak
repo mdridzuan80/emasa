@@ -2,74 +2,74 @@
 @inject('Justifikasi', 'App\Justifikasi')
 
 @section('content')
-<section class="content-header">
-    <h1>
-        <i class="fa fa-dashboard"></i></i> Dashboard
-    </h1>
-</section>
-<!-- Main content -->
-<section class="content">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-fw fa-calendar"></i> Kalendar</h3>
-                    <div class="box-tools pull-right">
-                        <!-- Buttons, labels, and many other things can be placed here! -->
-                        <!-- Here is a label for example -->
-                        <span id='petunjuk'><i class="fa fa-fw fa-info"></i></span>
-                    </div><!-- /.box-tools -->
-                </div>
-                <div class="box-body">
-                    <div id="calendar"></div>
-                </div>
-                <div class="overlay">
-                    <i class="fa fa-refresh fa-spin"></i>
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-dashboard"></i></i> Dashboard
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-fw fa-calendar"></i> Kalendar</h3>
+                        <div class="box-tools pull-right">
+                            <!-- Buttons, labels, and many other things can be placed here! -->
+                            <!-- Here is a label for example -->
+                            <span id='petunjuk'><i class="fa fa-fw fa-info"></i></span>
+                        </div><!-- /.box-tools -->
+                    </div>
+                    <div class="box-body">
+                        <div id="calendar"></div>
+                    </div>
+                    <div class="overlay">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="modal fade" id="modal-default" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: steelblue; color: white;">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    
+        <div class="modal fade" id="modal-default" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: steelblue; color: white;">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title"><i class="fa fa-fw fa-calendar-plus-o"></i> TAMBAH ACARA</h4>
+                        <h4 class="modal-title"><i class="fa fa-fw fa-calendar-plus-o"></i> TAMBAH ACARA</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4><i class="fa fa-refresh fa-spin"></i> Loading...</h4>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <h4><i class="fa fa-refresh fa-spin"></i> Loading...</h4>
-                </div>
+                <!-- /.modal-content -->
             </div>
-            <!-- /.modal-content -->
+            <!-- /.modal-dialog -->
         </div>
-        <!-- /.modal-dialog -->
-    </div>
 
-    <div class="modal fade" id="modal-acara-anggota" style="display: none;">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: steelblue; color: white;">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div class="modal fade" id="modal-acara-anggota" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: steelblue; color: white;">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title"></h4>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4><i class="fa fa-refresh fa-spin"></i> Loading...</h4>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <h4><i class="fa fa-refresh fa-spin"></i> Loading...</h4>
-                </div>
+                <!-- /.modal-content -->
             </div>
-            <!-- /.modal-content -->
+            <!-- /.modal-dialog -->
         </div>
-        <!-- /.modal-dialog -->
-    </div>
-</section>
-<!-- /.content -->
+    </section>
+    <!-- /.content -->
 @endsection
 
 @section('scripts')
-<script>
-    $(function() {
+    <script>
+        $(function() {
 
             var acara = {
                 jenisAcara: '',
@@ -114,18 +114,10 @@
                                 _.filter(gEvents.data, { 'table': 'final' })
                             );
                         }
-                    },
-                    pkpb: {
-                        text : 'BDR',
-                       
-                        click :function(){
-                          
-                            window.location.href = base_url+'pkpb';
-                        }
                     }
                 },
                 header: {
-                    right: 'laporan aktiviti pkpb prev,today,next'
+                    right: 'laporan aktiviti prev,today,next'
                 },
                 dayClick: function(date, jsEvent, view) {
                     var modal = $('#modal-acara-anggota');
@@ -532,5 +524,5 @@
                 }
             }
         });
-</script>
+    </script>
 @endsection

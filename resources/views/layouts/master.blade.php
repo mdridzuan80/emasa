@@ -113,7 +113,7 @@
 
 <script src="{{ asset('dist/js/jquery.easyui.min.js') }}"></script>
 
-<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+<script src="https://unpkg.com/jspdf@1.5.3/dist/jspdf.min.js"></script>
 <script src="https://unpkg.com/jspdf-autotable@3.1.3/dist/jspdf.plugin.autotable.js"></script>
 <script src="{{ asset('dist/js/jspdf.plugin.text-align.js') }}"></script>
 
