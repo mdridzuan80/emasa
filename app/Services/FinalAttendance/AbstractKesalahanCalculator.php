@@ -86,7 +86,7 @@ abstract class AbstractKesalahanCalculator
         $rulePunchOut = Carbon::parse($check_out->toDateString() . " " . $shift->check_out->toTimeString());
 
         if (!$check_in || $this->statusLewat) {
-            return $this->statusAwal = $check_out->lte($rulePunchOut);
+            return $this->statusAwal = $shift->check_in->diffInSeconds($check_out) < $this->total_hour;
         }
 
         $rulePunchIn = Carbon::parse($check_in->toDateString() . " " . self::MINIMUM);
